@@ -2,7 +2,7 @@
 import Container from "@/components/containers";
 import { getAllBlogs } from "@/util/mdx_clean";
 import type { Metadata } from "next";
-import  Link  from 'next/link';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: "Blog | Karn Singh",
@@ -13,20 +13,20 @@ export default async function BlogIndex() {
   const posts = await getAllBlogs();
 
   return (
-    
-    <Container className="min-h-screen px-8 md:p-20 md:pb-10 relative mx-auto">
-      <div
-          className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
-          bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
-          bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15"
-        />
 
-        {/* LEFT BORDER */}
-        <div
-          className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
+    <Container className="min-h-screen px-8 pt-24 md:p-20 md:pb-10 relative mx-auto">
+      <div
+        className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
           bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15"
-        />
+      />
+
+      {/* LEFT BORDER */}
+      <div
+        className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
+          bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
+          bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15"
+      />
       <div className="max-w-4xl mx-auto ">
 
         {/* Header */}
@@ -40,7 +40,7 @@ export default async function BlogIndex() {
             while tinkering with ideas after hours.
           </p>
         </div>
-        <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
+        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
 
         {/* Blog Posts */}
         <div className="divide-y divide-neutral-200 dark:divide-neutral-800">

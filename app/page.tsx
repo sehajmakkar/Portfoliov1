@@ -85,25 +85,25 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) my-3 opacity-90 dark:opacity-15"></div>
+        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-3 opacity-90 dark:opacity-15"></div>
 
-        
+
 
         <Projects />
 
         <br />
-                        <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
 
 
         <Timeline></Timeline>
-                                  
+
 
         <br></br>
         <GithubGraph></GithubGraph>
 
         <br></br>
         <DisplacementText></DisplacementText>
-       
+
 
       </Container>
     </div>

@@ -31,19 +31,19 @@ export default async function SingleBlogPage({ params }: { params: any }) {
   }
 
   return (
-    <Container className="min-h-screen md:p-20 md:pb-10 font-custom2 tracking-tight">
+    <Container className="min-h-screen px-8 pt-24 md:p-20 md:pb-10 font-custom2 tracking-tight">
       <div
-          className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
+        className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
           bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15"
-        />
+      />
 
-        {/* LEFT BORDER */}
-        <div
-          className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
+      {/* LEFT BORDER */}
+      <div
+        className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg)
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
           bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15"
-        />
+      />
       <h1 className="text-neutral-900 dark:text-neutral-50 text-4xl font-custom font-bold  md:text-5xl">
         {frontmatter.title ?? slug}
       </h1>
