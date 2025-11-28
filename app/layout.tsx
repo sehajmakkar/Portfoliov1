@@ -3,6 +3,8 @@ import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/Navbar";
 import { Instrument_Serif } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
+
 import { ThemeProvider } from "@/components/theme-provider";
 
 
@@ -28,7 +30,7 @@ export default function RootLayout({
         className={`${instrumentSerif.className} antialiased bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)]`}
       >       
        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-
+     <Analytics />
         <Navbar />
         <main className="min-h-screen">{children}</main>
         <Footer />
