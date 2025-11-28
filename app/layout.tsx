@@ -6,6 +6,7 @@ import { Instrument_Serif } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
 
 import { ThemeProvider } from "@/components/theme-provider";
+import FractalTree from "@/components/ui/fractal-tree";
 
 
 const instrumentSerif = Instrument_Serif({
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Analytics />
+          <FractalTree />
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />

@@ -8,12 +8,10 @@ import Timeline from "@/components/timeline";
 import GithubGraph from "@/components/githubgraph";
 import DisplacementText from "@/components/ui/displacement-text";
 
-
-
 export default function Home() {
   return (
-    <div className="flex min-h-screen justify-center font-sans">
-      <Container className="min-h-screen w-full pt-24 pb-12 md:pt-14 md:pb-10 ">
+    <div className="relative flex min-h-screen justify-center font-sans overflow-hidden">
+      <Container className="min-h-screen w-full pt-36 pb-12 md:pt-24 md:pb-12 ">
 
         {/* RIGHT BORDER */}
         <div
