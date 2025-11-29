@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/Navbar";
 import { Instrument_Serif } from "next/font/google";
 import { Analytics } from '@vercel/analytics/react';
-
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import { ThemeProvider } from "@/components/theme-provider";
 import FractalTree from "@/components/ui/fractal-tree";
 
@@ -32,6 +32,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Analytics />
+          <SpeedInsights />
           <FractalTree />
           <Navbar />
           <main className="min-h-screen">{children}</main>
