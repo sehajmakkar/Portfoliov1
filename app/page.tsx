@@ -126,7 +126,7 @@ export default function Home() {
         <Timeline></Timeline>
 
 
-        <br></br>
+        
         <GithubGraph></GithubGraph>
 
         <br></br>

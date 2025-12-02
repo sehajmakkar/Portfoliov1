@@ -53,9 +53,12 @@ export function CommandMenu() {
     }, [])
 
     React.useEffect(() => {
-        if (!open) return
-
         const down = (e: KeyboardEvent) => {
+            const target = e.target as HTMLElement;
+            if (target.isContentEditable || target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
+                return;
+            }
+
             if (e.shiftKey) {
                 const key = e.key.toLowerCase()
 

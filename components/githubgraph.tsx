@@ -107,7 +107,7 @@ const GithubGraph = () => {
       <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
 
 
-      <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold  text-3xl tracking-tight "><span className="link--elara">Proof Of Work</span></h1>
+      <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold  text-3xl tracking-tight  py-2"><span className="link--elara">Proof Of Work</span></h1>
       <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-[0.4] opacity-90 dark:opacity-15"></div>
       <p className=" font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
            text-sm inline-block
