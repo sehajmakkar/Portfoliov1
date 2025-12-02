@@ -12,7 +12,8 @@
 
 /* Custom selection color */
 ::selection {
-  background: #bd0000;
+  background: #c7c6c6;
+  
   /* bright yellow highlight */
   color: #000;
   /* black text */
@@ -61,6 +62,7 @@
   --muted-foreground: oklch(0.705 0.015 286.067);
   --border: oklch(0.274 0.006 286.033);
   --pattern-fg: #404040;
+  
 }
 
 /* === Minimal SVG Underline Animation (Elara style) === */

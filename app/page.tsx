@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Container from "@/components/containers";
 
 import Projects from "@/components/projects";
@@ -10,6 +12,31 @@ import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
 
 export default function Home() {
+  const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
+
+  const socials = [
+    {
+      name: "GitHub",
+      icon: Github,
+      action: () => window.open("https://github.com/Ashutoshx7", "_blank"),
+    },
+    {
+      name: "LinkedIn",
+      icon: Linkedin,
+      action: () => window.open("https://linkedin.com/in/your-linkedin", "_blank"),
+    },
+    {
+      name: "X",
+      icon: Twitter,
+      action: () => window.open("https://x.com/Ashutosh_7x7", "_blank"),
+    },
+    {
+      name: "Email",
+      icon: Mail,
+      action: () => (window.location.href = "mailto:as1142120@gmail.com"),
+    },
+  ];
+
   return (
     <div className="relative flex min-h-screen justify-center font-sans overflow-hidden">
       <Container className="in-h-[200vh] px-8 pt-24 md:p-20 md:pb-10 mx-auto ">
@@ -38,26 +65,28 @@ export default function Home() {
           </h1>
 
           <div className="flex flex-wrap gap-4 sm:justify-end">
-            <Github
-              size={20}
-              onClick={() => window.open("https://github.com/Ashutoshx7", "_blank")}
-              className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
-            />
-            <Linkedin
-              size={20}
-              onClick={() => window.open("https://linkedin.com/in/your-linkedin", "_blank")}
-              className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
-            />
-            <Twitter
-              size={20}
-              onClick={() => window.open("https://x.com/Ashutosh_7x7", "_blank")}
-              className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
-            />
-            <Mail
-              size={20}
-              onClick={() => (window.location.href = "mailto:as1142120@gmail.com")}
-              className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
-            />
+            {socials.map((social) => (
+              <div
+                key={social.name}
+                className="relative cursor-pointer group"
+                onMouseEnter={() => setHoveredSocial(social.name)}
+                onMouseLeave={() => setHoveredSocial(null)}
+                onClick={social.action}
+              >
+                <social.icon
+                  size={20}
+                  className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition"
+                />
+                {hoveredSocial === social.name && (
+                  <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20">
+                    <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
+                      {social.name}
+                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-t border-l border-neutral-200 dark:border-neutral-700"></div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
           </div>
         </div>
 
@@ -108,7 +137,7 @@ export default function Home() {
         <Skills />
         <br></br>
         <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
-        
+
         <GetInTouch />
 
 

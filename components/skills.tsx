@@ -65,13 +65,6 @@ export default function Skills() {
                                     <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
                                         {skill.name}
 
-                                        {/* Pixel Cat Decoration */}
-                                        <div className="absolute -top-[18px] left-1/2 -translate-x-1/2 w-8 h-8 pointer-events-none">
-                                            <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-neutral-900 dark:text-neutral-100">
-                                                <path d="M12 2C13 2 14 3 14 4C14 5 13 6 12 6C11 6 10 5 10 4C10 3 11 2 12 2ZM12 7C14.5 7 16.5 9 16.5 11.5C16.5 14 14.5 16 12 16C9.5 16 7.5 14 7.5 11.5C7.5 9 9.5 7 12 7ZM8 11.5C8 12 8.5 12.5 9 12.5C9.5 12.5 10 12 10 11.5C10 11 9.5 10.5 9 10.5C8.5 10.5 8 11 8 11.5ZM15 11.5C15 12 15.5 12.5 16 12.5C16.5 12.5 17 12 17 11.5C17 11 16.5 10.5 16 10.5C15.5 10.5 15 11 15 11.5Z" />
-                                            </svg>
-                                        </div>
-
                                         {/* Arrow */}
                                         <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-b border-r border-neutral-200 dark:border-neutral-700"></div>
                                     </div>
