@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function GetInTouch() {
     return (
-        <div className="w-full mt-24 mb-10 relative z-10">
+        <div className="w-full mt-12 mb-10 relative z-10">
             <div className="flex flex-col items-start space-y-6">
                 <div className="flex w-full justify-between items-center">
                     <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50">

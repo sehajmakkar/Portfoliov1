@@ -102,6 +102,10 @@ export default function Home() {
         <GithubGraph></GithubGraph>
 
         <br></br>
+        <br></br>
+        <br></br>
+                <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+
         
         <GetInTouch />
 
