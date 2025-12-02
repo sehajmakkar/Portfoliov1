@@ -11,18 +11,18 @@ import DisplacementText from "@/components/ui/displacement-text";
 export default function Home() {
   return (
     <div className="relative flex min-h-screen justify-center font-sans overflow-hidden">
-      <Container className="min-h-screen w-full pt-36 pb-12 md:pt-24 md:pb-12 ">
+      <Container className="in-h-[200vh] px-8 pt-24 md:p-20 md:pb-10 mx-auto ">
 
         {/* RIGHT BORDER */}
         <div
-          className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-90 dark:opacity-15
+          className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-80 dark:opacity-12
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
           bg-size-[10px_10px] bg-fixed"
         > </div>
 
         {/* LEFT BORDER */}
         <div
-          className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-90 dark:opacity-15
+          className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-80 dark:opacity-12
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
           bg-size-[10px_10px] bg-fixed"
         ></div>
@@ -39,7 +39,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 sm:justify-end">
             <Github
               size={20}
-              onClick={() => window.open("https://github.com/your-github", "_blank")}
+              onClick={() => window.open("https://github.com/Ashutoshx7", "_blank")}
               className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
             />
             <Linkedin
@@ -49,12 +49,12 @@ export default function Home() {
             />
             <Twitter
               size={20}
-              onClick={() => window.open("https://x.com/your_username", "_blank")}
+              onClick={() => window.open("https://x.com/Ashutosh_7x7", "_blank")}
               className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
             />
             <Mail
               size={20}
-              onClick={() => (window.location.href = "mailto:your@email.com")}
+              onClick={() => (window.location.href = "mailto:as1142120@gmail.com")}
               className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer"
             />
           </div>

@@ -9,16 +9,16 @@ export default function Home() {
 
       {/* RIGHT BORDER */}
       <div
-        className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-50
+        className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) 
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
-          bg-size-[10px_10px] bg-fixed dark:opacity-15"
+          bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"
       ></div>
 
       {/* LEFT BORDER */}
       <div
-        className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) opacity-50
+        className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) 
           bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
-          bg-size-[10px_10px] bg-fixed dark:opacity-15"
+          bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"
       ></div>
 
       <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-semibold text-3xl tracking-tight ">
@@ -29,7 +29,7 @@ export default function Home() {
         Hi there! I love building stuff for people and am passionate about contributing to open source. Here are my projects and open source contributions—feel free to take a look.
       </p>
 
-      <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-3 opacity-90 dark:opacity-15"></div>
+      <div className="hidden md:block absolute right-6 w-212 h-px bg-(--pattern-fg) my-3 opacity-90 dark:opacity-15"></div>
 
       <Projects showAll={true}></Projects>
 
