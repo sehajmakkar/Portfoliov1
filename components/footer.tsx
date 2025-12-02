@@ -24,8 +24,9 @@ const Footer = () => {
   ]
 
   return (
+    <Container className="min-h-[200vh] px-8 pt-24 md:p-20 md:pb-10 mx-auto ">
     <footer className="w-full bg-neutral-50 dark:bg-neutral-950 border-t border-neutral-200/40 dark:border-neutral-800/40">
-      <Container className="flex flex-col items-center gap-4 py-3 text-center sm:flex-row sm:justify-between sm:text-left">
+      
         <p className="text-neutral-600 dark:text-neutral-400 text-sm font-custom2 tracking-normal transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-100">
 
           Built with love by Karn Singh
@@ -47,8 +48,9 @@ const Footer = () => {
             )
           })}
         </div>
-      </Container>
+      
     </footer>
+    </Container>
   )
 }
 
