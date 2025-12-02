@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from "next/link";
 import {
@@ -33,15 +33,15 @@ const iconMap: Record<TechKey, any> = {
   node: SiNodedotjs,
 };
 
-const techColors: Record<TechKey, string> = {
-  next: "#000000",
-  ts: "#3178C6",
-  react: "#61DAFB",
-  three: "#FF9900",
-  prisma: "#0C344B",
-  cloud: "#F38020",
-  langchain: "#00A67E",
-  node: "#3C873A",
+const techNames: Record<TechKey, string> = {
+  next: "Next.js",
+  ts: "TypeScript",
+  react: "React",
+  three: "Three.js",
+  prisma: "Prisma",
+  cloud: "Cloudflare",
+  langchain: "LangChain",
+  node: "Node.js",
 };
 
 type Data = {
@@ -52,11 +52,13 @@ type Data = {
     description: string;
     src: string;
     href: string;
-    tech?: TechKey[]; // 🔹 Just added this
+    tech?: TechKey[];
   }[];
 };
 
 export const Timeline = () => {
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+
   const data: Data[] = [
     {
       title: "Google Summer Of Code",
@@ -116,20 +118,17 @@ export const Timeline = () => {
       <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50 pb-1">
         <span className="link--elara">Experiences</span>
       </h1>
-      
 
       <div className="pl-6">
         {data.map((year, idx) => (
           <div key={year.title}>
-            
             {year.href ? (
               <Link
                 href={year.href}
                 target="_blank"
                 className="text-neutral-900 dark:text-neutral-50 font-custom font-semibold py-1 tracking-wide text-lg hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors"
               >
-                                <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) border border-dashed opacity-15 dark:opacity-15"></div>
-
+                <div className="absolute right-6 w-212 h-px bg-(--pattern-fg) border border-dashed opacity-15 dark:opacity-15"></div>
                 {year.title}
               </Link>
             ) : (
@@ -155,21 +154,42 @@ export const Timeline = () => {
                       ))}
                   </ul>
 
-                  {/* 🔹 Icons Added Here — Nothing Removed */}
+                  {/* 🔹 Icons Updated to match Skills style with Tooltip */}
                   {item.tech && (
-                    <div className="flex flex-wrap gap-2  py-3">
+                    <div className="flex flex-wrap gap-3 py-3">
                       {item.tech.map((key) => {
                         const Icon = iconMap[key];
+                        // Create a unique ID for each instance to avoid conflicts if same tech appears multiple times
+                        const uniqueId = `${item.title}-${key}`;
+
                         return (
                           <div
                             key={key}
-                            className="h-7 w-7 flex items-center justify-center rounded-md
-                              bg-white/70 dark:bg-white/10
-                              border border-neutral-300/60 dark:border-neutral-700/60
-                              shadow-[inset_0_0_4px_rgba(0,0,0,0.08)]
-                              backdrop-blur-md"
+                            className="group relative cursor-pointer"
+                            onMouseEnter={() => setHoveredTech(uniqueId)}
+                            onMouseLeave={() => setHoveredTech(null)}
                           >
-                            <Icon size={14} style={{ color: techColors[key] }} />
+                            <Icon
+                              className="w-5 h-5 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors"
+                            />
+
+                            {hoveredTech === uniqueId && (
+                              <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
+                                <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
+                                  {techNames[key]}
+
+                                  {/* Pixel Cat Decoration */}
+                                  <div className="absolute -top-[18px] left-1/2 -translate-x-1/2 w-8 h-8 pointer-events-none">
+                                    <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-neutral-900 dark:text-neutral-100">
+                                      <path d="M12 2C13 2 14 3 14 4C14 5 13 6 12 6C11 6 10 5 10 4C10 3 11 2 12 2ZM12 7C14.5 7 16.5 9 16.5 11.5C16.5 14 14.5 16 12 16C9.5 16 7.5 14 7.5 11.5C7.5 9 9.5 7 12 7ZM8 11.5C8 12 8.5 12.5 9 12.5C9.5 12.5 10 12 10 11.5C10 11 9.5 10.5 9 10.5C8.5 10.5 8 11 8 11.5ZM15 11.5C15 12 15.5 12.5 16 12.5C16.5 12.5 17 12 17 11.5C17 11 16.5 10.5 16 10.5C15.5 10.5 15 11 15 11.5Z" />
+                                    </svg>
+                                  </div>
+
+                                  {/* Arrow */}
+                                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-b border-r border-neutral-200 dark:border-neutral-700"></div>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         );
                       })}
@@ -177,7 +197,6 @@ export const Timeline = () => {
                   )}
                 </div>
 
-                {/* 🔹 Original IMAGE untouched */}
                 <Image
                   src={item.src}
                   alt={item.title}

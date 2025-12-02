@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function GetInTouch() {
     return (
-        <div className="w-full mt-12 mb-10 relative z-10">
+        <div className="w-full mt-5 mb-10 relative z-10">
             <div className="flex flex-col items-start space-y-6">
                 <div className="flex w-full justify-between items-center">
                     <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50">
@@ -14,8 +14,8 @@ export default function GetInTouch() {
                     </h1>
                 </div>
 
-                <p className="font-custom2 text-neutral-700 dark:text-neutral-300 px-4 py-2 text-sm inline-block bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border">
-                    Hi there drop any question you have whether related project or anything or just want to connect
+                <p className="font-custom2 text-neutral-700 dark:text-neutral-300 px-4 py-1 text-sm inline-block bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border">
+                    Hi there — I’m currently open to meaningful work.
                 </p>
 
                 <div className="w-full max-w-2xl">

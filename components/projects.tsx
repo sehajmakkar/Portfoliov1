@@ -1,6 +1,6 @@
 "use client";
 
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
@@ -48,19 +48,20 @@ const iconMap: Record<TechKey, any> = {
   node: SiNodedotjs,
 };
 
-const techColors: Record<TechKey, string> = {
-  next: "#000000",
-  ts: "#3178C6",
-  react: "#61DAFB",
-  three: "#FF9900",
-  prisma: "#0C344B",
-  cloud: "#F38020",
-  langchain: "#00A67E",
-  node: "#3C873A",
+const techNames: Record<TechKey, string> = {
+  next: "Next.js",
+  ts: "TypeScript",
+  react: "React",
+  three: "Three.js",
+  prisma: "Prisma",
+  cloud: "Cloudflare",
+  langchain: "LangChain",
+  node: "Node.js",
 };
 
 const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [hoveredTech, setHoveredTech] = useState<string | null>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -102,17 +103,12 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
 
   return (
     <div className="mt-8">
-      {/* Title */}
-      
-
       {/* Subtitle */}
       <p
         className="
           font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
            text-sm inline-block
           bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border
-
-          
         "
       >
         I love designing and building thoughtful, production-grade applications.
@@ -156,7 +152,6 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                 src={project.src}
                 alt={project.title}
                 fill
-                
                 className="object-cover"
               />
 
@@ -191,7 +186,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                     viewBox='0 0 24 24'
                     className='w-6 h-6 text-black dark:text-white'
                   >
-                    <path d='M5.25 5.653v12.694c0 .856.926 1.39 1.668.958l11.1-6.347a1.125 1.125 0 000-1.916L6.918 4.695c-.742-.432-1.668.102-1.668.958z'/>
+                    <path d='M5.25 5.653v12.694c0 .856.926 1.39 1.668.958l11.1-6.347a1.125 1.125 0 000-1.916L6.918 4.695c-.742-.432-1.668.102-1.668.958z' />
                   </svg>
                 </div>
               </div>
@@ -228,34 +223,39 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                 Tech Stack
               </p>
 
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-3 flex-wrap">
                 {project.tech.map((key) => {
                   const Icon = iconMap[key];
+                  const uniqueId = `${project.title}-${key}`;
+
                   return (
                     <div
                       key={key}
-                      className="
-                        h-8 w-8 flex items-center justify-center rounded-lg
-                        bg-white/70 dark:bg-white/10
-                        border border-neutral-300/60 dark:border-neutral-700/60
-                        shadow-[inset_0_0_4px_rgba(0,0,0,0.08)]
-                        backdrop-blur-md
-                        transition-all duration-300
-
-                        /* icon hover effects */
-                        hover:scale-110
-                        hover:shadow-[0_4px_12px_rgba(0,0,0,0.15)]
-                        dark:hover:shadow-[0_4px_12px_rgba(255,255,255,0.18)]
-                      "
+                      className="relative cursor-pointer"
+                      onMouseEnter={() => setHoveredTech(uniqueId)}
+                      onMouseLeave={() => setHoveredTech(null)}
                     >
                       <Icon
-                        size={16}
-                        style={{ color: techColors[key] }}
-                        className="
-                          transition-all duration-300
-                          grayscale hover:grayscale-0
-                        "
+                        className="w-5 h-5 text-neutral-500 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors"
                       />
+
+                      {hoveredTech === uniqueId && (
+                        <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
+                          <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
+                            {techNames[key]}
+
+                            {/* Pixel Cat Decoration */}
+                            <div className="absolute -top-[18px] left-1/2 -translate-x-1/2 w-8 h-8 pointer-events-none">
+                              <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full text-neutral-900 dark:text-neutral-100">
+                                <path d="M12 2C13 2 14 3 14 4C14 5 13 6 12 6C11 6 10 5 10 4C10 3 11 2 12 2ZM12 7C14.5 7 16.5 9 16.5 11.5C16.5 14 14.5 16 12 16C9.5 16 7.5 14 7.5 11.5C7.5 9 9.5 7 12 7ZM8 11.5C8 12 8.5 12.5 9 12.5C9.5 12.5 10 12 10 11.5C10 11 9.5 10.5 9 10.5C8.5 10.5 8 11 8 11.5ZM15 11.5C15 12 15.5 12.5 16 12.5C16.5 12.5 17 12 17 11.5C17 11 16.5 10.5 16 10.5C15.5 10.5 15 11 15 11.5Z" />
+                              </svg>
+                            </div>
+
+                            {/* Arrow */}
+                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-b border-r border-neutral-200 dark:border-neutral-700"></div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   );
                 })}
@@ -309,39 +309,39 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    <motion.div
-  initial={{ opacity: 0, filter: "blur(10px)" }}
-  whileInView={{ opacity: 1, filter: "blur(0px)" }}
-  transition={{
-    duration: 0.6,
-    ease: "easeOut",
-    delay: 2 * 0.12,
-  }}
-  viewport={{ once: true, amount: 0.2 }}
-  className="w-full "
->
-  {!showAll && (
-    <div>
-     
-      <div className="flex justify-center" >
-        <div className="flex justify-center mt-2">
-  <Link href="/projects">
-    <AnimatedButton className="dark:bg-neutral-900 bg-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-900"
-  >
-      
-        View all projects
-      
+      <motion.div
+        initial={{ opacity: 0, filter: "blur(10px)" }}
+        whileInView={{ opacity: 1, filter: "blur(0px)" }}
+        transition={{
+          duration: 0.6,
+          ease: "easeOut",
+          delay: 2 * 0.12,
+        }}
+        viewport={{ once: true, amount: 0.2 }}
+        className="w-full "
+      >
+        {!showAll && (
+          <div>
 
-      
-    </AnimatedButton>
-  </Link>
-</div>
+            <div className="flex justify-center" >
+              <div className="flex justify-center mt-2">
+                <Link href="/projects">
+                  <AnimatedButton className="dark:bg-neutral-900 bg-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-900"
+                  >
 
-        
-      </div>
-    </div>
-  )}
-</motion.div>
+                    View all projects
+
+
+
+                  </AnimatedButton>
+                </Link>
+              </div>
+
+
+            </div>
+          </div>
+        )}
+      </motion.div>
 
     </div>
   );

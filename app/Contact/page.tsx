@@ -26,7 +26,7 @@ export default function Contact() {
           <span className="link--elara">Contact</span>
         </h1>
         <p className="tracking-tight font-custom2 text-neutral-600 dark:text-neutral-400 max-w-lg text-sm md:text-base mt-2 mb-12">
-          Hi there drop any question you have whether related project or anything or just want to connect
+          Hi there — I’m currently open to meaningful work.
         </p>
 
         <div className="w-full max-w-2xl p-0 md:p-0 relative z-10">

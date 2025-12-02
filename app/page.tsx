@@ -6,9 +6,8 @@ import Projects from "@/components/projects";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import Timeline from "@/components/timeline";
 import GithubGraph from "@/components/githubgraph";
-
+import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
-
 
 export default function Home() {
   return (
@@ -104,8 +103,11 @@ export default function Home() {
         <br></br>
         <br></br>
         <br></br>
-                <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
 
+        <Skills />
+        <br></br>
+        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
         
         <GetInTouch />
 

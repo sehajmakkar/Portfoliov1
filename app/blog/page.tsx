@@ -3,6 +3,7 @@ import Container from "@/components/containers";
 import { getAllBlogs } from "@/util/mdx_clean";
 import type { Metadata } from "next";
 import Link from 'next/link';
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Blog | Karn Singh",
@@ -42,51 +43,56 @@ export default async function BlogIndex() {
         </div>
         <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
 
-        {/* Blog Posts */}
-        <div className="divide-y divide-neutral-200 dark:divide-neutral-800">
+        {/* Blog Posts List */}
+        <div className="flex flex-col gap-4 mt-8">
           {posts.map((p) => (
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
-              className="block py-6 group"
+              className="group relative overflow-hidden rounded-xl 
+                        border border-neutral-200 dark:border-neutral-800/50
+                        bg-transparent
+                        p-5 md:p-6
+                        transition-all duration-300 
+                        hover:bg-white dark:hover:bg-neutral-900/40
+                        hover:shadow-sm dark:hover:shadow-none
+                        hover:border-neutral-300/50 dark:hover:border-neutral-700/50"
             >
-              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-
-                {/* Left — Title + Description */}
+              <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
                 <div className="flex-1">
-                  <h2
-                    className="
-                      text-s md:text-xl font-semibold font-custom mb-1
-                      text-neutral-900 dark:text-neutral-50
-                      group-hover:text-neutral-700 dark:group-hover:text-neutral-200 transition-colors
-                    "
-                  >
-                    {p.title ?? p.slug}
-                  </h2>
+                  <div className="flex items-center justify-between md:justify-start gap-3 mb-2">
+                    <h2 className="text-lg md:text-xl font-bold font-custom text-neutral-900 dark:text-neutral-100 group-hover:text-neutral-700 dark:group-hover:text-neutral-300 transition-colors">
+                      {p.title ?? p.slug}
+                    </h2>
+
+                    {/* Arrow for mobile, visible inline with title */}
+                    <ArrowRight className="w-4 h-4 text-neutral-400 md:hidden -rotate-45" />
+                  </div>
 
                   {p.description && (
-                    <p className="text-s md:text-base text-neutral-600 dark:text-neutral-400 font-custom2 leading-relaxed line-clamp-2">
+                    <p className="text-sm text-neutral-600 dark:text-neutral-400 font-custom2 leading-relaxed line-clamp-2 max-w-2xl">
                       {p.description}
                     </p>
                   )}
                 </div>
 
-                {/* Right — Date */}
-                {p.date && (
-                  <time
-                    className="
-                      text-sm text-neutral-500 dark:text-neutral-500 whitespace-nowrap
-                      md:pt-1 font-custom2
-                    "
-                  >
-                    {new Date(p.date).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </time>
-                )}
+                <div className="flex items-center gap-4 md:flex-col md:items-end md:gap-1">
+                  {p.date && (
+                    <time className="text-xs font-medium text-neutral-400 dark:text-neutral-500 font-custom2 uppercase tracking-widest whitespace-nowrap">
+                      {new Date(p.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </time>
+                  )}
+
+                  {/* Arrow for desktop, slides up from bottom */}
+                  <div className="absolute bottom-4 right-6 hidden md:flex items-center gap-1 text-xs font-medium text-neutral-500 dark:text-neutral-400 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+                    <span>Read</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </div>
+                </div>
               </div>
             </Link>
           ))}
