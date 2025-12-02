@@ -6,7 +6,9 @@ import Projects from "@/components/projects";
 import { Github, Linkedin, Twitter, Mail } from "lucide-react";
 import Timeline from "@/components/timeline";
 import GithubGraph from "@/components/githubgraph";
-import DisplacementText from "@/components/ui/displacement-text";
+
+import GetInTouch from "@/components/get-in-touch";
+
 
 export default function Home() {
   return (
@@ -100,7 +102,8 @@ export default function Home() {
         <GithubGraph></GithubGraph>
 
         <br></br>
-        <DisplacementText></DisplacementText>
+        
+        <GetInTouch />
 
 
       </Container>

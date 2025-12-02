@@ -9,10 +9,13 @@
 
 
 @custom-variant dark (&:is(.dark *));
+
 /* Custom selection color */
 ::selection {
-  background: #bd0000; /* bright yellow highlight */
-  color: #000; /* black text */
+  background: #bd0000;
+  /* bright yellow highlight */
+  color: #000;
+  /* black text */
 }
 
 /* Optional: for Firefox */
@@ -36,13 +39,13 @@
 
 /* ✅ Move this OUTSIDE of @theme inline */
 :root {
-  --shadow-input: 0px 2px 3px -1px rgba(0,0,0,0.1),
-                  0px 1px 0px 0px rgba(25,28,33,0.02),
-                  0px 0px 0px 1px rgba(25,28,33,0.08);
+  --shadow-input: 0px 2px 3px -1px rgba(0, 0, 0, 0.1),
+    0px 1px 0px 0px rgba(25, 28, 33, 0.02),
+    0px 0px 0px 1px rgba(25, 28, 33, 0.08);
   --section-shadow: rgba(34, 42, 53, 0.06) 0px 0px 24px, rgba(0, 0, 0, 0.05) 0px 1px 1px,
-                rgba(34, 42, 53, 0.04) 0px 0px 0px 1px, rgba(34, 42, 53, 0.08) 0px 0px 4px,
-                rgba(47, 48, 55, 0.05) 0px 16px 68px,
-                 rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
+    rgba(34, 42, 53, 0.04) 0px 0px 0px 1px, rgba(34, 42, 53, 0.08) 0px 0px 4px,
+    rgba(47, 48, 55, 0.05) 0px 16px 68px,
+    rgba(255, 255, 255, 0.1) 0px 1px 0px inset;
   --background: oklch(1 0 0);
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);
@@ -70,24 +73,21 @@
   content: "";
   position: absolute;
   bottom: 0;
-  left: 5; /* fixed invalid "left:5" */
+  left: 5;
+  /* fixed invalid "left:5" */
   width: 93%;
   height: 1px;
   background: currentColor;
   transform-origin: 50% 100%;
   transition: clip-path 0.3s, transform 0.3s cubic-bezier(0.2, 1, 0.8, 1);
-  clip-path: polygon(
-    0% 0%, 0% 100%, 0 100%, 0 0,
-    100% 0, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 0%
-  );
+  clip-path: polygon(0% 0%, 0% 100%, 0 100%, 0 0,
+      100% 0, 100% 100%, 0 100%, 0 100%, 100% 100%, 100% 0%);
 }
 
 .link--elara:hover::before {
   transform: translate3d(0, 2px, 0) scale3d(1.08, 2, 1);
-  clip-path: polygon(
-    0% 0%, 0% 100%, 50% 100%, 50% 0,
-    50% 0, 50% 100%, 50% 100%, 0 100%, 100% 100%, 100% 0%
-  );
+  clip-path: polygon(0% 0%, 0% 100%, 50% 100%, 50% 0,
+      50% 0, 50% 100%, 50% 100%, 0 100%, 100% 100%, 100% 0%);
 }
 
 /* === Prose Styling for Dark Mode === */
@@ -143,9 +143,11 @@
 .link--carme {
   position: relative;
   display: inline-block;
-  padding-bottom: 14px; /* Space for underline */
+  padding-bottom: 14px;
+  /* Space for underline */
   cursor: pointer;
-  font-size: inherit; /* Keeps original text size (e.g. h1, h2) */
+  font-size: inherit;
+  /* Keeps original text size (e.g. h1, h2) */
   font-weight: inherit;
 }
 
@@ -154,14 +156,16 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 120px; /* Adjust length of scribble */
+  width: 120px;
+  /* Adjust length of scribble */
   height: 18px;
   pointer-events: none;
 }
 
 /* Scribble line style */
 .link--carme path {
-  stroke: currentColor; /* Matches text color */
+  stroke: currentColor;
+  /* Matches text color */
   stroke-width: 2.3px;
   fill: none;
   stroke-linecap: round;
@@ -169,7 +173,7 @@
   /* Hide stroke initially (for animation) */
   stroke-dasharray: 200;
   stroke-dashoffset: 200;
-  
+
   transition: stroke-dashoffset 0.5s ease-out;
 }
 

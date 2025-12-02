@@ -86,7 +86,7 @@ const fragmentShader = `
 `;
 
 const DisplacementText = ({
-  text = " Karn Singh 💓",
+  text = " Karn Singh",
   fontSize = 200,
   font = "custom2",
   color,
