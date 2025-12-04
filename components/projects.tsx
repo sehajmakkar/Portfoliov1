@@ -315,28 +315,28 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       >
         {!showAll && (
           <div>
-
             <div className="flex justify-center" >
               <div className="flex justify-center mt-2">
                 <Link href="/projects">
-                  <AnimatedButton className="dark:bg-neutral-900 bg-neutral-50 hover:bg-neutral-100 dark:hover:bg-neutral-900"
+                  <AnimatedButton className="group relative overflow-hidden rounded-lg 
+                            bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
+                            border border-neutral-200 dark:border-neutral-800 
+                            text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
+                            transition-all duration-300 
+                            hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-800
+                            shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] 
+                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]"
                   >
-
                     View all projects
-
-
-
                   </AnimatedButton>
                 </Link>
               </div>
-
-
             </div>
           </div>
         )}
-      </motion.div>
+      </motion.div >
 
-    </div>
+    </div >
   );
 };
 

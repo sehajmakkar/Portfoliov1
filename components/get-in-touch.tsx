@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
+import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export default function GetInTouch() {
     return (
@@ -18,7 +19,7 @@ export default function GetInTouch() {
                     Hi there — I’m currently open to meaningful work.
                 </p>
 
-                <div className="w-full max-w-2xl">
+                <div className="w-full max-w-2xl flex gap-4">
                     <Link href="/Contact">
                         <button
                             className="group relative overflow-hidden rounded-lg 
@@ -36,7 +37,34 @@ export default function GetInTouch() {
                             </span>
                         </button>
                     </Link>
+
+                    <Link href="https://cal.com/ashutosh-singh-0529" target="_blank">
+                        <AnimatedButton className="group relative overflow-hidden rounded-lg 
+                            bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
+                            border border-neutral-200 dark:border-neutral-800 
+                            text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
+                            transition-all duration-300 
+                            hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-800
+                            shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] 
+                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]">
+                            <span className="relative z-10 flex items-center gap-2">
+                                Book a call
+                                <Phone className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1 opacity-70 group-hover:opacity-100" />
+                            </span>
+                        </AnimatedButton>
+                    </Link>
                 </div>
+            </div>
+
+            {/* Decorative Grid Pattern */}
+            <div
+                className="absolute -bottom-12 -right-2 md:-bottom-20 md:-right-14 w-80 h-40 -z-10 pointer-events-none opacity-60 dark:opacity-40"
+                style={{
+                    maskImage: 'radial-gradient(circle at bottom right, black, transparent 70%)',
+                    WebkitMaskImage: 'radial-gradient(circle at bottom right, black, transparent 70%)'
+                }}
+            >
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.1)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[size:24px_24px] bg-right-bottom shadow-[inset_20px_20px_40px_rgba(255,255,255,0.8)] dark:shadow-[inset_20px_20px_40px_rgba(10,10,10,0.8)]"></div>
             </div>
         </div>
     );

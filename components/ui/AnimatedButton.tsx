@@ -37,7 +37,7 @@ const AnimatedButton: React.FC<Props> = ({ children = 'Browse Components', class
     >
       {/* Text with shine mask */}
       <motion.span
-        className="tracking-wide font-light h-full w-full block relative z-10"
+        className="h-full w-full block relative z-10"
         style={{
           WebkitMaskImage:
             'linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))',
@@ -53,7 +53,7 @@ const AnimatedButton: React.FC<Props> = ({ children = 'Browse Components', class
 
       {/* Border shine effect uses the --shine variable so it adapts to theme */}
       <motion.span
-        className="block absolute inset-0 rounded-md p-px"
+        className="block absolute inset-0 rounded-[inherit] p-px"
         style={{
           background: 'linear-gradient(-75deg, transparent 30%, var(--shine) 50%, transparent 70%)',
           backgroundSize: '200% 100%',
