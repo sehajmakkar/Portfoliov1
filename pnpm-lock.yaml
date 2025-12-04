@@ -106,8 +106,8 @@ importers:
         specifier: ^4.1.16
         version: 4.1.17
       '@tailwindcss/typography':
-        specifier: github:tailwindcss/typography
-        version: git+https://github.com/tailwindcss/typography.git#3963dfede4845f46451db1863fd5321f4cdea03b(tailwindcss@4.1.17)
+        specifier: ^0.5.19
+        version: 0.5.19(tailwindcss@4.1.17)
       '@types/node':
         specifier: ^20
         version: 20.19.25
@@ -876,9 +876,8 @@ packages:
   '@tailwindcss/postcss@4.1.17':
     resolution: {integrity: sha512-+nKl9N9mN5uJ+M7dBOOCzINw94MPstNR/GtIhz1fpZysxL/4a+No64jCBD6CPN+bIHWFx3KWuu8XJRrj/572Dw==}
 
-  '@tailwindcss/typography@git+https://github.com/tailwindcss/typography.git#3963dfede4845f46451db1863fd5321f4cdea03b':
-    resolution: {commit: 3963dfede4845f46451db1863fd5321f4cdea03b, repo: https://github.com/tailwindcss/typography.git, type: git}
-    version: 0.5.19
+  '@tailwindcss/typography@0.5.19':
+    resolution: {integrity: sha512-w31dd8HOx3k9vPtcQh5QHP9GwKcgbMp87j58qi6xgiBnFFtKEAgCWnDw4qUT8aHwkCp8bKvb/KGKWWHedP0AAg==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20 || >=4.0.0-beta.1'
 
@@ -3887,7 +3886,7 @@ snapshots:
       postcss: 8.5.6
       tailwindcss: 4.1.17
 
-  '@tailwindcss/typography@git+https://github.com/tailwindcss/typography.git#3963dfede4845f46451db1863fd5321f4cdea03b(tailwindcss@4.1.17)':
+  '@tailwindcss/typography@0.5.19(tailwindcss@4.1.17)':
     dependencies:
       postcss-selector-parser: 6.0.10
       tailwindcss: 4.1.17
