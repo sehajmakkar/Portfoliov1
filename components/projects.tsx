@@ -79,7 +79,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     
     {
       title: "VengenceUI",
-      src: "/NimbusIDE.png",
+      src: "/stage-1766913680283.png",
       video: "https://www.youtube.com/embed/98QD-V3ox8g?si=wPWipbLIfGpQ9ttK",
       description: "An AI-powered web IDE built fully in the browser using WebContainers.",
       tech: ["next", "ts", "cloud", "node"],
@@ -106,7 +106,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "MotionSuite",
-      src: "/Scribble3D.png",
+      src: "/stage-1766913472064.png",
       video: "/scribble.mp4",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
       tech: ["ts", "next", "react", "motion"],
