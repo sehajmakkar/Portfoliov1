@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning> {/* 🛠 Important for dark mode */}
+    <html lang="en" suppressHydrationWarning>{/* 🛠 Important for dark mode */}
       <body
         className={`${instrumentSerif.className} antialiased bg-neutral-50 dark:bg-neutral-950 transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)]`}
       >
@@ -38,7 +38,6 @@ export default function RootLayout({
           <main className="min-h-screen">{children}</main>
           <Footer />
         </ThemeProvider>
-
       </body>
     </html>
   );

@@ -15,6 +15,7 @@ import {
   SiCloudflare,
   SiLangchain,
   SiNodedotjs,
+  SiFramer,
 } from "react-icons/si";
 
 type TechKey =
@@ -25,7 +26,8 @@ type TechKey =
   | "prisma"
   | "cloud"
   | "langchain"
-  | "node";
+  | "node"
+  | "motion";
 
 interface Project {
   title: string;
@@ -46,6 +48,7 @@ const iconMap: Record<TechKey, any> = {
   cloud: SiCloudflare,
   langchain: SiLangchain,
   node: SiNodedotjs,
+  motion: SiFramer, // You may want to use a different icon here, e.g. SiReact or a custom SVG
 };
 
 const techNames: Record<TechKey, string> = {
@@ -57,6 +60,7 @@ const techNames: Record<TechKey, string> = {
   cloud: "Cloudflare",
   langchain: "LangChain",
   node: "Node.js",
+  motion: "Framer Motion",
 };
 
 const Projects = ({ showAll = false }: { showAll?: boolean }) => {
@@ -72,23 +76,15 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   }, []);
 
   const projects: Project[] = [
+    
     {
-      title: "Inquiro",
-      src: "/Inquiro.png",
-      video: "/inquiro.mp4",
-      description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
-      tech: ["next", "ts", "react", "three"],
-      github: "https://github.com/",
-      live: "https://yourlive.com",
-    },
-    {
-      title: "Nimbus",
+      title: "VengenceUI",
       src: "/NimbusIDE.png",
       video: "https://www.youtube.com/embed/98QD-V3ox8g?si=wPWipbLIfGpQ9ttK",
       description: "An AI-powered web IDE built fully in the browser using WebContainers.",
       tech: ["next", "ts", "cloud", "node"],
-      github: "https://github.com/",
-      live: "https://yourlive.com",
+      github: "https://github.com/Ashutoshx7/VengeanceUI",
+      live: "https://www.vengenceui.com/",
     },
     {
       title: "Scribble3D",
@@ -96,9 +92,29 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       video: "/scribble.mp4",
       description: "A real-time research assistant built with modern web technologies.",
       tech: ["ts", "next", "prisma", "langchain"],
-      github: "https://github.com/",
+      github: "https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-",
       live: "https://yourlive.com",
     },
+    {
+      title: "Inquiro",
+      src: "/Inquiro.png",
+      video: "/inquiro.mp4",
+      description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
+      tech: ["next", "ts", "react", "three"],
+      github: "https://github.com/Ashutoshx7/Inquiro-",
+      live: "https://yourlive.com",
+    },
+    {
+      title: "MotionSuite",
+      src: "/Scribble3D.png",
+      video: "/scribble.mp4",
+      description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
+      tech: ["ts", "next", "react", "motion"],
+      github: "https://github.com/Ashutoshx7/Motion-SUITE",
+      live: "https://motion-suite-site.vercel.app/",
+    },
+    
+    
   ];
 
   return (
