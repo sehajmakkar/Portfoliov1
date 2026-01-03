@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
     SiReact,
     SiJavascript,
@@ -37,8 +37,6 @@ const skills = [
 ];
 
 export default function Skills() {
-    const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
     return (
         <div className="w-full mt-4 relative">
             <div className="flex flex-col items-start space-y-3">
@@ -50,26 +48,16 @@ export default function Skills() {
                     I love working with these technologies to build beautiful and functional applications.
                 </p>
 
-                <div className="flex flex-wrap items-center gap-4">
+                <div className="flex flex-wrap items-center gap-2">
                     {skills.map((skill) => (
                         <div
                             key={skill.name}
-                            className="relative cursor-pointer group"
-                            onMouseEnter={() => setHoveredSkill(skill.name)}
-                            onMouseLeave={() => setHoveredSkill(null)}
+                            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-neutral-100 dark:bg-neutral-800/80 border border-neutral-200 dark:border-neutral-700/50 hover:border-neutral-300 dark:hover:border-neutral-600 transition-colors cursor-default"
                         >
-                            <skill.icon className="w-6 h-6 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors" />
-
-                            {hoveredSkill === skill.name && (
-                                <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
-                                    <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
-                                        {skill.name}
-
-                                        {/* Arrow */}
-                                        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-b border-r border-neutral-200 dark:border-neutral-700"></div>
-                                    </div>
-                                </div>
-                            )}
+                            <skill.icon className="w-4 h-4 text-neutral-600 dark:text-neutral-300" />
+                            <span className="text-xs font-medium text-neutral-700 dark:text-neutral-200">
+                                {skill.name}
+                            </span>
                         </div>
                     ))}
                 </div>
