@@ -113,9 +113,8 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group relative overflow-hidden rounded-lg  w-full
               disabled={isSubmitting}
-              className="group relative overflow-hidden rounded-lg  w-full
+              className="group relative overflow-hidden rounded-lg w-full
                             bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
                             border border-neutral-200 dark:border-neutral-800 
                             text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
@@ -127,7 +126,8 @@ export default function Contact() {
             >
               <span className="relative z-10">
                 {isSubmitting ? "Sending..." : "Send message"}
-              
+              </span>
+            </button>
           </form>
 
           <div className="mt-10   flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400 font-custom2">
