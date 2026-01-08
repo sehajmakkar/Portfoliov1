@@ -7,6 +7,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { ThemeProvider } from "@/components/theme-provider";
 import FractalTree from "@/components/ui/fractal-tree";
+import { Toaster } from "sonner";
 
 
 const instrumentSerif = Instrument_Serif({
@@ -37,6 +38,7 @@ export default function RootLayout({
           <Navbar />
           <main className="min-h-screen">{children}</main>
           <Footer />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

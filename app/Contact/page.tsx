@@ -3,9 +3,38 @@
 import Container from "@/components/containers";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import DisplacementText from "@/components/ui/displacement-text";
-
+import { toast } from "sonner";
+import { FormEvent, useState } from "react";
 
 export default function Contact() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/as1142120@gmail.com", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        toast("form subbmiited emil has toaster named sooner checkk it");
+        form.reset();
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   return (
     <div className="relative flex min-h-screen justify-center font-sans overflow-hidden">
       <Container className="min-h-[200vh] px-8 pt-24 md:p-20 md:pb-10 mx-auto">
@@ -31,8 +60,7 @@ export default function Contact() {
 
         <div className="w-full max-w-2xl p-0 md:p-0 relative z-10">
           <form 
-            action="https://formsubmit.co/as1142120@gmail.com" 
-            method="POST" 
+            onSubmit={handleSubmit}
             className="space-y-6"
           >
             {/* FormSubmit Configuration */}
@@ -86,16 +114,20 @@ export default function Contact() {
             <button
               type="submit"
               className="group relative overflow-hidden rounded-lg  w-full
+              disabled={isSubmitting}
+              className="group relative overflow-hidden rounded-lg  w-full
                             bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
                             border border-neutral-200 dark:border-neutral-800 
                             text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
                             transition-all duration-300 
                             hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-800
                             shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] 
-                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]"
+                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]
+                            disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span className="relative z-10">Send message</span>
-            </button>
+              <span className="relative z-10">
+                {isSubmitting ? "Sending..." : "Send message"}
+              
           </form>
 
           <div className="mt-10   flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400 font-custom2">
