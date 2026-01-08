@@ -12,7 +12,6 @@ import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
 
 export default function Home() {
-  const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
 
   const socials = [
     {
@@ -68,23 +67,13 @@ export default function Home() {
             {socials.map((social) => (
               <div
                 key={social.name}
-                className="relative cursor-pointer group"
-                onMouseEnter={() => setHoveredSocial(social.name)}
-                onMouseLeave={() => setHoveredSocial(null)}
+                className="relative cursor-alias group"
                 onClick={social.action}
               >
                 <social.icon
                   size={20}
                   className="text-neutral-900 dark:text-neutral-50 opacity-70 hover:opacity-100 transition"
                 />
-                {hoveredSocial === social.name && (
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20">
-                    <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
-                      {social.name}
-                      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-t border-l border-neutral-200 dark:border-neutral-700"></div>
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>

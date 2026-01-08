@@ -17,6 +17,7 @@ import {
   SiNodedotjs,
   SiFramer,
 } from "react-icons/si";
+import { IconType } from "react-icons";
 
 type TechKey =
   | "next"
@@ -39,7 +40,7 @@ interface Project {
   live: string;
 }
 
-const iconMap: Record<TechKey, any> = {
+const iconMap: Record<TechKey, IconType> = {
   next: SiNextdotjs,
   ts: SiTypescript,
   react: SiReact,

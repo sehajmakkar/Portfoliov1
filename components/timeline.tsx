@@ -11,6 +11,7 @@ import {
   SiLangchain,
   SiNodedotjs,
 } from "react-icons/si";
+import { IconType } from "react-icons";
 
 type TechKey =
   | "next"
@@ -22,7 +23,7 @@ type TechKey =
   | "langchain"
   | "node";
 
-const iconMap: Record<TechKey, any> = {
+const iconMap: Record<TechKey, IconType> = {
   next: SiNextdotjs,
   ts: SiTypescript,
   react: SiReact,

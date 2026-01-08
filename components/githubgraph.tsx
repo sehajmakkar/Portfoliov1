@@ -82,6 +82,7 @@ const GithubGraph = () => {
 
         const data = await response.json();
         if (data.data?.search?.edges) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const fetchedPRs = data.data.search.edges.map((edge: any) => edge.node);
           // Sort by date (newest first)
           fetchedPRs.sort((a: PR, b: PR) => {
@@ -130,6 +131,7 @@ const GithubGraph = () => {
                 style={{
                   color: theme === "dark" ? "#e5e5e5" : "#171717",
                 }}
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 renderBlock={(block: any, activity: any) =>
                   cloneElement(block, {
                     "data-tooltip-id": "github-tooltip",

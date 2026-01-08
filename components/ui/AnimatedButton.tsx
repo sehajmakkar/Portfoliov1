@@ -15,6 +15,7 @@ type Props = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 const AnimatedButton: React.FC<Props> = ({ children = 'Browse Components', className = '', ...rest }) => {
   return (
     <motion.button
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       {...(rest as any)}
       whileTap={{ scale: 0.97 }}
       transition={{
@@ -44,7 +45,9 @@ const AnimatedButton: React.FC<Props> = ({ children = 'Browse Components', class
           maskImage:
             'linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))',
         }}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         initial={{ ['--mask-x' as any]: '100%' } as any}
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         animate={{ ['--mask-x' as any]: '-100%' } as any}
         transition={{ repeat: Infinity, duration: 1, ease: 'linear', repeatDelay: 1 }}
       >

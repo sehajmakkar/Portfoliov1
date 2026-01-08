@@ -134,7 +134,7 @@ export function CommandMenu() {
                     </div>
                     <div>
                         <h3 className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">Home</h3>
-                        <p className="text-xs text-neutral-500 dark:text-neutral-400">About me and what I'm up to</p>
+                        <p className="text-xs text-neutral-500 dark:text-neutral-400">About me and what I&apos;m up to</p>
                     </div>
                 </div>
 

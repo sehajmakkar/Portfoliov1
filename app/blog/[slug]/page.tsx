@@ -11,9 +11,11 @@ export const metadata: Metadata = {
   description: "Reading a blog...",
 };
 
-export default async function SingleBlogPage({ params }: { params: any }) {
+type PageParams = Promise<{ slug: string }>;
+
+export default async function SingleBlogPage({ params }: { params: PageParams }) {
   // `params` may be a Promise in some Next versions; await to unwrap it safely
-  const resolvedParams = (await params) as { slug?: string };
+  const resolvedParams = await params;
   const slug = resolvedParams?.slug;
 
   if (!slug) {
@@ -21,12 +23,13 @@ export default async function SingleBlogPage({ params }: { params: any }) {
   }
 
   let content: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let frontmatter: Record<string, any> = {};
   try {
     const res = await getSingleBlog(slug);
     content = res.content;
     frontmatter = res.data || {};
-  } catch (err) {
+  } catch {
     notFound();
   }
 

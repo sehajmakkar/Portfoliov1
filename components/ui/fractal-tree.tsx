@@ -25,7 +25,7 @@ export default function FractalTree() {
 
         // High DPI handling
         const dpr = window.devicePixelRatio || 1;
-        // @ts-ignore
+        // @ts-expect-error - vendor prefixes are not in the types
         const bsr = ctx.webkitBackingStorePixelRatio || ctx.mozBackingStorePixelRatio || ctx.msBackingStorePixelRatio || ctx.oBackingStorePixelRatio || ctx.backingStorePixelRatio || 1;
         const dpi = dpr / bsr;
 

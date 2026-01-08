@@ -34,6 +34,7 @@ export const getSingleBlog = async (slug: string): Promise<Blog> => {
   data.slug = data.slug ?? key;
   // Convert date to string if it's a Date object
   if (data.date && typeof data.date === 'object' && 'toISOString' in data.date) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     data.date = (data.date as any).toISOString().split('T')[0];
   }
 
@@ -55,6 +56,7 @@ export const getAllBlogs = async (): Promise<BlogMeta[]> => {
       meta.slug = meta.slug ?? normalizeSlug(file);
       // Convert date to string if it's a Date object
       if (meta.date && typeof meta.date === 'object' && 'toISOString' in meta.date) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         meta.date = (meta.date as any).toISOString().split('T')[0];
       }
       blogs.push(meta);
