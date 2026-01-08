@@ -47,11 +47,12 @@ const Navbar = () => {
           borderRadius: "2.5rem",
         }}
         transition={{
-          duration: 0.3,
-          ease: "easeOut",
+          type: "spring",
+          stiffness: 100,
+          damping: 20,
         }}
         className="fixed inset-x-0 top-0 z-50 flex w-full mx-auto items-center justify-between
-        px-4 py-3 bg-neutral-50/80 dark:bg-neutral-950/70 backdrop-blur-lg font-custom text-neutral-900 dark:text-neutral-50 transition-all duration-300"
+        px-4 py-3 bg-neutral-50/80 dark:bg-neutral-950/70 backdrop-blur-lg font-custom tracking-wide text-neutral-900 dark:text-neutral-50 transition-colors duration-300"
       >
         <Link href="/" className="hover:opacity-75 transition-opacity duration-300">
           <Image

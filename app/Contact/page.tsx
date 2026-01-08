@@ -30,7 +30,17 @@ export default function Contact() {
         </p>
 
         <div className="w-full max-w-2xl p-0 md:p-0 relative z-10">
-          <form className="space-y-6">
+          <form 
+            action="https://formsubmit.co/as1142120@gmail.com" 
+            method="POST" 
+            className="space-y-6"
+          >
+            {/* FormSubmit Configuration */}
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_subject" value="New Submission from Portfolio" />
+            <input type="text" name="_honey" style={{ display: 'none' }} />
+
             <div className="space-y-2">
               <label htmlFor="name" className="text-sm font-medium text-neutral-700 dark:text-neutral-300 font-custom2">
                 Full name
@@ -38,6 +48,8 @@ export default function Contact() {
               <input
                 type="text"
                 id="name"
+                name="name"
+                required
                 placeholder="Tyler Durden"
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
               />
@@ -50,6 +62,8 @@ export default function Contact() {
               <input
                 type="email"
                 id="email"
+                name="email"
+                required
                 placeholder="tyler@projectmayhem.com"
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
               />
@@ -61,14 +75,16 @@ export default function Contact() {
               </label>
               <textarea
                 id="message"
+                name="message"
                 rows={5}
+                required
                 placeholder="You're crazy good, never change."
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 resize-none"
               />
             </div>
 
             <button
-              type="button"
+              type="submit"
               className="group relative overflow-hidden rounded-lg  w-full
                             bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
                             border border-neutral-200 dark:border-neutral-800 
