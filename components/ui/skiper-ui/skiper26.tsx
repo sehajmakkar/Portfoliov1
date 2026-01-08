@@ -600,7 +600,7 @@ export const ThemeToggleButton = ({
         className,
       )}
       onClick={() => {
-        const audio = new Audio("/sounds/switch.mp3");
+        const audio = new Audio("/sounds/click.wav");
         audio.volume = 0.5;
         audio.play().catch((e) => console.error("Audio play failed", e));
         toggleTheme();
