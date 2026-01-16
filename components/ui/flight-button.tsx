@@ -27,6 +27,11 @@ export function FlightButton({ className, onClick, ...props }: FlightButtonProps
     // GSAP Animation
     let getVar = (variable: string) => getComputedStyle(button).getPropertyValue(variable);
 
+    // Make plane visible instantly for animation
+    gsap.set(button, {
+        '--plane-opacity': 1
+    });
+
     gsap.to(button, {
         keyframes: [{
           '--left-wing-first-x': 50,
@@ -101,20 +106,16 @@ export function FlightButton({ className, onClick, ...props }: FlightButtonProps
         }]
       })
 
+      
+      // Removed JS color animation to rely strictly on CSS Single Source of Truth
       gsap.to(button, {
         keyframes: [{
           '--text-opacity': 0,
           '--border-radius': 0,
-          '--left-wing-background': getVar('--primary-dark'),
-          '--right-wing-background': getVar('--primary-dark'),
           duration: .11
         }, {
-          '--left-wing-background': getVar('--primary'),
-          '--right-wing-background': getVar('--primary'),
           duration: .14
         }, {
-          '--left-body-background': getVar('--primary-dark'),
-          '--right-body-background': getVar('--primary-darkest'),
           duration: .25,
           delay: .1
         }, {
@@ -142,8 +143,9 @@ export function FlightButton({ className, onClick, ...props }: FlightButtonProps
     >
       <span className={styles.defaultText}>Send</span>
       <span className={styles.successText}>
-        <svg viewBox="0 0 16 16">
-          <polyline points="3.75 9 7 12 13 5"></polyline>
+        <svg viewBox="0 0 24 24">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
         </svg>Sent
       </span>
       <svg className={styles.trails} viewBox="0 0 33 64">

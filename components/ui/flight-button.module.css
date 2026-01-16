@@ -1,30 +1,46 @@
 .button {
   /* =========================================
-     LIGHT MODE (Default)
-     Matches Input Fields: Neutral 50 (#fafafa)
+     LIGHT MODE - Tasteful & Subtle Button
+     BUT -> Dark Plane (#171717)
      ========================================= */
   
   /* Core Colors */
-  --btn-bg: #fafafa;
-  --btn-border: #e5e5e5;
-  --btn-text: #171717;
+  --btn-color: #fafafa;      /* Neutral 50 (Button BG) */
+  --btn-border: #e5e5e5;     /* Neutral 200 */
+  --text-color: #171717;     /* Neutral 900 */
   
-  /* Plane Colors (wings/body) - MUST MATCH --btn-bg initially */
-  --primary: var(--btn-bg);  
+  /* SINGLE SOURCE OF TRUTH for Plane Color */
+  --plane-fill-color: #171717; /* Solid Black in Light Mode */
   
-  /* Animation Colors (Darker shades for depth during fold) */
-  --primary-dark: #d4d4d4;    /* Neutral 300 */
-  --primary-darkest: #a3a3a3; /* Neutral 400 */
+  /* Deprecated/Mapped for safety */
+  --left-plane-base: var(--plane-fill-color);
+  --left-plane-fold: var(--plane-fill-color);
+  --right-plane-base: var(--plane-fill-color);
+  --right-plane-fold: var(--plane-fill-color);
   
-  /* Text & Icons */
-  --text: var(--btn-text);
-  --text-opacity: 1;
-  --success: var(--btn-text);
+  /* Applying PLANE COLOR to animation variables (Defaults) */
+  --primary: var(--btn-color);
+  --left-wing-background: var(--left-plane-base);
+  --left-body-background: var(--left-plane-base);
+  --right-wing-background: var(--right-plane-base);
+  --right-body-background: var(--right-plane-base);
+  
+  /* Button uses subtle background */
+  background: var(--btn-color);
+  color: var(--text-color);
+  border: 1px solid var(--btn-border);
+
+  /* Deprecated generic vars, kept for safety */
+  --primary-dark: #404040;
+  --primary-darkest: #171717;
   
   /* Other Props */
-  --shadow: rgba(0, 0, 0, 0.05); /* Subtle shadow like inputs */
+  --text: var(--text-color);
+  --text-opacity: 1;
+  --success: var(--text-color);
+  --shadow: transparent;
   --success-x: -12;
-  --success-stroke: 14;
+  --success-stroke: 65; /* Increased length for plane icon */
   --success-opacity: 0;
   --border-radius: 7;
   --overflow: hidden;
@@ -33,36 +49,32 @@
   --rotate: 0;
   --plane-x: 0;
   --plane-y: 0;
-  --plane-opacity: 1;
-  --trails: rgba(0, 0, 0, 0.15);
+  --plane-opacity: 0; /* Hidden by default to prevent resting seams */
+  --trails: rgba(0, 0, 0, 0.4); /* Stronger trails */
   --trails-stroke: 57;
 
-  /* Wing/Body Mapping */
-  --left-wing-background: var(--primary);
+  /* Wing Position Vars  (51/49 overlap to prevent gaps) */
   --left-wing-first-x: 0;
   --left-wing-first-y: 0;
   --left-wing-second-x: 50;
   --left-wing-second-y: 0;
   --left-wing-third-x: 0;
   --left-wing-third-y: 100;
-  --left-body-background: var(--primary);
-  --left-body-first-x: 51;
+  --left-body-first-x: 50;
   --left-body-first-y: 0;
-  --left-body-second-x: 51;
+  --left-body-second-x: 50;
   --left-body-second-y: 100;
   --left-body-third-x: 0;
   --left-body-third-y: 100;
-  --right-wing-background: var(--primary);
-  --right-wing-first-x: 49;
+  --right-wing-first-x: 50;
   --right-wing-first-y: 0;
   --right-wing-second-x: 100;
   --right-wing-second-y: 0;
   --right-wing-third-x: 100;
   --right-wing-third-y: 100;
-  --right-body-background: var(--primary);
-  --right-body-first-x: 49;
+  --right-body-first-x: 50;
   --right-body-first-y: 0;
-  --right-body-second-x: 49;
+  --right-body-second-x: 50;
   --right-body-second-y: 100;
   --right-body-third-x: 100;
   --right-body-third-y: 100;
@@ -70,7 +82,6 @@
   display: block;
   cursor: pointer;
   position: relative;
-  border: 1px solid var(--btn-border);
   padding: 8px 16px;
   min-width: auto;
   text-align: center;
@@ -79,44 +90,60 @@
   font-family: inherit;
   font-weight: 500;
   font-size: 14px;
-  
-  /* Ensure solid background behind wings to prevent gaps/splits */
-  background: var(--btn-bg);
-  
   outline: none;
-  color: var(--text);
   -webkit-appearance: none;
   -webkit-tap-highlight-color: transparent;
   transition: all 0.3s;
   border-radius: 0.5rem;
 }
 
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /* =========================================
-   DARK MODE
-   Matches Input Fields: Neutral 900 (#171717)
+   DARK MODE - Tasteful & Subtle Button
+   BUT -> White/Black Split Plane
    ========================================= */
 :global(.dark) .button {
   /* Core Colors */
-  --btn-bg: #171717;
-  --btn-border: #262626;
-  --btn-text: #fafafa;
+  --btn-color: #171717;      /* Neutral 900 (Button BG) */
+  --btn-border: #262626;     /* Neutral 800 */
+  --text-color: #fafafa;     /* Neutral 50 */
   
-  /* Plane Colors */
-  --primary: var(--btn-bg);
-  --primary-dark: #262626;    /* Neutral 800 */
-  --primary-darkest: #404040; /* Neutral 700 */
+  /* SINGLE SOURCE OF TRUTH for Plane Color */
+  --plane-fill-color: #fafafa; /* Solid White in Dark Mode */
 
-  /* Text */
-  --text: var(--btn-text);
-  --success: var(--btn-text);
+  /* Deprecated/Mapped for safety */
+  --left-plane-base: var(--plane-fill-color);
+  --left-plane-fold: var(--plane-fill-color);
+  --right-plane-base: var(--plane-fill-color);
+  --right-plane-fold: var(--plane-fill-color);
   
-  /* Props */
-  --shadow: rgba(255, 255, 255, 0.05);
-  --trails: rgba(255, 255, 255, 0.15);
+  /* Applying PLANE COLOR to animation variables */
+  --primary: var(--btn-color);
+  --left-wing-background: var(--left-plane-base);
+  --left-body-background: var(--left-plane-base);
+  --right-wing-background: var(--right-plane-base);
+  --right-body-background: var(--right-plane-base);
   
-  /* Apply to Element */
+  /* Button uses subtle background */
+  background: var(--btn-color);
+  color: var(--text-color);
   border-color: var(--btn-border);
-  background: var(--btn-bg);
+
+  /* Animation Shading Colors */
+  --primary-dark: #d4d4d4;
+  --primary-darkest: #a3a3a3;
+  
+  /* Text */
+  --text: var(--text-color);
+  --success: var(--text-color);
+  
+  --shadow: transparent;
+  --trails: rgba(255, 255, 255, 0.5); 
 }
 
 .plane,
@@ -158,7 +185,7 @@
   border-radius: calc(var(--border-radius) * 1px);
   transform: translate(var(--part-x, 0.4%), var(--part-y, 0)) translateZ(0);
   z-index: var(--z-index, 2);
-  background: var(--background, var(--left-wing-background));
+  background: var(--plane-fill-color); /* NUCLEAR OPTION: Force single color on all parts */
   clip-path: polygon(calc(var(--first-x, var(--left-wing-first-x)) * 1%) calc(var(--first-y, var(--left-wing-first-y)) * 1%), calc(var(--second-x, var(--left-wing-second-x)) * 1%) calc(var(--second-y, var(--left-wing-second-y)) * 1%), calc(var(--third-x, var(--left-wing-third-x)) * 1%) calc(var(--third-y, var(--left-wing-third-y)) * 1%));
 }
 
@@ -242,7 +269,7 @@
   stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 14px;
+  stroke-dasharray: 65px; /* Matches new plane icon perimeter */
   stroke: var(--success);
   stroke-dashoffset: calc(var(--success-stroke) * 1px);
 }
