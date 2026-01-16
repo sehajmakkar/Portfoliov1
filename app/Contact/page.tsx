@@ -4,10 +4,23 @@ import Container from "@/components/containers";
 import { Github, Linkedin, Twitter } from "lucide-react";
 import DisplacementText from "@/components/ui/displacement-text";
 import { toast } from "sonner";
-import { FormEvent, useState } from "react";
+import { FlightButton } from "@/components/ui/flight-button";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const isFormValid = formData.name.trim() !== "" && formData.email.trim() !== "" && formData.message.trim() !== "";
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,7 +36,7 @@ export default function Contact() {
       });
 
       if (response.ok) {
-        toast("form subbmiited emil has toaster named sooner checkk it");
+        toast.success("Message sent! I'll get back to you soon.");
         form.reset();
       } else {
         toast.error("Something went wrong. Please try again.");
@@ -78,6 +91,8 @@ export default function Contact() {
                 id="name"
                 name="name"
                 required
+                value={formData.name}
+                onChange={handleChange}
                 placeholder="Tyler Durden"
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
               />
@@ -92,6 +107,8 @@ export default function Contact() {
                 id="email"
                 name="email"
                 required
+                value={formData.email}
+                onChange={handleChange}
                 placeholder="tyler@projectmayhem.com"
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
               />
@@ -106,28 +123,16 @@ export default function Contact() {
                 name="message"
                 rows={5}
                 required
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="You're crazy good, never change."
                 className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 resize-none"
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="group relative overflow-hidden rounded-lg w-full
-                            bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
-                            border border-neutral-200 dark:border-neutral-800 
-                            text-neutral-800 dark:text-neutral-200 text-sm font-medium px-6 py-2.5 
-                            transition-all duration-300 
-                            hover:from-neutral-50 hover:to-neutral-100 dark:hover:from-neutral-800 dark:hover:to-neutral-800
-                            shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] 
-                            dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)]
-                            disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span className="relative z-10">
-                {isSubmitting ? "Sending..." : "Send message"}
-              </span>
-            </button>
+            <div className="flex justify-center w-full">
+              <FlightButton type="submit" className="w-32" disabled={isSubmitting || !isFormValid} />
+            </div>
           </form>
 
           <div className="mt-10   flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400 font-custom2">
