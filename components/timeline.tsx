@@ -127,7 +127,6 @@ export const Timeline = () => {
 
   return (
     <div>
-      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
 
       <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-950 dark:text-neutral-50 pb-2 mt-2">
         <span className="link--elara">Experiences</span>
