@@ -23,7 +23,7 @@ const GithubGraph = () => {
   const [prs, setPrs] = useState<PR[]>([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
-  const [filterType, setFilterType] = useState<"merged" | "open" | "closed">("merged");
+  const [filterType, setFilterType] = useState<"all" | "merged" | "open" | "closed">("all");
   const [showPRSection, setShowPRSection] = useState(true);
   const [closedPRIds, setClosedPRIds] = useState<Set<number>>(new Set());
   const [mounted, setMounted] = useState(false);
@@ -44,11 +44,13 @@ const GithubGraph = () => {
   useEffect(() => {
     const fetchPRs = async () => {
       try {
-        const searchQuery = filterType === "merged"
-          ? "author:Ashutoshx7 type:pr is:merged"
-          : filterType === "open"
-            ? "author:Ashutoshx7 type:pr is:open"
-            : "author:Ashutoshx7 type:pr is:closed is:unmerged";
+        const searchQuery = filterType === "all"
+          ? "author:Ashutoshx7 type:pr"
+          : filterType === "merged"
+            ? "author:Ashutoshx7 type:pr is:merged"
+            : filterType === "open"
+              ? "author:Ashutoshx7 type:pr is:open"
+              : "author:Ashutoshx7 type:pr is:closed is:unmerged";
 
         const query = `query {
           search(query: "${searchQuery}", type: ISSUE, first: 12) {
@@ -163,14 +165,23 @@ const GithubGraph = () => {
               <span className="link--elara">Pull Requests</span>
             </h2>
             <div className="flex items-center gap-2">
-              <div className="relative grid grid-cols-3 p-1 bg-black/5 dark:bg-white/5 rounded-lg border border-neutral-300/30 dark:border-neutral-700/30 w-fit select-none">
+              <div className="relative grid grid-cols-4 p-1 bg-black/5 dark:bg-white/5 rounded-lg border border-neutral-300/30 dark:border-neutral-700/30 w-fit select-none">
                 {/* Sliding Pill Background */}
                 <div
-                  className={`absolute top-1 bottom-1 left-1 w-[calc((100%-8px)/3)] rounded bg-white dark:bg-neutral-800 shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] transform will-change-transform ${filterType === "merged" ? "translate-x-0" : filterType === "open" ? "translate-x-[100%]" : "translate-x-[200%]"
+                  className={`absolute top-1 bottom-1 left-1 w-[calc((100%-8px)/4)] rounded bg-white dark:bg-neutral-800 shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] transform will-change-transform ${filterType === "all" ? "translate-x-0" : filterType === "merged" ? "translate-x-[100%]" : filterType === "open" ? "translate-x-[200%]" : "translate-x-[300%]"
                     }`}
                 />
 
                 {/* Buttons */}
+                <button
+                  onClick={() => setFilterType("all")}
+                  className={`z-10 relative px-3 py-1.5 text-xs font-medium text-center transition-colors duration-200 ${filterType === "all"
+                    ? "text-neutral-900 dark:text-neutral-50"
+                    : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
+                    }`}
+                >
+                  All
+                </button>
                 <button
                   onClick={() => setFilterType("merged")}
                   className={`z-10 relative px-3 py-1.5 text-xs font-medium text-center transition-colors duration-200 ${filterType === "merged"
@@ -202,11 +213,13 @@ const GithubGraph = () => {
             </div>
           </div>
           <p className="text-xs text-neutral-600 dark:text-neutral-400 font-custom2 mb-4">
-            {filterType === "merged"
-              ? "Merged contributions to open source"
-              : filterType === "open"
-                ? "Active pull requests"
-                : "Closed pull requests"}
+            {filterType === "all"
+              ? "All pull requests"
+              : filterType === "merged"
+                ? "Merged contributions to open source"
+                : filterType === "open"
+                  ? "Active pull requests"
+                  : "Closed pull requests"}
           </p>
           <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14 mt-6"></div>
 
@@ -218,11 +231,11 @@ const GithubGraph = () => {
                 {prs.slice(0, showAll ? prs.length : initialCount).filter(pr => !closedPRIds.has(pr.id)).map((pr, index) => (
                   <div key={pr.id} className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50">
                     <div className="shrink-0 mt-0.5">
-                      <div className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-200 ${filterType === "merged"
-                        ? "bg-linear-to-r from-purple-400 to-pink-400"
-                        : filterType === "open"
-                          ? "bg-linear-to-r from-green-400 to-emerald-400"
-                          : "bg-linear-to-r from-red-400 to-rose-400"
+                      <div className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-200 ${pr.state === "MERGED"
+                          ? "bg-linear-to-r from-purple-400 to-pink-400"
+                          : pr.state === "OPEN"
+                            ? "bg-linear-to-r from-green-400 to-emerald-400"
+                            : "bg-linear-to-r from-red-400 to-rose-400"
                         }`}></div>
                     </div>
                     <a
