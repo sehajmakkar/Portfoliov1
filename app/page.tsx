@@ -60,7 +60,7 @@ export default function Home() {
 
         <div className="flex w-full flex-wrap items-center justify-between gap-4">
           <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50">
-            <span className="link--elara">Karn Singh</span>
+            <span className="link--elara">Ashutosh Singh</span>
           </h1>
 
           <div className="flex flex-wrap gap-4 sm:justify-end">
@@ -85,31 +85,31 @@ export default function Home() {
 
         <div className="text-secondary font-custom2 text-s mt-1">
           <p>
-            <span className="text-neutral-950 dark:text-neutral-100 font-semibold font-custom">⚀ </span>
+            <span className="text-neutral-950 dark:text-neutral-100 font-semibold"></span>
             <span className="text-neutral-700 dark:text-neutral-300">Engineer / Artist — I love building and breaking stuff.</span>
           </p>
 
           <p>
-            <span className="text-neutral-950 dark:text-neutral-100 font-semibold">⚁ </span>
+            <span className="text-neutral-950 dark:text-neutral-100 font-bold"></span>
             <span className="text-neutral-700 dark:text-neutral-300">AI is something that excites me nowadays.</span>
           </p>
 
           <p>
-            <span className="text-neutral-950 dark:text-neutral-100 font-semibold">⚂ </span>
+            <span className="text-neutral-950 dark:text-neutral-100 font-semibold"></span>
             <span className="text-neutral-700 dark:text-neutral-300">
               Believe in putting my code where my mouth is.
             </span>
           </p>
         </div>
 
-        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-3 opacity-90 dark:opacity-15"></div>
+        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] my-3 opacity-90 dark:opacity-15"></div>
 
 
-
+            
         <Projects />
 
         <br />
-        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
 
 
         <Timeline></Timeline>
@@ -121,11 +121,11 @@ export default function Home() {
         <br></br>
         <br></br>
         <br></br>
-        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
+        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
 
         <Skills />
         <br></br>
-        <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15 "></div>
+        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
 
         <GetInTouch />
 

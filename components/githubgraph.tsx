@@ -110,9 +110,9 @@ const GithubGraph = () => {
 
       <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold  text-3xl tracking-tight  py-2"><span className="link--elara">Proof Of Work</span></h1>
       <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-[0.4] opacity-90 dark:opacity-15"></div>
-      <p className=" font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
+      <p className=" font-custom2 text-neutral-700 dark:text-white mt-3 px-2 py-[7px]
            text-sm inline-block
-          bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border mb-6"> I live spending time in open source,building real stuff and solving real problems</p>
+          bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-300 border mb-6"> I live spending time in open source,building real stuff and solving real problems</p>
 
 
 
@@ -163,11 +163,18 @@ const GithubGraph = () => {
               <span className="link--elara">Pull Requests</span>
             </h2>
             <div className="flex items-center gap-2">
-              <div className="flex gap-1 bg-black/5 dark:bg-white/5 rounded-lg p-1 border border-neutral-300/30 dark:border-neutral-700/30 ">
+              <div className="relative grid grid-cols-3 p-1 bg-black/5 dark:bg-white/5 rounded-lg border border-neutral-300/30 dark:border-neutral-700/30 w-fit select-none">
+                {/* Sliding Pill Background */}
+                <div
+                  className={`absolute top-1 bottom-1 left-1 w-[calc((100%-8px)/3)] rounded bg-white dark:bg-neutral-800 shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] transform will-change-transform ${filterType === "merged" ? "translate-x-0" : filterType === "open" ? "translate-x-[100%]" : "translate-x-[200%]"
+                    }`}
+                />
+
+                {/* Buttons */}
                 <button
                   onClick={() => setFilterType("merged")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${filterType === "merged"
-                    ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
+                  className={`z-10 relative px-3 py-1.5 text-xs font-medium text-center transition-colors duration-200 ${filterType === "merged"
+                    ? "text-neutral-900 dark:text-neutral-50"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
                     }`}
                 >
@@ -175,8 +182,8 @@ const GithubGraph = () => {
                 </button>
                 <button
                   onClick={() => setFilterType("open")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${filterType === "open"
-                    ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
+                  className={`z-10 relative px-3 py-1.5 text-xs font-medium text-center transition-colors duration-200 ${filterType === "open"
+                    ? "text-neutral-900 dark:text-neutral-50"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
                     }`}
                 >
@@ -184,16 +191,14 @@ const GithubGraph = () => {
                 </button>
                 <button
                   onClick={() => setFilterType("closed")}
-                  className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${filterType === "closed"
-                    ? "bg-white dark:bg-neutral-800 text-neutral-900 dark:text-neutral-50 shadow-sm"
+                  className={`z-10 relative px-3 py-1.5 text-xs font-medium text-center transition-colors duration-200 ${filterType === "closed"
+                    ? "text-neutral-900 dark:text-neutral-50"
                     : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
                     }`}
                 >
                   Closed
                 </button>
               </div>
-
-
             </div>
           </div>
           <p className="text-xs text-neutral-600 dark:text-neutral-400 font-custom2 mb-4">

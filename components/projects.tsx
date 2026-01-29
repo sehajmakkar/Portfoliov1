@@ -77,7 +77,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   }, []);
 
   const projects: Project[] = [
-    
+
     {
       title: "VengenceUI",
       src: "/stage-1767884304520.png",
@@ -114,8 +114,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       github: "https://github.com/Ashutoshx7/Motion-SUITE",
       live: "https://motion-suite-site.vercel.app/",
     },
-    
-    
+
+
   ];
 
   return (

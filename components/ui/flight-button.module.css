@@ -40,7 +40,7 @@
   --success: var(--text-color);
   --shadow: transparent;
   --success-x: -12;
-  --success-stroke: 80; /* Increased length for full path */
+  --success-stroke: 65; /* Increased length for plane icon */
   --success-opacity: 0;
   --border-radius: 7;
   --overflow: hidden;
@@ -266,10 +266,10 @@
   height: 16px;
   margin: 4px 8px 0 0;
   fill: none;
-  stroke-width: 3; /* Increased thickness */
+  stroke-width: 2;
   stroke-linecap: round;
   stroke-linejoin: round;
-  stroke-dasharray: 80px; /* Coverage for full icon path */
+  stroke-dasharray: 65px; /* Matches new plane icon perimeter */
   stroke: var(--success);
   stroke-dashoffset: calc(var(--success-stroke) * 1px);
 }

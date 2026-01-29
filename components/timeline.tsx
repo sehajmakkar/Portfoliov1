@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { FiChevronDown } from 'react-icons/fi';
 import Image from 'next/image';
-import Link from "next/link";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -54,11 +54,16 @@ type Data = {
     src: string;
     href: string;
     tech?: TechKey[];
+    type?: string;
+    dates?: string;
+    location?: string;
   }[];
 };
 
 export const Timeline = () => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+  // Track which experience is open (by index)
+  const [openIdx, setOpenIdx] = useState<number | null>(null);
 
   const data: Data[] = [
     {
@@ -66,7 +71,7 @@ export const Timeline = () => {
       href: "https://summerofcode.withgoogle.com/",
       content: [
         {
-          title: "May 2025 - August 2025",
+          title: "Google Summer Of Code",
           description: `
             Built scalable solutions for open source organizations
             Received mentorship from top engineers and industry experts
@@ -75,6 +80,8 @@ export const Timeline = () => {
           src: "/Inquiro.png",
           href: "https://summerofcode.withgoogle.com/",
           tech: ["next", "ts", "react", "node"],
+          dates: "May 2025 - August 2025",
+          location: "Remote",
         },
       ],
     },
@@ -83,7 +90,7 @@ export const Timeline = () => {
       href: "https://c4gt.in/",
       content: [
         {
-          title: "May 2025 - August 2025",
+          title: "C4GT",
           description: `
             Developed innovative tools solving real developer problems
             Shipped production features with 10k+ downloads
@@ -92,6 +99,8 @@ export const Timeline = () => {
           src: "/Inquiro.png",
           href: "https://c4gt.in/",
           tech: ["prisma", "cloud", "langchain", "ts"],
+          dates: "May 2025 - August 2025",
+          location: "Remote",
         },
       ],
     },
@@ -100,7 +109,7 @@ export const Timeline = () => {
       href: "https://github.com/",
       content: [
         {
-          title: "December 2024 - April 2024",
+          title: "Open Source Contributor",
           description: `
             Mastered React, Node.js, databases, and deployment technologies
             Contributed to multiple popular open source projects
@@ -109,6 +118,8 @@ export const Timeline = () => {
           src: "/Inquiro.png",
           href: "https://github.com/",
           tech: ["react", "node", "ts"],
+          dates: "December 2024 - April 2024",
+          location: "Remote",
         },
       ],
     }
@@ -116,95 +127,104 @@ export const Timeline = () => {
 
   return (
     <div>
-      <h1 className=" text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50 pb-2 mt-2">
+      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
+
+      <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-950 dark:text-neutral-50 pb-2 mt-2">
         <span className="link--elara">Experiences</span>
       </h1>
-
-      <div className="pl-6">
+      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
+      <div className="flex flex-col gap-4">
         {data.map((year, idx) => (
-          
-          <div key={year.title} className=" relative">
-            {year.href ? (
-              <Link
-                href={year.href}
-                target="_blank"
-                className="text-neutral-900 dark:text-neutral-50 font-custom font-semibold py-1 tracking-wide text-lg hover:text-neutral-700 dark:hover:text-neutral-200 transition-colors "
-              >
-                <div className="absolute right-[-56] w-212 h-px bg-(--pattern-fg) border border-dashed opacity-15 dark:opacity-15  "></div>
-
-                
-                <div className="py-3">
-                {year.title}
-                </div>
-              </Link>
-            ) : (
-              <p className="text-neutral-900 dark:text-neutral-50 font-custom font-semibold py-1 tracking-wide text-lg mt-2">
-                {year.title}
-              </p>
-            )}
-
-            {year.content.map((item, idx) => (
-              <div
-                key={item.title}
-                className="flex flex-col gap-4 text-neutral-700 dark:text-neutral-300 font-custom2 text-sm md:text-s mt-3 md:flex-row md:items-center md:justify-between"
-              >
-                <div>
-                  <h3 className="font-medium text-neutral-900 dark:text-neutral-50">{item.title}</h3>
-                  <ul className="py-5 list-disc pl-6">
-                    {item.description
-                      .toString()
-                      .split("\n")
-                      .filter((line) => line.trim() !== "")
-                      .map((point, i) => (
-                        <li key={i}>{point}</li>
-                      ))}
-                  </ul>
-
-                  {/* 🔹 Icons Updated to match Skills style with Tooltip */}
-                  {item.tech && (
-                    <div className="flex flex-wrap gap-3 py-3">
-                      {item.tech.map((key) => {
-                        const Icon = iconMap[key];
-                        // Create a unique ID for each instance to avoid conflicts if same tech appears multiple times
-                        const uniqueId = `${item.title}-${key}`;
-
-                        return (
-                          <div
-                            key={key}
-                            className="group relative cursor-pointer"
-                            onMouseEnter={() => setHoveredTech(uniqueId)}
-                            onMouseLeave={() => setHoveredTech(null)}
-                          >
-                            <Icon
-                              className="w-5 h-5 text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-900 dark:group-hover:text-neutral-100 transition-colors"
-                            />
-
-                            {hoveredTech === uniqueId && (
-                              <div className="absolute -top-10 left-1/2 -translate-x-1/2 z-20">
-                                <div className="relative bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-neutral-100 text-[10px] font-medium px-2 py-1 rounded-md shadow-lg whitespace-nowrap border border-neutral-200 dark:border-neutral-700">
-                                  {techNames[key]}
-
-                                  {/* Arrow */}
-                                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-neutral-100 dark:bg-neutral-800 rotate-45 border-b border-r border-neutral-200 dark:border-neutral-700"></div>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        );
-                      })}
+          <div key={year.title} className="relative pb-2 -mx-2 md:-mx-14 px-2 md:px-14">
+            {year.content.map((item, cidx) => {
+              const isOpen = openIdx === idx * 100 + cidx;
+              return (
+                <React.Fragment key={item.title}>
+                  <div className="flex items-center gap-4 group py-3">
+                    {/* Logo */}
+                    <Image
+                      src={item.src}
+                      alt={item.title}
+                      width={40}
+                      height={40}
+                      className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 object-cover"
+                    />
+                    {/* Main summary info */}
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-base md:text-lg text-neutral-950 dark:text-neutral-50 truncate">
+                          {item.title}
+                        </span>
+                        {/* Optional: Full Time/Intern/Other badge */}
+                        {item.type && (
+                          <span className="ml-2 px-2 py-0.5 rounded bg-neutral-700 text-xs text-neutral-100 font-medium border border-neutral-600">
+                            {item.type}
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  )}
-                </div>
-
-                <Image
-                  src={item.src}
-                  alt={item.title}
-                  width={200}
-                  height={120}
-                  className="rounded-full size-10 self-start md:self-auto"
-                />
-              </div>
-            ))}
+                    {/* Dates and location */}
+                    <div className="text-right min-w-[120px]">
+                      <div className="text-xs md:text-sm font-semibold text-neutral-950 dark:text-neutral-50">
+                        {item.dates || item.title}
+                      </div>
+                      <div className="text-xs text-neutral-600 dark:text-neutral-400">
+                        {item.location || "Remote"}
+                      </div>
+                    </div>
+                    {/* See/Arrow button */}
+                    <button
+                      onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
+                      aria-expanded={isOpen}
+                      className="ml-2 flex items-center justify-center w-7 h-7 p-0 bg-transparent border-none shadow-none focus:outline-none group"
+                      style={{ transition: 'box-shadow 0.2s' }}
+                    >
+                      <FiChevronDown
+                        className={`w-5 h-5 transition-transform duration-300 stroke-[2.2] ${isOpen ? 'rotate-180 text-neutral-950 dark:text-neutral-50' : 'text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-neutral-50'}`}
+                        aria-hidden="true"
+                      />
+                      <span className="sr-only">{isOpen ? 'Hide details' : 'Show details'}</span>
+                    </button>
+                  </div>
+                  {/* Details section with smooth accordion animation */}
+                  <div
+                    className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                  >
+                    <div className="overflow-hidden pl-0 md:pl-14">
+                      {/* Inner container for padding control */}
+                      <div className={`${isOpen ? 'py-4 opacity-100 translate-y-0' : 'py-0 opacity-0 -translate-y-2'} transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]`}>
+                        <ul className="mb-4 list-disc list-outside ml-4 text-neutral-800 dark:text-neutral-200 text-sm space-y-2">
+                          {item.description
+                            .toString()
+                            .split("\n")
+                            .filter((line) => line.trim() !== "")
+                            .map((point, i) => (
+                              <li key={i}>{point}</li>
+                            ))}
+                        </ul>
+                        {/* Tech icons */}
+                        {item.tech && (
+                          <div className="flex flex-wrap gap-2">
+                            {item.tech.map((key) => {
+                              const name = techNames[key];
+                              return (
+                                <div
+                                  key={key}
+                                  className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-950 dark:text-neutral-200 shadow-sm"
+                                >
+                                  {name}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </React.Fragment>
+              );
+            })}
+            <div className="absolute bottom-0 left-0 w-full border-b border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15"></div>
           </div>
         ))}
       </div>
