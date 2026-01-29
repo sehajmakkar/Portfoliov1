@@ -25,7 +25,7 @@ export default function Contact() {
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
@@ -71,8 +71,10 @@ export default function Contact() {
           Hi there — I’m currently open to meaningful work.
         </p>
 
+
+
         <div className="w-full max-w-2xl p-0 md:p-0 relative z-10">
-          <form 
+          <form
             onSubmit={handleSubmit}
             className="space-y-6"
           >
@@ -137,7 +139,7 @@ export default function Contact() {
 
           <div className="mt-10   flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400 font-custom2">
             <div className="flex items-center gap-2">
-              <p>Karn Singh</p>
+              <p>Ashutosh</p>
             </div>
 
             {/* Displacement Text - Visible and Hoverable */}
@@ -151,16 +153,18 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="w-full h-60 relative overflow-hidden flex items-center justify-center ">
+
+
+
+        <div className="w-full h-96 relative overflow-hidden flex items-center justify-center -mt-20">
           <DisplacementText
-            text="KARN"
-            fontSize={450}
+            text="ASHUTOSH"
+            fontSize={300}
             className="h-full w-full"
             lightColor="#171717"
             darkColor="#e5e5e5"
           />
         </div>
-
 
       </Container>
     </div>

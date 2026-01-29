@@ -57,6 +57,7 @@ type Data = {
     type?: string;
     dates?: string;
     location?: string;
+    imageFit?: "contain" | "cover";
   }[];
 };
 
@@ -76,6 +77,7 @@ export const Timeline = () => {
             Built scalable solutions for open source organizations
             Received mentorship from top engineers and industry experts
             Contributed real-world features that impacted thousands of users
+            Optimized codebase performance and reduced technical debt significantly
           `,
           src: "/Inquiro.png",
           href: "https://summerofcode.withgoogle.com/",
@@ -95,6 +97,7 @@ export const Timeline = () => {
             Developed innovative tools solving real developer problems
             Shipped production features with 10k+ downloads
             Collaborated with open source maintainers and communities
+            Authored technical documentation to streamline developer onboarding
           `,
           src: "/Inquiro.png",
           href: "https://c4gt.in/",
@@ -114,6 +117,7 @@ export const Timeline = () => {
             Mastered React, Node.js, databases, and deployment technologies
             Contributed to multiple popular open source projects
             Built strong foundation in full-stack development practices
+            Participated in code reviews and community discussions actively
           `,
           src: "/Inquiro.png",
           href: "https://github.com/",
@@ -139,14 +143,17 @@ export const Timeline = () => {
               const isOpen = openIdx === idx * 100 + cidx;
               return (
                 <React.Fragment key={item.title}>
-                  <div className="flex items-center gap-4 group py-3">
+                  <div
+                    className="flex items-center gap-4 group py-3 cursor-pointer"
+                    onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
+                  >
                     {/* Logo */}
                     <Image
                       src={item.src}
                       alt={item.title}
                       width={40}
                       height={40}
-                      className="rounded-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 object-cover"
+                      className={`rounded-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 ${item.imageFit === 'contain' ? 'object-contain p-1' : 'object-cover'}`}
                     />
                     {/* Main summary info */}
                     <div className="flex-1 min-w-0">
@@ -172,27 +179,24 @@ export const Timeline = () => {
                       </div>
                     </div>
                     {/* See/Arrow button */}
-                    <button
-                      onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
-                      aria-expanded={isOpen}
+                    <div
                       className="ml-2 flex items-center justify-center w-7 h-7 p-0 bg-transparent border-none shadow-none focus:outline-none group"
-                      style={{ transition: 'box-shadow 0.2s' }}
                     >
                       <FiChevronDown
                         className={`w-5 h-5 transition-transform duration-300 stroke-[2.2] ${isOpen ? 'rotate-180 text-neutral-950 dark:text-neutral-50' : 'text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-neutral-50'}`}
                         aria-hidden="true"
                       />
                       <span className="sr-only">{isOpen ? 'Hide details' : 'Show details'}</span>
-                    </button>
+                    </div>
                   </div>
                   {/* Details section with smooth accordion animation */}
                   <div
                     className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
                   >
-                    <div className="overflow-hidden pl-0 md:pl-14">
+                    <div className="overflow-hidden">
                       {/* Inner container for padding control */}
                       <div className={`${isOpen ? 'py-4 opacity-100 translate-y-0' : 'py-0 opacity-0 -translate-y-2'} transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]`}>
-                        <ul className="mb-4 list-disc list-outside ml-4 text-neutral-800 dark:text-neutral-200 text-sm space-y-2">
+                        <ul className="mb-4 list-disc list-inside pl-0 text-neutral-800 dark:text-neutral-200 text-sm space-y-2">
                           {item.description
                             .toString()
                             .split("\n")
@@ -223,7 +227,16 @@ export const Timeline = () => {
                 </React.Fragment>
               );
             })}
-            <div className="absolute bottom-0 left-0 w-full border-b border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15"></div>
+            {idx !== data.length - 1 && (
+              <div
+                className="absolute bottom-0 left-0 w-full h-[1px] opacity-100 dark:opacity-15"
+                style={{
+                  backgroundImage: "linear-gradient(to right, var(--pattern-fg) 50%, transparent 50%)",
+                  backgroundSize: "15px 1px",
+                  backgroundRepeat: "repeat-x"
+                }}
+              />
+            )}
           </div>
         ))}
       </div>

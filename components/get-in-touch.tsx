@@ -7,15 +7,17 @@ import AnimatedButton from "@/components/ui/AnimatedButton";
 
 export default function GetInTouch() {
     return (
-        <div className="w-full mt-5 mb-10 relative z-10">
-            <div className="flex flex-col items-start space-y-6">
-                <div className="flex w-full justify-between items-center">
-                    <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50">
-                        <span className="link--elara">Get in touch</span>
-                    </h1>
-                </div>
+        <div className="w-full mt-8 mb-10 relative z-10">
+            <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-2 -mx-2 md:-mx-14"></div>
+            <div className="flex w-full justify-between items-center py-2">
+                <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-900 dark:text-neutral-50">
+                    <span className="link--elara">Get in touch</span>
+                </h1>
+            </div>
+            <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
 
-                <p className="font-custom2 text-neutral-700 dark:text-neutral-300 px-4 py-1 text-sm inline-block bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border">
+            <div className="flex flex-col items-start space-y-6">
+                <p className="font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-2 py-[7px] text-sm inline-block bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border mb-6">
                     Hi there — I’m currently open to meaningful work.
                 </p>
 
@@ -38,7 +40,7 @@ export default function GetInTouch() {
                         </button>
                     </Link>
 
-                    <Link href="https://cal.com/ashutosh-singh-0529" target="_blank">
+                    <Link href="https://cal.com/ashutosh-singh-f4r48q/30min" target="_blank">
                         <AnimatedButton className="group relative overflow-hidden rounded-lg 
                             bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
                             border border-neutral-200 dark:border-neutral-800 

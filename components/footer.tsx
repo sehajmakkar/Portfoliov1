@@ -26,7 +26,7 @@ const Footer = () => {
     <footer className="w-full bg-neutral-50 dark:bg-neutral-950">
       <Container className="flex flex-col items-center justify-between gap-4 py-2  sm:flex-row border border-neutral-200 dark:border-neutral-800">
         <p className="text-neutral-600 dark:text-neutral-400 text-sm font-custom2 tracking-normal transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-100">
-          Built with love by Karn Singh
+          Built with love by Ashutosh
         </p>
         <div className="flex items-center gap-4 ml-9">
           {socialLinks.map((link) => {

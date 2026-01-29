@@ -232,10 +232,10 @@ const GithubGraph = () => {
                   <div key={pr.id} className="group flex items-start gap-3 p-3 rounded-md transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-800/50 border border-transparent hover:border-neutral-300/50 dark:hover:border-neutral-700/50">
                     <div className="shrink-0 mt-0.5">
                       <div className={`w-1 h-1 rounded-full group-hover:scale-150 transition-transform duration-200 ${pr.state === "MERGED"
-                          ? "bg-linear-to-r from-purple-400 to-pink-400"
-                          : pr.state === "OPEN"
-                            ? "bg-linear-to-r from-green-400 to-emerald-400"
-                            : "bg-linear-to-r from-red-400 to-rose-400"
+                        ? "bg-linear-to-r from-purple-400 to-pink-400"
+                        : pr.state === "OPEN"
+                          ? "bg-linear-to-r from-green-400 to-emerald-400"
+                          : "bg-linear-to-r from-red-400 to-rose-400"
                         }`}></div>
                     </div>
                     <a

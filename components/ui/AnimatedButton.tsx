@@ -36,23 +36,10 @@ const AnimatedButton: React.FC<Props> = ({ children = 'Browse Components', class
         `text-neutral-900 dark:text-neutral-100 ${className} [--shine:rgba(0,0,0,.66)] dark:[--shine:rgba(255,255,255,.66)]`
       }
     >
-      {/* Text with shine mask */}
-      <motion.span
-        className="h-full w-full block relative z-10"
-        style={{
-          WebkitMaskImage:
-            'linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))',
-          maskImage:
-            'linear-gradient(-75deg, white calc(var(--mask-x) + 20%), transparent calc(var(--mask-x) + 30%), white calc(var(--mask-x) + 100%))',
-        }}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        initial={{ ['--mask-x' as any]: '100%' } as any}
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        animate={{ ['--mask-x' as any]: '-100%' } as any}
-        transition={{ repeat: Infinity, duration: 1, ease: 'linear', repeatDelay: 1 }}
-      >
+      {/* Text content */}
+      <span className="relative z-10 block">
         {children}
-      </motion.span>
+      </span>
 
       {/* Border shine effect uses the --shine variable so it adapts to theme */}
       <motion.span
