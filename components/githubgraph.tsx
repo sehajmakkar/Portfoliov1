@@ -105,11 +105,11 @@ const GithubGraph = () => {
 
   return (
     <div>
-      <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-2 -mx-2 md:-mx-14"></div>
 
 
       <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-bold  text-3xl tracking-tight  py-2"><span className="link--elara">Proof Of Work</span></h1>
-      <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) my-[0.4] opacity-90 dark:opacity-15"></div>
+      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
       <p className=" font-custom2 text-neutral-700 dark:text-white mt-3 px-2 py-[7px]
            text-sm inline-block
           bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-300 border mb-6"> I live spending time in open source,building real stuff and solving real problems</p>
@@ -208,7 +208,7 @@ const GithubGraph = () => {
                 ? "Active pull requests"
                 : "Closed pull requests"}
           </p>
-          <div className="hidden md:block absolute right-6 w-[53rem] h-px bg-(--pattern-fg) opacity-90 dark:opacity-15"></div>
+          <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14 mt-6"></div>
 
           {loading ? (
             <div className="text-neutral-600 dark:text-neutral-400 font-custom2 text-sm mt-4">Loading pull requests...</div>
