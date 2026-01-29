@@ -16,9 +16,11 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Karn",
+  title: "Ashutoshx7",
   description:
-    "A perfect portfolio website template that showcases my skills and learning",
+    "Engineer / Artist — I love building and breaking stuff"
+
+,
 };
 
 export default function RootLayout({
