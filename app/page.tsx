@@ -102,30 +102,30 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] my-3 opacity-90 dark:opacity-15"></div>
+        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-6 -mx-2 md:-mx-14"></div>
 
 
-            
+
         <Projects />
 
         <br />
-        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
+        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-6 -mx-2 md:-mx-14"></div>
 
 
         <Timeline></Timeline>
 
 
-        
+
         <GithubGraph></GithubGraph>
 
         <br></br>
         <br></br>
         <br></br>
-        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
+        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-6 -mx-2 md:-mx-14"></div>
 
         <Skills />
         <br></br>
-        <div className="hidden md:block absolute left-0 right-0 h-px bg-[--pattern-fg] opacity-90 dark:opacity-15"></div>
+        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-6 -mx-2 md:-mx-14"></div>
 
         <GetInTouch />
 
