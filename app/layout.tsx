@@ -17,10 +17,19 @@ const instrumentSerif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: "Ashutoshx7",
-  description:
-    "Engineer / Artist — I love building and breaking stuff"
-
-,
+  description: "Engineer / Artist — I love building and breaking stuff",
+  openGraph: {
+    title: "Ashutoshx7",
+    description: "Engineer / Artist — I love building and breaking stuff",
+    url: "https://www.ashutoshx7.me/", // Update to your actual URL if different
+    siteName: "Ashutoshx7",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ashutoshx7",
+    description: "Engineer / Artist — I love building and breaking stuff",
+  },
 };
 
 export default function RootLayout({
