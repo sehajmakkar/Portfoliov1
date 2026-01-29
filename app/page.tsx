@@ -108,8 +108,7 @@ export default function Home() {
 
         <Projects />
 
-        <br />
-        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-6 -mx-2 md:-mx-14"></div>
+        <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 my-4 -mx-2 md:-mx-14"></div>
 
 
         <Timeline></Timeline>
