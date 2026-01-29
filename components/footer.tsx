@@ -12,12 +12,12 @@ const Footer = () => {
     },
     {
       name: 'Twitter',
-      url: 'https://twitter.com',
+      url: 'https://x.com/Ashutosh_7x7',
       icon: Twitter
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com',
+      url: 'https://linkedin.com/in/your-linkedin',
       icon: Linkedin
     },
   ]

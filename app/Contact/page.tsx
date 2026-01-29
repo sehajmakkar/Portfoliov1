@@ -146,9 +146,15 @@ export default function Contact() {
             {/* Displacement Text - Visible and Hoverable */}
 
             <div className="flex items-center gap-4">
-              <Twitter size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
-              <Linkedin size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
-              <Github size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              <a href="https://x.com/Ashutosh_7x7" target="_blank" rel="noopener noreferrer">
+                <Twitter size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              </a>
+              <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
+                <Linkedin size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              </a>
+              <a href="https://github.com/Ashutoshx7" target="_blank" rel="noopener noreferrer">
+                <Github size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              </a>
             </div>
           </div>
         </div>
