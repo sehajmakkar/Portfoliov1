@@ -17,7 +17,7 @@ const Footer = () => {
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/your-linkedin',
+      url: 'https://www.linkedin.com/in/ashutosh-singh-385a843a4/',
       icon: Linkedin
     },
   ]
