@@ -321,7 +321,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "MotionSuite",
-      src: "/stage-1767884553863.png",
+      src: "/project-image/image copy 2.png",
+      lightModeSrc: "/project-image/image copy 3.png",
       video: "/scribble.mp4",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
       tech: ["ts", "next", "react", "motion"],
