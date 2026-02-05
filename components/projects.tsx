@@ -146,7 +146,7 @@ const ProjectCard = ({
                   left: "50%",
                   top: "22%",
                   x: "-50%",
-                  color: "#ffffff",
+                  color: "#000000",
                   opacity: 1
                 },
               }}

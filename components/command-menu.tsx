@@ -35,6 +35,11 @@ export function CommandMenu() {
     const router = useRouter()
     const { setTheme } = useTheme()
 
+    const openExternal = React.useCallback((url: string) => {
+        const opened = window.open(url, "_blank", "noopener,noreferrer")
+        if (!opened) window.location.assign(url)
+    }, [])
+
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -55,10 +60,18 @@ export function CommandMenu() {
     React.useEffect(() => {
         const down = (e: KeyboardEvent) => {
             const target = e.target as HTMLElement;
-            if (target.isContentEditable || target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.tagName === 'SELECT') {
-                return;
+            const isTypingField =
+                target.isContentEditable ||
+                target.tagName === 'INPUT' ||
+                target.tagName === 'TEXTAREA' ||
+                target.tagName === 'SELECT'
+
+            if (!open) {
+                return
             }
 
+            // When the command palette is open, we still want shortcuts to work
+            // even if the search input is focused.
             if (e.shiftKey) {
                 const key = e.key.toLowerCase()
 
@@ -77,13 +90,13 @@ export function CommandMenu() {
                 // Links
                 else if (key === 'x') {
                     e.preventDefault()
-                    runCommand(() => window.open("https://twitter.com", "_blank"))
+                    runCommand(() => openExternal("https://twitter.com"))
                 } else if (key === 'l') {
                     e.preventDefault()
-                    runCommand(() => window.open("https://linkedin.com", "_blank"))
+                    runCommand(() => openExternal("https://linkedin.com"))
                 } else if (key === 'g') {
                     e.preventDefault()
-                    runCommand(() => window.open("https://github.com", "_blank"))
+                    runCommand(() => openExternal("https://github.com"))
                 } else if (key === 'e') {
                     e.preventDefault()
                     runCommand(() => router.push("/Contact"))
@@ -106,12 +119,15 @@ export function CommandMenu() {
                     e.preventDefault()
                     runCommand(() => setTheme("system"))
                 }
+            } else if (isTypingField) {
+                // Allow normal typing when no shortcut is being used
+                return
             }
         }
 
         document.addEventListener("keydown", down)
         return () => document.removeEventListener("keydown", down)
-    }, [open, runCommand, router, setTheme])
+    }, [open, openExternal, runCommand, router, setTheme])
 
     return (
         <>
@@ -128,7 +144,7 @@ export function CommandMenu() {
 
             <CommandDialog open={open} onOpenChange={setOpen} className="font-custom2">
                 {/* Header Section */}
-                <div className="flex items-center gap-4 p-4 border-b border-neutral-100 dark:border-neutral-800">
+                <div className="flex items-center gap-4 p-4">
                     <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-neutral-100 dark:bg-neutral-800 text-neutral-500 dark:text-neutral-400">
                         <LayoutDashboard className="w-5 h-5" />
                     </div>
@@ -164,17 +180,17 @@ export function CommandMenu() {
                     <CommandSeparator className="my-2" />
 
                     <CommandGroup heading="Links">
-                        <CommandItem onSelect={() => runCommand(() => window.open("https://twitter.com", "_blank"))} className="rounded-lg py-3">
+                        <CommandItem onSelect={() => runCommand(() => openExternal("https://twitter.com"))} className="rounded-lg py-3">
                             <SiX className="mr-2 h-4 w-4 text-neutral-500" />
                             <span>X Profile</span>
                             <CommandShortcut className="font-mono text-[10px] bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded border border-neutral-200 dark:border-neutral-700">shift + X</CommandShortcut>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => window.open("https://linkedin.com", "_blank"))} className="rounded-lg py-3">
+                        <CommandItem onSelect={() => runCommand(() => openExternal("https://linkedin.com"))} className="rounded-lg py-3">
                             <SiLinkedin className="mr-2 h-4 w-4 text-neutral-500" />
                             <span>LinkedIn Profile</span>
                             <CommandShortcut className="font-mono text-[10px] bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded border border-neutral-200 dark:border-neutral-700">shift + L</CommandShortcut>
                         </CommandItem>
-                        <CommandItem onSelect={() => runCommand(() => window.open("https://github.com", "_blank"))} className="rounded-lg py-3">
+                        <CommandItem onSelect={() => runCommand(() => openExternal("https://github.com"))} className="rounded-lg py-3">
                             <SiGithub className="mr-2 h-4 w-4 text-neutral-500" />
                             <span>GitHub Profile</span>
                             <CommandShortcut className="font-mono text-[10px] bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 rounded border border-neutral-200 dark:border-neutral-700">shift + G</CommandShortcut>
