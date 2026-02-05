@@ -81,8 +81,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     {
       title: "VengenceUI",
       src: "/stage-1767884304520.png",
-      video: "https://www.youtube.com/embed/98QD-V3ox8g?si=wPWipbLIfGpQ9ttK",
-      description: "An AI-powered web IDE built fully in the browser using WebContainers.",
+      video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
+      description: "VengenceUI helps you to build your landing page by providing you animated beautiful components out of the box",
       tech: ["next", "ts", "cloud", "node"],
       github: "https://github.com/Ashutoshx7/VengeanceUI",
       live: "https://www.vengenceui.com/",
@@ -90,11 +90,20 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     {
       title: "Scribble3D",
       src: "/Scribble3D.png",
-      video: "/scribble.mp4",
-      description: "A real-time research assistant built with modern web technologies.",
+      video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
+      description: "Scribble3D is an AI-powered creative suite that removes the complexity of 3D modeling. From quick doodles to detailed sketches",
       tech: ["ts", "next", "prisma", "langchain"],
       github: "https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-",
       live: "https://yourlive.com",
+    },
+    {
+     title: "Blueprint",
+      src: "/stage-1767884553863.png",
+      video: "",
+      description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
+      tech: ["ts", "next", "react", "motion"],
+      github: "https://github.com/Ashutoshx7/Motion-SUITE",
+      live: "https://motion-suite-site.vercel.app/",
     },
     {
       title: "Inquiro",
@@ -105,6 +114,16 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       github: "https://github.com/Ashutoshx7/Inquiro-",
       live: "https://yourlive.com",
     },
+     {
+     title: "RepoLens",
+      src: "/stage-1767884553863.png",
+      video: "",
+      description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
+      tech: ["ts", "next", "react", "motion"],
+      github: "https://github.com/Ashutoshx7/Motion-SUITE",
+      live: "https://motion-suite-site.vercel.app/",
+    },
+    
     {
       title: "MotionSuite",
       src: "/stage-1767884553863.png",
@@ -114,6 +133,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       github: "https://github.com/Ashutoshx7/Motion-SUITE",
       live: "https://motion-suite-site.vercel.app/",
     },
+  
 
 
   ];
@@ -216,13 +236,15 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                 <h2 className="text-lg font-custom font-semibold text-neutral-900 dark:text-neutral-50">
                   {project.title}
                 </h2>
-
                 <div className="flex gap-3">
-                  <Globe
-                    size={17}
-                    onClick={() => window.open(project.live, "_blank")}
-                    className="opacity-75 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300"
-                  />
+                  {/* Only show Globe (live) icon if not Scribble3D */}
+                  {project.title !== "Scribble3D" && (
+                    <Globe
+                      size={17}
+                      onClick={() => window.open(project.live, "_blank")}
+                      className="opacity-75 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300"
+                    />
+                  )}
                   <Github
                     size={17}
                     onClick={() => window.open(project.github, "_blank")}
