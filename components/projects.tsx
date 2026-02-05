@@ -220,8 +220,9 @@ const ProjectCard = ({
             {project.description}
           </p>
 
-          <div className="flex gap-3 flex-wrap pt-2">
-            {project.tech.map((key) => {
+          <div className="flex items-center justify-between gap-3 pt-2">
+            <div className="flex gap-3 flex-wrap">
+              {project.tech.map((key) => {
               const Icon = iconMap[key];
               const uniqueId = `${project.title}-${key}`;
 
@@ -249,7 +250,24 @@ const ProjectCard = ({
                   </AnimatePresence>
                 </div>
               );
-            })}
+              })}
+            </div>
+
+            {(() => {
+              const isBuilding = project.title === "Inquiro" || project.title === "Blueprint";
+              const dotColor = isBuilding ? "bg-red-500" : "bg-emerald-500";
+              const label = isBuilding ? "Building" : "All Systems Operational";
+
+              return (
+                <span className="shrink-0 inline-flex items-center gap-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black px-3 py-1 text-[10px] font-medium font-custom2 text-neutral-700 dark:text-neutral-200">
+                  <span className="relative flex h-2 w-2">
+                    <span className={`absolute inline-flex h-full w-full rounded-full ${dotColor} animate-[statusDotPulse_2.6s_ease-in-out_infinite] motion-reduce:animate-none`} />
+                    <span className={`relative inline-flex h-2 w-2 rounded-full ${dotColor}`} />
+                  </span>
+                  {label}
+                </span>
+              );
+            })()}
           </div>
         </div>
       </div>
