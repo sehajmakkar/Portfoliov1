@@ -149,7 +149,7 @@ export default function Contact() {
               <a href="https://x.com/Ashutosh_7x7" target="_blank" rel="noopener noreferrer">
                 <Twitter size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
               </a>
-                <a href="https://www.linkedin.com/in/ashutosh-singh-385a843a4/" target="_blank" rel="noopener noreferrer">
+              <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
               </a>
               <a href="https://github.com/Ashutoshx7" target="_blank" rel="noopener noreferrer">

@@ -22,7 +22,7 @@ export default function Home() {
     {
       name: "LinkedIn",
       icon: Linkedin,
-      action: () => window.open("https://www.linkedin.com/in/ashutosh-singh-385a843a4/", "_blank"),
+      action: () => window.open("https://linkedin.com/in/your-linkedin", "_blank"),
     },
     {
       name: "X",

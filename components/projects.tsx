@@ -133,7 +133,7 @@ const ProjectCard = ({
 
             {/* Title - Subtler slide */}
             <motion.h1
-              className="absolute top-2 left-2 text-[10px] font-bold font-custom text-neutral-500 dark:text-neutral-400 z-30 uppercase tracking-widest"
+              className="absolute top-2 left-2 text-[11px] font-bold font-custom text-neutral-500 dark:text-neutral-400 z-30 uppercase tracking-widest drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)]"
               variants={{
                 rest: {
                   left: "0.75rem",
@@ -144,7 +144,7 @@ const ProjectCard = ({
                 },
                 hover: {
                   left: "50%",
-                  top: "20%",
+                  top: "22%",
                   x: "-50%",
                   color: "#ffffff",
                   opacity: 1
@@ -197,7 +197,7 @@ const ProjectCard = ({
         {/* Content area */}
         <div className="flex flex-col gap-2 px-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold font-custom tracking-wide text-neutral-900 dark:text-neutral-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+            <h3 className="text-lg font-bold font-custom tracking-wide text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
               {project.title}
             </h3>
             <div className="flex gap-3">
@@ -216,7 +216,7 @@ const ProjectCard = ({
             </div>
           </div>
 
-          <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400 font-custom tracking-wide h-10 group-hover:text-neutral-900 dark:group-hover:text-neutral-200 transition-colors duration-300">
+          <p className="line-clamp-2 text-sm text-neutral-600 dark:text-neutral-400 font-custom2 h-10 group-hover:text-neutral-900 dark:group-hover:text-neutral-200 transition-colors duration-300">
             {project.description}
           </p>
 
@@ -337,8 +337,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       {/* Subtitle */}
       <p
         className="
-          font-custom text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
-           text-sm inline-block tracking-wide
+          font-custom2 text-neutral-700 dark:text-neutral-300 mt-3 px-4 py-[7px]
+           text-sm inline-block
           bg-neutral-100 dark:bg-neutral-900 border-dashed border-neutral-300 dark:border-neutral-700 border
         "
       >
