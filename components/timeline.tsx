@@ -58,6 +58,7 @@ type Data = {
     dates?: string;
     location?: string;
     imageFit?: "contain" | "cover";
+    imageZoom?: number;
   }[];
 };
 
@@ -79,11 +80,13 @@ export const Timeline = () => {
             Contributed real-world features that impacted thousands of users
             Optimized codebase performance and reduced technical debt significantly
           `,
-          src: "/Inquiro.png",
+          src: "/Experience-image/Google_Summer_of_Code_sun_logo_2022.svg%20(1).png",
           href: "https://summerofcode.withgoogle.com/",
           tech: ["next", "ts", "react", "node"],
           dates: "May 2025 - August 2025",
           location: "Remote",
+          imageFit: "contain",
+          imageZoom: 0.9,
         },
       ],
     },
@@ -99,11 +102,13 @@ export const Timeline = () => {
             Collaborated with open source maintainers and communities
             Authored technical documentation to streamline developer onboarding
           `,
-          src: "/Inquiro.png",
+          src: "https://static.wixstatic.com/media/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png/v1/fill/w_2266,h_2168,al_c,q_95,usm_0.66_1.00_0.01,enc_auto/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png",
           href: "https://c4gt.in/",
           tech: ["prisma", "cloud", "langchain", "ts"],
           dates: "May 2025 - August 2025",
           location: "Remote",
+          imageFit: "contain",
+          imageZoom: 1.2,
         },
       ],
     },
@@ -119,11 +124,13 @@ export const Timeline = () => {
             Built strong foundation in full-stack development practices
             Participated in code reviews and community discussions actively
           `,
-          src: "/Inquiro.png",
+          src: "/Experience-image/pngegg%20(1).png",
           href: "https://github.com/",
           tech: ["react", "node", "ts"],
           dates: "December 2024 - April 2024",
           location: "Remote",
+          imageFit: "contain",
+          imageZoom: 1.5,
         },
       ],
     }
@@ -148,13 +155,20 @@ export const Timeline = () => {
                     onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
                   >
                     {/* Logo */}
-                    <Image
-                      src={item.src}
-                      alt={item.title}
-                      width={40}
-                      height={40}
-                      className={`rounded-lg border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 ${item.imageFit === 'contain' ? 'object-contain p-1' : 'object-cover'}`}
-                    />
+                    <div className="w-12 h-12 rounded-lg border border-neutral-200 dark:border-neutral-700 p-[2px] shrink-0">
+                      <div
+                        className={`w-full h-full rounded-md border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden ${item.imageFit === 'contain' ? 'bg-neutral-50 dark:bg-neutral-50' : 'bg-neutral-50 dark:bg-neutral-900'}`}
+                      >
+                        <Image
+                          src={item.src}
+                          alt={item.title}
+                          width={48}
+                          height={48}
+                          style={item.imageZoom ? { transform: `scale(${item.imageZoom})` } : undefined}
+                          className={`${item.imageFit === 'contain' ? 'object-contain' : 'object-cover'} w-full h-full`}
+                        />
+                      </div>
+                    </div>
                     {/* Main summary info */}
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
