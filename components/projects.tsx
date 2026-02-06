@@ -327,7 +327,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "Inquiro",
-      src: "/Inquiro.png",
+      src: "/Screenshot 2026-02-07 011550.png",
+      lightModeSrc: "/Screenshot 2026-02-07 012511.png",
       video: "/inquiro.mp4",
       description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
       tech: ["next", "ts", "react", "three"],
