@@ -155,9 +155,9 @@ export const Timeline = () => {
                     onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
                   >
                     {/* Logo */}
-                    <div className="w-12 h-12 rounded-lg border border-neutral-200 dark:border-neutral-700 p-[2px] shrink-0">
+                    <div className="w-12 h-12 rounded-lg border border-neutral-200/80 dark:border-neutral-700 p-[2px] bg-neutral-50 dark:bg-neutral-900 shrink-0">
                       <div
-                        className={`w-full h-full rounded-md border border-neutral-200/70 dark:border-neutral-700/70 overflow-hidden ${item.imageFit === 'contain' ? 'bg-neutral-50 dark:bg-neutral-50' : 'bg-neutral-50 dark:bg-neutral-900'}`}
+                        className={`w-full h-full rounded-md border border-neutral-200/60 dark:border-neutral-700/70 overflow-hidden ${item.imageFit === 'contain' ? 'bg-neutral-50 dark:bg-neutral-50' : 'bg-neutral-50 dark:bg-neutral-900'}`}
                       >
                         <Image
                           src={item.src}
