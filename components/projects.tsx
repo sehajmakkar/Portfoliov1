@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, Github, X } from "lucide-react";
+import { Globe, Github, Star, X } from "lucide-react";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -41,6 +41,7 @@ interface Project {
   tech: TechKey[];
   github: string;
   live: string;
+  starsText?: string;
   backgroundImage?: string;
 }
 
@@ -69,12 +70,6 @@ const techNames: Record<TechKey, string> = {
 };
 
 // Colorful gradients matching the "Narsi" aesthetic
-const CARD_GRADIENTS = [
-  "linear-gradient(to bottom right, #f9a8d4, #a78bfa, #818cf8)", // Pink/Purple/Indigo
-  "linear-gradient(to bottom right, #6ee7b7, #3b82f6, #9333ea)", // Green/Blue/Purple
-  "linear-gradient(to bottom right, #fbbf24, #f87171, #c084fc)", // Amber/Red/Purple
-  "linear-gradient(to bottom right, #38bdf8, #818cf8, #c084fc)", // Sky/Indigo/Purple
-];
 
 
 const ProjectCard = ({
@@ -99,7 +94,6 @@ const ProjectCard = ({
     : project.src;
 
   // Clean, consistent gradients
-  const backgroundGradient = CARD_GRADIENTS[idx % CARD_GRADIENTS.length];
 
   return (
     <motion.div
@@ -197,10 +191,22 @@ const ProjectCard = ({
         {/* Content area */}
         <div className="flex flex-col gap-2 px-1">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-bold font-custom tracking-wide text-neutral-900 dark:text-neutral-100 transition-colors duration-300">
-              {project.title}
-            </h3>
-            <div className="flex gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <h3 className="text-lg font-bold font-custom tracking-wide text-neutral-900 dark:text-neutral-100 transition-colors duration-300 truncate">
+                {project.title}
+              </h3>
+              {project.starsText && (
+                <span className="shrink-0 inline-flex items-center gap-1.5 rounded-full border border-neutral-200 dark:border-neutral-800 bg-neutral-50/80 dark:bg-neutral-900/40 px-2 py-0.5 text-[10px] font-medium font-custom2 text-neutral-700 dark:text-neutral-200 backdrop-blur">
+                  <Star
+                    size={12}
+                    fill="currentColor"
+                    className="text-amber-500/90 dark:text-amber-400"
+                  />
+                  <span>{project.starsText}</span>
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-3">
               {project.title !== "Scribble3D" && (
                 <Globe
                   size={16}
@@ -296,6 +302,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       tech: ["next", "ts", "cloud", "node"],
       github: "https://github.com/Ashutoshx7/VengeanceUI",
       live: "https://www.vengenceui.com/",
+      starsText: "500+ Github Stars",
       backgroundImage: "/image copy 5.png",
     },
     {
