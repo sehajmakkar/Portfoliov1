@@ -2,12 +2,13 @@
 
 // Refined ProjectCard with Ambient Backgrounds by Narsi
 import { useState, useEffect, useRef } from "react";
+import type { ComponentType } from "react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, Github, Star, X } from "lucide-react";
+import { Globe, Github, Star, X, Network, Search } from "lucide-react";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -18,8 +19,24 @@ import {
   SiLangchain,
   SiNodedotjs,
   SiFramer,
+  SiTailwindcss,
+  SiBun,
+  SiEslint,
+  SiRadixui,
+  SiChartdotjs,
+  SiGithub,
+  SiFastapi,
+  SiRedis,
+  SiCelery,
+  SiTldraw,
+  SiCss3,
+  SiPython,
+  SiAnthropic,
+  SiClaude,
+  SiGooglegemini,
+  SiMeta,
 } from "react-icons/si";
-import { IconType } from "react-icons";
+type TechIcon = ComponentType<{ className?: string }>;
 
 type TechKey =
   | "next"
@@ -29,8 +46,33 @@ type TechKey =
   | "prisma"
   | "cloud"
   | "langchain"
+  | "langgraph"
+  | "rag"
   | "node"
-  | "motion";
+  | "motion"
+  | "tailwind"
+  | "bun"
+  | "eslint"
+  | "radixui"
+  | "charts"
+  | "github"
+  | "fastapi"
+  | "redis"
+  | "celery"
+  | "tldraw"
+  | "css3"
+  | "python"
+  | "anthropic"
+  | "claude"
+  | "gemini"
+  | "llama";
+
+type TechItem =
+  | TechKey
+  | {
+      label: string;
+      tooltip?: string;
+    };
 
 interface Project {
   title: string;
@@ -38,14 +80,14 @@ interface Project {
   lightModeSrc?: string;
   video: string;
   description: string;
-  tech: TechKey[];
+  tech: TechItem[];
   github: string;
   live: string;
   starsText?: string;
   backgroundImage?: string;
 }
 
-const iconMap: Record<TechKey, IconType> = {
+const iconMap: Record<TechKey, TechIcon> = {
   next: SiNextdotjs,
   ts: SiTypescript,
   react: SiReact,
@@ -53,8 +95,26 @@ const iconMap: Record<TechKey, IconType> = {
   prisma: SiPrisma,
   cloud: SiCloudflare,
   langchain: SiLangchain,
+  langgraph: Network,
+  rag: Search,
   node: SiNodedotjs,
   motion: SiFramer,
+  tailwind: SiTailwindcss,
+  bun: SiBun,
+  eslint: SiEslint,
+  radixui: SiRadixui,
+  charts: SiChartdotjs,
+  github: SiGithub,
+  fastapi: SiFastapi,
+  redis: SiRedis,
+  celery: SiCelery,
+  tldraw: SiTldraw,
+  css3: SiCss3,
+  python: SiPython,
+  anthropic: SiAnthropic,
+  claude: SiClaude,
+  gemini: SiGooglegemini,
+  llama: SiMeta,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -65,8 +125,26 @@ const techNames: Record<TechKey, string> = {
   prisma: "Prisma",
   cloud: "Cloudflare",
   langchain: "LangChain",
+  langgraph: "LangGraph",
+  rag: "RAG (Retrieval-Augmented Generation)",
   node: "Node.js",
   motion: "Framer Motion",
+  tailwind: "Tailwind CSS",
+  bun: "Bun",
+  eslint: "ESLint",
+  radixui: "Radix UI (shadcn/ui)",
+  charts: "Charts (Recharts)",
+  github: "GitHub API (Octokit)",
+  fastapi: "FastAPI",
+  redis: "Redis",
+  celery: "Celery",
+  tldraw: "tldraw",
+  css3: "CSS3",
+  python: "Python",
+  anthropic: "Anthropic",
+  claude: "Claude",
+  gemini: "Gemini",
+  llama: "LLaMA",
 };
 
 // Colorful gradients matching the "Narsi" aesthetic
@@ -207,7 +285,7 @@ const ProjectCard = ({
               )}
             </div>
             <div className="flex items-center gap-3">
-              {project.title !== "Scribble3D" && (
+              {project.title !== "Scribble3D" && project.title !== "Blueprint" && project.title !== "RepoLens" && project.title !== "Inquiro" && (
                 <Globe
                   size={16}
                   onClick={(e) => { e.stopPropagation(); window.open(project.live, "_blank"); }}
@@ -228,8 +306,10 @@ const ProjectCard = ({
 
           <div className="flex items-center justify-between gap-3 pt-2">
             <div className="flex gap-3 flex-wrap">
-              {project.tech.map((key) => {
-              const Icon = iconMap[key];
+              {project.tech.map((item) => {
+              const key = typeof item === "string" ? item : item.label;
+              const isIconItem = typeof item === "string";
+              const tooltipText = isIconItem ? techNames[item] : (item.tooltip || item.label);
               const uniqueId = `${project.title}-${key}`;
 
               return (
@@ -239,7 +319,18 @@ const ProjectCard = ({
                   onMouseEnter={() => setHoveredTech(uniqueId)}
                   onMouseLeave={() => setHoveredTech(null)}
                 >
-                  <Icon className="w-4 h-4 text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors" />
+                  {isIconItem ? (
+                    (() => {
+                      const TechIcon = iconMap[item];
+                      return (
+                        <TechIcon className="w-4 h-4 text-neutral-400 dark:text-neutral-500 hover:text-neutral-900 dark:hover:text-neutral-100 transition-colors" />
+                      );
+                    })()
+                  ) : (
+                    <span className="px-1.5 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-[9px] font-custom2 text-neutral-500 dark:text-neutral-400 leading-none">
+                      {item.label}
+                    </span>
+                  )}
                   <AnimatePresence>
                     {hoveredTech === uniqueId && (
                       <motion.div
@@ -248,8 +339,8 @@ const ProjectCard = ({
                         exit={{ opacity: 0, y: 5 }}
                         className="absolute -top-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none"
                       >
-                        <div className="bg-neutral-900 dark:bg-neutral-100 text-neutral-100 dark:text-neutral-900 text-[10px] px-2 py-0.5 rounded shadow-xl whitespace-nowrap">
-                          {techNames[key]}
+                        <div className="bg-neutral-900 dark:bg-neutral-100 text-neutral-100 dark:text-neutral-900 text-[10px] px-2 py-0.5 rounded shadow-xl whitespace-nowrap font-custom2">
+                          {tooltipText}
                         </div>
                       </motion.div>
                     )}
@@ -310,7 +401,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/project-image/image.png",
       video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
       description: "VengenceUI helps you to build your landing page by providing you animated beautiful components out of the box",
-      tech: ["next", "ts", "cloud", "node"],
+      tech: ["next", "react", "ts", "tailwind", "motion"],
       github: "https://github.com/Ashutoshx7/VengeanceUI",
       live: "https://www.vengenceui.com/",
       starsText: "500+ Github Stars",
@@ -322,7 +413,14 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/Screenshot%202026-02-07%20234011.png",
       video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
       description: "Scribble3D is an AI-powered creative suite that removes the complexity of 3D modeling. From quick doodles to detailed sketches",
-      tech: ["ts", "next", "prisma", "langchain"],
+      tech: [
+        "next",
+        "tldraw",
+        "three",
+        "ts",
+        "fastapi",
+        "gemini",
+      ],
       github: "https://github.com/Ashutoshx7/Scribble3D-Sketch-to-3rd-",
       live: "https://yourlive.com",
       backgroundImage: "/image copy.png",
@@ -333,8 +431,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/Screenshot%202026-02-07%20233831.png",
       video: "",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
-      tech: ["ts", "next", "react", "motion"],
-      github: "https://github.com/Ashutoshx7/Motion-SUITE",
+      tech: ["next", "ts", "tailwind", "prisma", "bun", "node", "langchain", "rag"],
+      github: "https://github.com/Ashutoshx7/Blueprint",
       live: "https://motion-suite-site.vercel.app/",
       backgroundImage: "/image copy 3.png",
     },
@@ -344,7 +442,15 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/Screenshot 2026-02-07 012511.png",
       video: "/inquiro.mp4",
       description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
-      tech: ["next", "ts", "react", "three"],
+      tech: [
+        "next",
+        "ts",
+        "radixui",
+        "node",
+        "gemini",
+        "langchain",
+        "langgraph",
+      ],
       github: "https://github.com/Ashutoshx7/Inquiro-",
       live: "https://yourlive.com",
       backgroundImage: "/image copy 4.png",
@@ -353,10 +459,17 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       title: "RepoLens",
       src: "/Screenshot%202026-02-07%20225125.png",
       lightModeSrc: "/Screenshot%202026-02-07%20225107.png",
-      video: "",
+      video: "https://www.youtube.com/embed/nuE-KWBeauE?si=z-hrZjuMuFVfSxc5",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
-      tech: ["ts", "next", "react", "motion"],
-      github: "https://github.com/Ashutoshx7/Motion-SUITE",
+      tech: [
+        "next",
+        "tailwind",
+        "radixui",
+        "charts",
+        "github",
+        "rag",
+      ],
+      github: "https://github.com/Ashutoshx7/RepoLens-",
       live: "https://motion-suite-site.vercel.app/",
     },
     {
