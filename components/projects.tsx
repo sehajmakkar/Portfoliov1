@@ -147,7 +147,6 @@ const techNames: Record<TechKey, string> = {
   llama: "LLaMA",
 };
 
-// Colorful gradients matching the "Narsi" aesthetic
 
 
 const ProjectCard = ({
@@ -289,13 +288,13 @@ const ProjectCard = ({
                 <Globe
                   size={16}
                   onClick={(e) => { e.stopPropagation(); window.open(project.live, "_blank"); }}
-                  className="opacity-50 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300 hover:scale-110 active:scale-95"
+                  className="opacity-50 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300"
                 />
               )}
               <Github
                 size={16}
                 onClick={(e) => { e.stopPropagation(); window.open(project.github, "_blank"); }}
-                className="opacity-50 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300 hover:scale-110 active:scale-95"
+                className="opacity-50 hover:opacity-100 transition cursor-pointer text-neutral-700 dark:text-neutral-300"
               />
             </div>
           </div>
@@ -400,7 +399,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       src: "/project-image/image copy.png",
       lightModeSrc: "/project-image/image.png",
       video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
-      description: "VengenceUI helps you to build your landing page by providing you animated beautiful components out of the box",
+      description: "VengenceUI helps you to build your landing page by providing you animated beautiful components",
       tech: ["next", "react", "ts", "tailwind", "motion"],
       github: "https://github.com/Ashutoshx7/VengeanceUI",
       live: "https://www.vengenceui.com/",
@@ -412,7 +411,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       src: "/Screenshot%202026-02-07%20234301.png",
       lightModeSrc: "/Screenshot%202026-02-07%20234011.png",
       video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
-      description: "Scribble3D is an AI-powered creative suite that removes the complexity of 3D modeling. From quick doodles to detailed sketches",
+      description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
       tech: [
         "next",
         "tldraw",
@@ -430,7 +429,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       src: "/Screenshot%202026-02-07%20233440.png",
       lightModeSrc: "/Screenshot%202026-02-07%20233831.png",
       video: "",
-      description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
+      description: "Blueprint is an AI UI builder that turns prompts into structured, production-ready interfaces.",
       tech: ["next", "ts", "tailwind", "prisma", "bun", "node", "langchain", "rag"],
       github: "https://github.com/Ashutoshx7/Blueprint",
       live: "https://motion-suite-site.vercel.app/",
@@ -441,7 +440,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       src: "/Screenshot 2026-02-07 011550.png",
       lightModeSrc: "/Screenshot 2026-02-07 012511.png",
       video: "/inquiro.mp4",
-      description: "Turn your sketches into 3D objects and worlds — no 3D skills required.",
+      description: "Inquiro is a  AI-powered search engine that helps you find information on the internet",
       tech: [
         "next",
         "ts",
@@ -460,7 +459,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       src: "/Screenshot%202026-02-07%20225125.png",
       lightModeSrc: "/Screenshot%202026-02-07%20225107.png",
       video: "https://www.youtube.com/embed/nuE-KWBeauE?si=z-hrZjuMuFVfSxc5",
-      description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
+      description: "An all-in-one GitHub explorer with tech stack insights, code browsing, and analytics.",
       tech: [
         "next",
         "tailwind",
