@@ -338,7 +338,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "RepoLens",
-      src: "/stage-1767884553863.png",
+      src: "/Screenshot%202026-02-07%20225125.png",
+      lightModeSrc: "/Screenshot%202026-02-07%20225107.png",
       video: "",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
       tech: ["ts", "next", "react", "motion"],
