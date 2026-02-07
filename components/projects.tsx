@@ -260,9 +260,20 @@ const ProjectCard = ({
             </div>
 
             {(() => {
-              const isBuilding = project.title === "Inquiro" || project.title === "Blueprint";
-              const dotColor = isBuilding ? "bg-red-500" : "bg-emerald-500";
-              const label = isBuilding ? "Building" : "All Systems Operational";
+              const isNotStarted = project.title === "Inquiro";
+              const isBuilding = project.title === "Blueprint";
+
+              const dotColor = isNotStarted
+                ? "bg-neutral-400"
+                : isBuilding
+                ? "bg-red-500"
+                : "bg-emerald-500";
+
+              const label = isNotStarted
+                ? "Not Started Yet"
+                : isBuilding
+                ? "Building"
+                : "All Systems Operational";
 
               return (
                 <span className="shrink-0 inline-flex items-center gap-2 rounded-full border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-black px-3 py-1 text-[10px] font-medium font-custom2 text-neutral-700 dark:text-neutral-200">
@@ -307,7 +318,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "Scribble3D",
-      src: "/Scribble3D.png",
+      src: "/Screenshot%202026-02-07%20234301.png",
+      lightModeSrc: "/Screenshot%202026-02-07%20234011.png",
       video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
       description: "Scribble3D is an AI-powered creative suite that removes the complexity of 3D modeling. From quick doodles to detailed sketches",
       tech: ["ts", "next", "prisma", "langchain"],
@@ -317,7 +329,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     },
     {
       title: "Blueprint",
-      src: "/stage-1767884553863.png",
+      src: "/Screenshot%202026-02-07%20233440.png",
+      lightModeSrc: "/Screenshot%202026-02-07%20233831.png",
       video: "",
       description: "motion-suite is a lightweight animation toolkit for React + Framer Motion",
       tech: ["ts", "next", "react", "motion"],
