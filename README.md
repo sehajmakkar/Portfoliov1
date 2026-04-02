@@ -1,20 +1,44 @@
 # Portfoliov1
 
-Personal portfolio website built with Next.js, TypeScript, Tailwind CSS, MDX, and Framer Motion.
+[![Live Site](https://img.shields.io/badge/Live-karnashutosh.tech-111111?style=for-the-badge&logo=vercel)](https://www.karnashutosh.tech/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
 
-## Live Website
+Personal portfolio website built with Next.js App Router, TypeScript, Tailwind CSS, MDX, and Framer Motion.
 
-- https://www.karnashutosh.tech/
+`#portfolio` `#nextjs` `#typescript` `#tailwindcss` `#mdx` `#framer-motion` `#vercel`
 
-## Highlights
+## Table of Contents
 
-- App Router architecture with Next.js
-- Responsive UI with Tailwind CSS + reusable components
-- Animated interactions using Framer Motion
-- Blog system powered by MDX
-- Dynamic GitHub graph and project integration
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Environment Variables](#environment-variables)
+- [Scripts](#scripts)
+- [Deployment](#deployment)
+- [Customization](#customization)
+- [License](#license)
+
+## Overview
+
+This repository contains the source code for my personal developer portfolio.
+It includes project showcases, blog support via MDX, custom UI animations, and GitHub-related dynamic sections.
+
+## Features
+
+- Next.js App Router architecture
+- Responsive, component-driven UI
 - Dark mode support
+- Framer Motion animations and interactive effects
+- MDX-powered content/blog flow
+- GitHub graph / integration sections
 - SEO + Open Graph metadata
+- Vercel Analytics + Speed Insights integration
 
 ## Tech Stack
 
@@ -23,29 +47,29 @@ Personal portfolio website built with Next.js, TypeScript, Tailwind CSS, MDX, an
 - TypeScript
 - Tailwind CSS 4
 - Framer Motion
-- MDX
-- Vercel Analytics + Speed Insights
+- MDX (`@next/mdx`, `next-mdx-remote`)
+- Vercel Analytics / Speed Insights
 
 ## Project Structure
 
 ```text
-app/                 # Routes (App Router)
-components/          # UI and feature components
-data/                # MDX content
-lib/                 # Utilities and config
-public/              # Static assets
+app/                 # App Router pages and layouts
+components/          # Shared UI + feature components
+data/                # MDX content files
+lib/                 # Utilities and app config
+public/              # Static assets (images, audio, gifs)
 ```
 
-## Getting Started
+## Quick Start
 
-### 1. Clone
+1. Clone the repository
 
 ```bash
 git clone https://github.com/Ashutoshx7/Portfoliov1.git
 cd Portfoliov1
 ```
 
-### 2. Install dependencies
+2. Install dependencies
 
 ```bash
 npm install
@@ -53,16 +77,7 @@ npm install
 bun install
 ```
 
-### 3. Configure environment variables
-
-Create a `.env.local` file in the project root:
-
-```env
-# Optional: used for GitHub API-backed sections
-GITHUB_TOKEN=your_github_personal_access_token
-```
-
-### 4. Run development server
+3. Run the development server
 
 ```bash
 npm run dev
@@ -70,32 +85,45 @@ npm run dev
 bun run dev
 ```
 
-Open http://localhost:3000
+4. Open in browser
 
-## Available Scripts
+```text
+http://localhost:3000
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```env
+# Optional: used by GitHub API-backed sections
+GITHUB_TOKEN=your_github_personal_access_token
+```
+
+## Scripts
 
 ```bash
-npm run dev      # Start local development server
-npm run build    # Production build
+npm run dev      # Start development server
+npm run build    # Create production build
 npm run start    # Start production server
 npm run lint     # Run ESLint
 ```
 
 ## Deployment
 
-Recommended: deploy on Vercel.
+Recommended deployment target: Vercel.
 
-- Import this repository in Vercel
-- Add `GITHUB_TOKEN` in project environment variables (if needed)
-- Deploy
+1. Import this repository into Vercel.
+2. Configure environment variables (if required), especially `GITHUB_TOKEN`.
+3. Deploy.
 
-## Customization Notes
+## Customization
 
-- Update personal info/social links in `app/page.tsx`
-- Add or edit projects in components and data files
-- Add blog posts in `data/*.mdx`
-- Replace assets inside `public/`
+- Edit intro/content in `app/page.tsx`
+- Update project/experience sections in `components/`
+- Add or edit blog posts in `data/*.mdx`
+- Replace media assets in `public/`
 
 ## License
 
-This project is licensed under the MIT License.
+Licensed under the MIT License.
