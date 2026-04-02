@@ -1,80 +1,101 @@
-# Portfolio Website
+# Portfoliov1
 
-A modern, responsive, and fast developer portfolio built using Next.js, Tailwind CSS, TypeScript, Framer Motion, MDX, and GitHub API integration.  
-Features include blog support, project pages, contribution graph, SEO optimization, and a clean minimal design.
+Personal portfolio website built with Next.js, TypeScript, Tailwind CSS, MDX, and Framer Motion.
 
----
+## Live Website
 
-<img width="1184" height="946" alt="Screenshot 2025-11-19 151858" src="https://github.com/user-attachments/assets/b733ff81-b547-4ed0-9f11-8f8a55d9b761" />
+- https://www.karnashutosh.tech/
 
+## Highlights
 
-
-## Live Demo
-
-https://www.karnashutosh.tech/
----
-
-## Features
-
-- Next.js App Router architecture  
-- Tailwind CSS with Shadcn UI  
-- MDX support for blogs and project pages  
-- GitHub Contribution Graph integration  
-- Fetch GitHub repositories using API  
-- Framer Motion animations  
-- SEO and Open Graph metadata  
-- Fully responsive and accessible  
-
----
+- App Router architecture with Next.js
+- Responsive UI with Tailwind CSS + reusable components
+- Animated interactions using Framer Motion
+- Blog system powered by MDX
+- Dynamic GitHub graph and project integration
+- Dark mode support
+- SEO + Open Graph metadata
 
 ## Tech Stack
 
-| Technology | Description |
-|------------|-------------|
-| Next.js    | React framework for production |
-| TypeScript | Static typing |
-| Tailwind CSS | Utility-first styling |
-| Shadcn UI  | Accessible UI components |
-| MDX        | Markdown with React support |
-| Framer Motion | Animation library |
-| GitHub API | Dynamic repo fetching |
-| Vercel     | Deployment platform |
+- Next.js 16
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- Framer Motion
+- MDX
+- Vercel Analytics + Speed Insights
 
----
+## Project Structure
 
-## Environment Variables
+```text
+app/                 # Routes (App Router)
+components/          # UI and feature components
+data/                # MDX content
+lib/                 # Utilities and config
+public/              # Static assets
+```
 
-Create a `.env` file in the root directory:
+## Getting Started
 
-```env
+### 1. Clone
 
+```bash
+git clone https://github.com/Ashutoshx7/Portfoliov1.git
+cd Portfoliov1
+```
 
-# Required for GitHub API repo fetching
-#So create .env in your root and add your github token 
-GITHUB_TOKEN="your_github_personal_access_token"
+### 2. Install dependencies
 
-
-git clone https://github.com/yourusername/portfolio.git
-cd portfolio
-
+```bash
 npm install
 # or
 bun install
+```
 
-Run the development server
+### 3. Configure environment variables
+
+Create a `.env.local` file in the project root:
+
+```env
+# Optional: used for GitHub API-backed sections
+GITHUB_TOKEN=your_github_personal_access_token
+```
+
+### 4. Run development server
+
+```bash
 npm run dev
 # or
-bun dev
+bun run dev
+```
 
-http://localhost:3000
+Open http://localhost:3000
 
+## Available Scripts
 
-Deployment
-Deploy to Vercel
+```bash
+npm run dev      # Start local development server
+npm run build    # Production build
+npm run start    # Start production server
+npm run lint     # Run ESLint
+```
 
-After deploying, set the GITHUB_TOKEN in Vercel Environment Settings if needed.
+## Deployment
 
-License
+Recommended: deploy on Vercel.
 
-This project is licensed under the MIT License
+- Import this repository in Vercel
+- Add `GITHUB_TOKEN` in project environment variables (if needed)
+- Deploy
 
+## Customization Notes
+
+- Update personal info/social links in `app/page.tsx`
+- Add or edit projects in components and data files
+- Add blog posts in `data/*.mdx`
+- Replace assets inside `public/`
+
+## License
+
+This project is licensed under the MIT License.
