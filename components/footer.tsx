@@ -1,53 +1,53 @@
-import React from 'react'
-import Link from 'next/link'
-import { Github, Linkedin, Twitter } from 'lucide-react'
-import Container from './containers'
+import React from "react";
+import Link from "next/link";
+import { Github, Linkedin, Twitter } from "lucide-react";
+import Container from "./containers";
 
 const Footer = () => {
   const socialLinks = [
     {
-      name: 'GitHub',
-      url: 'https://github.com/Ashutoshx7',
-      icon: Github
+      name: "GitHub",
+      url: "https://github.com/sehajmakkar",
+      icon: Github,
     },
     {
-      name: 'Twitter',
-      url: 'https://x.com/Ashutosh_7x7',
-      icon: Twitter
+      name: "Twitter",
+      url: "https://x.com/sehajmakkarr",
+      icon: Twitter,
     },
     {
-      name: 'LinkedIn',
-      url: 'https://www.linkedin.com/in/ashutosh-singh-385a843a4/',
-      icon: Linkedin
+      name: "LinkedIn",
+      url: "https://www.linkedin.com/in/sehajmakkar",
+      icon: Linkedin,
     },
-  ]
+  ];
 
   return (
     <footer className="w-full bg-neutral-50 dark:bg-neutral-950">
-      <Container className="flex flex-col items-center justify-between gap-4 py-2  sm:flex-row border border-neutral-200 dark:border-neutral-800">
-        <p className="text-neutral-600 dark:text-neutral-400 text-sm font-custom2 tracking-normal transition-colors duration-300 hover:text-neutral-900 dark:hover:text-neutral-100">
-          Built with love by Ashutosh
+      <Container className="flex flex-col items-center justify-between gap-4 border border-neutral-200 py-2 sm:flex-row dark:border-neutral-800">
+        <p className="font-custom2 text-sm tracking-normal text-neutral-600 transition-colors duration-300 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100">
+          Built with love by Sehaj
         </p>
-        <div className="flex items-center gap-4 ml-9">
+        <div className="ml-9 flex items-center gap-4">
           {socialLinks.map((link) => {
-            const IconComponent = link.icon
+            const IconComponent = link.icon;
             return (
               <Link
                 key={link.name}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-neutral-700 dark:text-neutral-50 opacity-70 hover:opacity-100 transition cursor-pointer "
+                className="cursor-pointer text-neutral-700 opacity-70 transition hover:opacity-100 dark:text-neutral-50"
                 title={link.name}
               >
                 <IconComponent size={15} />
               </Link>
-            )
+            );
           })}
         </div>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
 export default Footer;

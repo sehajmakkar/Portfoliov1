@@ -16,18 +16,18 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Ashutoshx7",
+  title: "Sehaj",
   description: "Engineer / Artist — I love building and breaking stuff",
   openGraph: {
-    title: "Ashutoshx7",
+    title: "Sehaj",
     description: "Engineer / Artist — I love building and breaking stuff",
-    url: "https://www.ashutoshx7.me/", // Update to your actual URL if different
-    siteName: "Ashutoshx7",
+    url: "https://www.sehaj.works", // Update to your actual URL if different
+    siteName: "Sehaj",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ashutoshx7",
+    title: "Sehaj",
     description: "Engineer / Artist — I love building and breaking stuff",
   },
 };

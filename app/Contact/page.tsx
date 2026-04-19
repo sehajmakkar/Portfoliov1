@@ -15,9 +15,14 @@ export default function Contact() {
     message: "",
   });
 
-  const isFormValid = formData.name.trim() !== "" && formData.email.trim() !== "" && formData.message.trim() !== "";
+  const isFormValid =
+    formData.name.trim() !== "" &&
+    formData.email.trim() !== "" &&
+    formData.message.trim() !== "";
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -30,10 +35,13 @@ export default function Contact() {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://formsubmit.co/ajax/as1142120@gmail.com", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://formsubmit.co/ajax/sehajmakkar007@gmail.com",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
 
       if (response.ok) {
         toast.success("Message sent! I'll get back to you soon.");
@@ -49,43 +57,37 @@ export default function Contact() {
   }
 
   return (
-    <div className="relative flex min-h-screen justify-center font-sans overflow-hidden">
-      <Container className="min-h-[200vh] px-8 pt-24 md:p-20 md:pb-10 mx-auto">
+    <div className="relative flex min-h-screen justify-center overflow-hidden font-sans">
+      <Container className="mx-auto min-h-[200vh] px-8 pt-24 md:p-20 md:pb-10">
         {/* Background Pattern & Borders */}
-        <div
-          className="absolute right-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) 
-          bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
-          bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"
-        ></div>
+        <div className="absolute top-0 right-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"></div>
 
-        <div
-          className="absolute left-0 top-0 h-full w-6 border-x border-x-(--pattern-fg) 
-          bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)]
-          bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"
-        ></div>
+        <div className="absolute top-0 left-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"></div>
 
-        <h1 className="text-neutral-900 dark:text-neutral-50 font-custom font-semibold text-3xl tracking-tight">
+        <h1 className="font-custom text-3xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-50">
           <span className="link--elara">Contact</span>
         </h1>
-        <p className="tracking-tight font-custom2 text-neutral-600 dark:text-neutral-400 max-w-lg text-sm md:text-base mt-2 mb-12">
+        <p className="font-custom2 mt-2 mb-12 max-w-lg text-sm tracking-tight text-neutral-600 md:text-base dark:text-neutral-400">
           Hi there — I’m currently open to meaningful work.
         </p>
 
-
-
-        <div className="w-full max-w-2xl p-0 md:p-0 relative z-10">
-          <form
-            onSubmit={handleSubmit}
-            className="space-y-6"
-          >
+        <div className="relative z-10 w-full max-w-2xl p-0 md:p-0">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* FormSubmit Configuration */}
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
-            <input type="hidden" name="_subject" value="New Submission from Portfolio" />
-            <input type="text" name="_honey" style={{ display: 'none' }} />
+            <input
+              type="hidden"
+              name="_subject"
+              value="New Submission from Portfolio"
+            />
+            <input type="text" name="_honey" style={{ display: "none" }} />
 
             <div className="space-y-2">
-              <label htmlFor="name" className="text-sm font-medium text-neutral-700 dark:text-neutral-300 font-custom2">
+              <label
+                htmlFor="name"
+                className="font-custom2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              >
                 Full name
               </label>
               <input
@@ -96,12 +98,15 @@ export default function Contact() {
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Tyler Durden"
-                className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
+                className="font-custom2 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm text-neutral-900 transition-all outline-none placeholder:text-neutral-400 focus:border-transparent focus:ring-2 focus:ring-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-neutral-600"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="email" className="text-sm font-medium text-neutral-700 dark:text-neutral-300 font-custom2">
+              <label
+                htmlFor="email"
+                className="font-custom2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              >
                 Email Address
               </label>
               <input
@@ -112,12 +117,15 @@ export default function Contact() {
                 value={formData.email}
                 onChange={handleChange}
                 placeholder="tyler@projectmayhem.com"
-                className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400"
+                className="font-custom2 w-full rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm text-neutral-900 transition-all outline-none placeholder:text-neutral-400 focus:border-transparent focus:ring-2 focus:ring-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-neutral-600"
               />
             </div>
 
             <div className="space-y-2">
-              <label htmlFor="message" className="text-sm font-medium text-neutral-700 dark:text-neutral-300 font-custom2">
+              <label
+                htmlFor="message"
+                className="font-custom2 text-sm font-medium text-neutral-700 dark:text-neutral-300"
+              >
                 Message
               </label>
               <textarea
@@ -128,50 +136,71 @@ export default function Contact() {
                 value={formData.message}
                 onChange={handleChange}
                 placeholder="You're crazy good, never change."
-                className="w-full px-4 py-2.5 bg-neutral-50 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:ring-2 focus:ring-neutral-400 dark:focus:ring-neutral-600 focus:border-transparent outline-none transition-all font-custom2 text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 resize-none"
+                className="font-custom2 w-full resize-none rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-2.5 text-sm text-neutral-900 transition-all outline-none placeholder:text-neutral-400 focus:border-transparent focus:ring-2 focus:ring-neutral-400 dark:border-neutral-800 dark:bg-neutral-900 dark:text-neutral-100 dark:focus:ring-neutral-600"
               />
             </div>
 
-            <div className="flex justify-center w-full">
-              <FlightButton type="submit" className="w-32" disabled={isSubmitting || !isFormValid} />
+            <div className="flex w-full justify-center">
+              <FlightButton
+                type="submit"
+                className="w-32"
+                disabled={isSubmitting || !isFormValid}
+              />
             </div>
           </form>
 
-          <div className="mt-10   flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-500 dark:text-neutral-400 font-custom2">
+          <div className="font-custom2 mt-10 flex flex-col items-center justify-between gap-4 text-xs text-neutral-500 md:flex-row dark:text-neutral-400">
             <div className="flex items-center gap-2">
-              <p>Ashutosh</p>
+              <p>Sehaj</p>
             </div>
 
             {/* Displacement Text - Visible and Hoverable */}
             {/* Displacement Text - Visible and Hoverable */}
 
             <div className="flex items-center gap-4">
-              <a href="https://x.com/Ashutosh_7x7" target="_blank" rel="noopener noreferrer">
-                <Twitter size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              <a
+                href="https://x.com/sehajmakkarr"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter
+                  size={14}
+                  className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
+                />
               </a>
-              <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer">
-                <Linkedin size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              <a
+                href="https://www.linkedin.com/in/sehajmakkar"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Linkedin
+                  size={14}
+                  className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
+                />
               </a>
-              <a href="https://github.com/Ashutoshx7" target="_blank" rel="noopener noreferrer">
-                <Github size={14} className="hover:text-neutral-900 dark:hover:text-neutral-200 cursor-pointer transition-colors" />
+              <a
+                href="https://github.com/sehajmakkar"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Github
+                  size={14}
+                  className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
+                />
               </a>
             </div>
           </div>
         </div>
 
-
-
-
-        <div className="w-full h-96 relative overflow-hidden flex items-center justify-center -mt-20">
+        <div className="relative -mt-20 flex h-96 w-full items-center justify-center overflow-hidden">
           <DisplacementText
-            text="ASHUTOSH"
+            text="SEHAJ"
             fontSize={300}
             className="h-full w-full"
             lightColor="#171717"
             darkColor="#e5e5e5"
           />
         </div>
-
       </Container>
     </div>
   );
