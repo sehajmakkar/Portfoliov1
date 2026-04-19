@@ -119,7 +119,7 @@ const Navbar = () => {
           </div>
 
           {/* Command Menu */}
-          <div
+          {/* <div
             className="relative hidden px-1 py-1 sm:block"
             onMouseEnter={() => setHovered(4)}
           >
@@ -131,7 +131,7 @@ const Navbar = () => {
               />
             )}
             <CommandMenu />
-          </div>
+          </div> */}
         </div>
       </motion.nav>
     </Container>
