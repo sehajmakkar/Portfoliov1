@@ -64,7 +64,7 @@ const Navbar = () => {
         >
           <Image
             className="h-9 w-9 rounded-full shadow-sm"
-            src="/Avatar11.jpg"
+            src="/myavatar.png"
             width={100}
             height={100}
             alt="Avatar"

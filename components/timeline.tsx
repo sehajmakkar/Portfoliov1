@@ -80,11 +80,11 @@ export const Timeline = () => {
 
   const data: Data[] = [
     {
-      title: "PowerPlay",
+      title: "Powerplay",
       href: "https://www.getpowerplay.ai/",
       content: [
         {
-          title: "PowerPlay",
+          title: "Powerplay",
           description: `
             Refactored excel export architecture from offset pagination to MongoDB streaming, processing 100K+ records under 2 minutes (previously 7+ minutes) with significant memory reduction.
           `,
