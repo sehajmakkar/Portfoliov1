@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
-import Image from 'next/image';
+import React, { useState } from "react";
+import { FiChevronDown } from "react-icons/fi";
+import Image from "next/image";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -45,6 +45,17 @@ const techNames: Record<TechKey, string> = {
   node: "Node.js",
 };
 
+const techColors: Record<TechKey, string> = {
+  next: "#ffffff",
+  ts: "#3178C6",
+  react: "#61DAFB",
+  three: "#8b5cf6",
+  prisma: "#5A67D8",
+  cloud: "#F38020",
+  langchain: "#00A67E",
+  node: "#339933",
+};
+
 type Data = {
   title: string;
   href?: string;
@@ -69,24 +80,22 @@ export const Timeline = () => {
 
   const data: Data[] = [
     {
-      title: "Powerplay",
-      href: "https://getpowerplay.in/",
+      title: "PowerPlay",
+      href: "https://www.getpowerplay.ai/",
       content: [
         {
-          title: "Powerplay",
+          title: "PowerPlay",
           description: `
-            Built scalable solutions for open source organizations
-            Received mentorship from top engineers and industry experts
-            Contributed real-world features that impacted thousands of users
-            Optimized codebase performance and reduced technical debt significantly
+            Refactored excel export architecture from offset pagination to MongoDB streaming, processing 100K+ records under 2 minutes (previously 7+ minutes) with significant memory reduction.
           `,
-          src: "/Experience-image/Google_Summer_of_Code_sun_logo_2022.svg%20(1).png",
-          href: "https://getpowerplay.in/",
+          src: "/Experience-image/powerplay-logo.jpeg",
+          href: "https://www.getpowerplay.ai",
           tech: ["next", "ts", "react", "node"],
-          dates: "Feb 2026 - Mar 2026",
+          dates: "Feb 2026 – Mar 2026",
           location: "Bengaluru, India (Onsite)",
           imageFit: "contain",
           imageZoom: 0.9,
+          type: "Backend Intern",
         },
       ],
     },
@@ -96,16 +105,16 @@ export const Timeline = () => {
       content: [
         {
           title: "Perf",
+          type: "Software Engineering Intern",
           description: `
-            Developed innovative tools solving real developer problems
-            Shipped production features with 10k+ downloads
-            Collaborated with open source maintainers and communities
-            Authored technical documentation to streamline developer onboarding
+            Engineered 15+ production features using the MERN stack (MongoDB, Express.js, React.js, Node.js) across a codebase serving 1000s of active users.
+            Wrote unit tests and participated in code reviews to maintain high code quality and release confidence.
+            Orchestrated 25+ production deployments via AWS Amplify and Elastic Beanstalk, implementing CI/CD best practices and maintaining 99.9% uptime across staging and production environments.
           `,
-          src: "https://static.wixstatic.com/media/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png/v1/fill/w_2266,h_2168,al_c,q_95,usm_0.66_1.00_0.01,enc_auto/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png",
+          src: "/Experience-image/perf-logo.png",
           href: "https://withperf.com/",
           tech: ["prisma", "cloud", "langchain", "ts"],
-          dates: "Sep 2025 - Jan 2026",
+          dates: "Sep 2025 – Jan 2026",
           location: "London, UK (Remote)",
           imageFit: "contain",
           imageZoom: 1.2,
@@ -118,74 +127,80 @@ export const Timeline = () => {
       content: [
         {
           title: "Reslink Technologies",
+          type: "Software Engineering Intern",
           description: `
-            Mastered React, Node.js, databases, and deployment technologies
-            Contributed to multiple popular open source projects
-            Built strong foundation in full-stack development practices
-            Participated in code reviews and community discussions actively
+            Improved dashboard initial load time by 15% through lazy loading, component memoization, and API response caching.
+            Delivered 6+ feature releases on schedule across a production environment while maintaining release stability.
+            Developed a full-stack solar panel design tool using Three.js, Next.js, and TypeScript with object-oriented design patterns to render real-time 3D models across 5+ panel configurations with sub-2s load performance.
           `,
-          src: "/Experience-image/pngegg%20(1).png",
+          src: "/Experience-image/reslink-logo.jpg",
           href: "https://reslink.org/",
           tech: ["react", "node", "ts"],
-          dates: "Jun 2025 - Sep 2025",
-          location: "Remote",
+          dates: "Jun 2025 – Sep 2025",
+          location: "Delhi, India (Hybrid)",
           imageFit: "contain",
           imageZoom: 1.5,
         },
       ],
-    }
+    },
   ];
 
   return (
     <div>
-
-      <h1 className="text-3xl md:text-3xl font-bold font-custom tracking-tight text-neutral-950 dark:text-neutral-50 pb-2 mt-2">
+      <h1 className="font-custom mt-2 pb-2 text-3xl font-bold tracking-tight text-neutral-950 md:text-3xl dark:text-neutral-50">
         <span className="link--elara">Experiences</span>
       </h1>
-      <div className="w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 dark:opacity-15 mb-4 -mx-2 md:-mx-14"></div>
+      <div className="-mx-2 mb-4 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
       <div className="flex flex-col gap-4">
         {data.map((year, idx) => (
-          <div key={year.title} className="relative pb-2 -mx-2 md:-mx-14 px-2 md:px-14">
+          <div
+            key={year.title}
+            className="relative -mx-2 px-2 pb-2 md:-mx-14 md:px-14"
+          >
             {year.content.map((item, cidx) => {
               const isOpen = openIdx === idx * 100 + cidx;
               return (
                 <React.Fragment key={item.title}>
                   <div
-                    className="flex items-center gap-4 group py-3 cursor-pointer"
+                    className="group flex cursor-pointer items-center gap-4 py-3"
                     onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
                   >
                     {/* Logo */}
-                    <div className="w-12 h-12 rounded-lg border border-neutral-200/80 dark:border-neutral-700 p-[2px] bg-neutral-50 dark:bg-neutral-900 shrink-0">
+                    <div className="h-12 w-12 shrink-0 rounded-lg border border-neutral-200/80 bg-neutral-50 p-[2px] dark:border-neutral-700 dark:bg-neutral-900">
                       <div
-                        className={`w-full h-full rounded-md border border-neutral-200/60 dark:border-neutral-700/70 overflow-hidden ${item.imageFit === 'contain' ? 'bg-neutral-50 dark:bg-neutral-50' : 'bg-neutral-50 dark:bg-neutral-900'}`}
+                        className={`h-full w-full overflow-hidden rounded-md border border-neutral-200/60 dark:border-neutral-700/70 ${item.imageFit === "contain" ? "bg-neutral-50 dark:bg-neutral-50" : "bg-neutral-50 dark:bg-neutral-900"}`}
                       >
                         <Image
                           src={item.src}
                           alt={item.title}
                           width={48}
                           height={48}
-                          style={item.imageZoom ? { transform: `scale(${item.imageZoom})` } : undefined}
-                          className={`${item.imageFit === 'contain' ? 'object-contain' : 'object-cover'} w-full h-full`}
+                          style={
+                            item.imageZoom
+                              ? { transform: `scale(${item.imageZoom})` }
+                              : undefined
+                          }
+                          className={`${item.imageFit === "contain" ? "object-contain" : "object-cover"} h-full w-full`}
                         />
                       </div>
                     </div>
                     {/* Main summary info */}
-                    <div className="flex-1 min-w-0">
+                    <div className="min-w-0 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-base md:text-lg text-neutral-950 dark:text-neutral-50 truncate">
+                        <span className="truncate text-base font-semibold text-neutral-950 md:text-lg dark:text-neutral-50">
                           {item.title}
                         </span>
                         {/* Optional: Full Time/Intern/Other badge */}
                         {item.type && (
-                          <span className="ml-2 px-2 py-0.5 rounded bg-neutral-700 text-xs text-neutral-100 font-medium border border-neutral-600">
+                          <span className="ml-2 rounded border border-neutral-600 bg-neutral-700 px-2 py-0.5 text-xs font-medium text-neutral-100">
                             {item.type}
                           </span>
                         )}
                       </div>
                     </div>
                     {/* Dates and location */}
-                    <div className="text-right min-w-[120px]">
-                      <div className="text-xs md:text-sm font-semibold text-neutral-950 dark:text-neutral-50">
+                    <div className="min-w-[120px] text-right">
+                      <div className="text-xs font-semibold text-neutral-950 md:text-sm dark:text-neutral-50">
                         {item.dates || item.title}
                       </div>
                       <div className="text-xs text-neutral-600 dark:text-neutral-400">
@@ -193,30 +208,40 @@ export const Timeline = () => {
                       </div>
                     </div>
                     {/* See/Arrow button */}
-                    <div
-                      className="ml-2 flex items-center justify-center w-7 h-7 p-0 bg-transparent border-none shadow-none focus:outline-none group"
-                    >
+                    <div className="group ml-2 flex h-7 w-7 items-center justify-center border-none bg-transparent p-0 shadow-none focus:outline-none">
                       <FiChevronDown
-                        className={`w-5 h-5 transition-transform duration-300 stroke-[2.2] ${isOpen ? 'rotate-180 text-neutral-950 dark:text-neutral-50' : 'text-neutral-500 dark:text-neutral-500 group-hover:text-neutral-950 dark:group-hover:text-neutral-50'}`}
+                        className={`h-5 w-5 stroke-[2.2] transition-transform duration-300 ${isOpen ? "rotate-180 text-neutral-950 dark:text-neutral-50" : "text-neutral-500 group-hover:text-neutral-950 dark:text-neutral-500 dark:group-hover:text-neutral-50"}`}
                         aria-hidden="true"
                       />
-                      <span className="sr-only">{isOpen ? 'Hide details' : 'Show details'}</span>
+                      <span className="sr-only">
+                        {isOpen ? "Hide details" : "Show details"}
+                      </span>
                     </div>
                   </div>
                   {/* Details section with smooth accordion animation */}
                   <div
-                    className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}
+                    className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}
                   >
                     <div className="overflow-hidden">
                       {/* Inner container for padding control */}
-                      <div className={`${isOpen ? 'py-4 opacity-100 translate-y-0' : 'py-0 opacity-0 -translate-y-2'} transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]`}>
-                        <ul className="mb-4 list-disc list-inside pl-0 text-neutral-800 dark:text-neutral-200 text-sm space-y-2">
+                      <div
+                        className={`${isOpen ? "translate-y-0 pt-2 pb-3 opacity-100" : "-translate-y-2 py-0 opacity-0"} transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]`}
+                      >
+                        <ul className="mb-3 w-full space-y-1.5 text-[13px] leading-snug text-neutral-700 dark:text-neutral-200">
                           {item.description
                             .toString()
                             .split("\n")
                             .filter((line) => line.trim() !== "")
                             .map((point, i) => (
-                              <li key={i}>{point}</li>
+                              <li
+                                key={i}
+                                className="flex w-full items-start gap-2"
+                              >
+                                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-neutral-400 dark:bg-neutral-500" />
+                                <span className="block min-w-0 flex-1 font-medium wrap-break-word whitespace-normal text-neutral-800 dark:text-neutral-100">
+                                  {point.trim()}
+                                </span>
+                              </li>
                             ))}
                         </ul>
                         {/* Tech icons */}
@@ -224,11 +249,25 @@ export const Timeline = () => {
                           <div className="flex flex-wrap gap-2">
                             {item.tech.map((key) => {
                               const name = techNames[key];
+                              const Icon = iconMap[key];
+                              const uniqueId = `${item.title}-${key}`;
+                              const isHovered = hoveredTech === uniqueId;
                               return (
                                 <div
                                   key={key}
-                                  className="flex items-center gap-1 px-2.5 py-1 rounded-md bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 text-xs font-medium text-neutral-950 dark:text-neutral-200 shadow-sm"
+                                  className="group flex items-center gap-1.5 rounded-md border border-neutral-200 bg-neutral-100 px-2.5 py-1 text-xs font-medium text-neutral-950 shadow-sm transition-colors dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200"
+                                  onMouseEnter={() => setHoveredTech(uniqueId)}
+                                  onMouseLeave={() => setHoveredTech(null)}
                                 >
+                                  <Icon
+                                    className="h-3.5 w-3.5 transition-colors duration-200"
+                                    style={{
+                                      color: isHovered
+                                        ? techColors[key]
+                                        : "#a3a3a3",
+                                    }}
+                                    aria-hidden="true"
+                                  />
                                   {name}
                                 </div>
                               );
@@ -243,11 +282,12 @@ export const Timeline = () => {
             })}
             {idx !== data.length - 1 && (
               <div
-                className="absolute bottom-0 left-0 w-full h-[1px] opacity-100 dark:opacity-15"
+                className="absolute bottom-0 left-0 h-[1px] w-full opacity-100 dark:opacity-15"
                 style={{
-                  backgroundImage: "linear-gradient(to right, var(--pattern-fg) 50%, transparent 50%)",
+                  backgroundImage:
+                    "linear-gradient(to right, var(--pattern-fg) 50%, transparent 50%)",
                   backgroundSize: "15px 1px",
-                  backgroundRepeat: "repeat-x"
+                  backgroundRepeat: "repeat-x",
                 }}
               />
             )}
