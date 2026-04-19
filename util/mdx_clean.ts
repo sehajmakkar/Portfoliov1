@@ -28,14 +28,26 @@ export const getSingleBlog = async (slug: string): Promise<Blog> => {
   if (CACHE.has(key)) return CACHE.get(key)!;
 
   const filePath = path.join(config.DATA_DIR, `${key}.mdx`);
-  const raw = await fs.readFile(filePath, "utf-8");
+  let raw: string;
+  try {
+    raw = await fs.readFile(filePath, "utf-8");
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      throw new Error(`Blog not found: ${key}`);
+    }
+    throw error;
+  }
   const parsed = matter(raw);
   const data = parsed.data as BlogMeta;
   data.slug = data.slug ?? key;
   // Convert date to string if it's a Date object
-  if (data.date && typeof data.date === 'object' && 'toISOString' in data.date) {
+  if (
+    data.date &&
+    typeof data.date === "object" &&
+    "toISOString" in data.date
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    data.date = (data.date as any).toISOString().split('T')[0];
+    data.date = (data.date as any).toISOString().split("T")[0];
   }
 
   const result: Blog = { content: parsed.content, data };
@@ -44,7 +56,15 @@ export const getSingleBlog = async (slug: string): Promise<Blog> => {
 };
 
 export const getAllBlogs = async (): Promise<BlogMeta[]> => {
-  const files = await fs.readdir(config.DATA_DIR);
+  let files: string[] = [];
+  try {
+    files = await fs.readdir(config.DATA_DIR);
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code === "ENOENT") {
+      return [];
+    }
+    throw error;
+  }
   const mdxFiles = files.filter((f) => f.toLowerCase().endsWith(".mdx"));
 
   const blogs: BlogMeta[] = [];
@@ -55,9 +75,13 @@ export const getAllBlogs = async (): Promise<BlogMeta[]> => {
       const meta = parsed.data as BlogMeta;
       meta.slug = meta.slug ?? normalizeSlug(file);
       // Convert date to string if it's a Date object
-      if (meta.date && typeof meta.date === 'object' && 'toISOString' in meta.date) {
+      if (
+        meta.date &&
+        typeof meta.date === "object" &&
+        "toISOString" in meta.date
+      ) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        meta.date = (meta.date as any).toISOString().split('T')[0];
+        meta.date = (meta.date as any).toISOString().split("T")[0];
       }
       blogs.push(meta);
     } catch (err) {
@@ -74,4 +98,3 @@ export const getAllBlogs = async (): Promise<BlogMeta[]> => {
 
   return blogs;
 };
-
