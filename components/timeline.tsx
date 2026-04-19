@@ -69,11 +69,11 @@ export const Timeline = () => {
 
   const data: Data[] = [
     {
-      title: "Google Summer Of Code",
-      href: "https://summerofcode.withgoogle.com/",
+      title: "Powerplay",
+      href: "https://getpowerplay.in/",
       content: [
         {
-          title: "Google Summer Of Code",
+          title: "Powerplay",
           description: `
             Built scalable solutions for open source organizations
             Received mentorship from top engineers and industry experts
@@ -81,21 +81,21 @@ export const Timeline = () => {
             Optimized codebase performance and reduced technical debt significantly
           `,
           src: "/Experience-image/Google_Summer_of_Code_sun_logo_2022.svg%20(1).png",
-          href: "https://summerofcode.withgoogle.com/",
+          href: "https://getpowerplay.in/",
           tech: ["next", "ts", "react", "node"],
-          dates: "May 2025 - August 2025",
-          location: "Remote",
+          dates: "Feb 2026 - Mar 2026",
+          location: "Bengaluru, India (Onsite)",
           imageFit: "contain",
           imageZoom: 0.9,
         },
       ],
     },
     {
-      title: "C4GT",
-      href: "https://c4gt.in/",
+      title: "Perf",
+      href: "https://withperf.com/",
       content: [
         {
-          title: "C4GT",
+          title: "Perf",
           description: `
             Developed innovative tools solving real developer problems
             Shipped production features with 10k+ downloads
@@ -103,21 +103,21 @@ export const Timeline = () => {
             Authored technical documentation to streamline developer onboarding
           `,
           src: "https://static.wixstatic.com/media/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png/v1/fill/w_2266,h_2168,al_c,q_95,usm_0.66_1.00_0.01,enc_auto/060b0c_8029055ce0074bfaa4bb6d9f1c2c33d2~mv2.png",
-          href: "https://c4gt.in/",
+          href: "https://withperf.com/",
           tech: ["prisma", "cloud", "langchain", "ts"],
-          dates: "May 2025 - August 2025",
-          location: "Remote",
+          dates: "Sep 2025 - Jan 2026",
+          location: "London, UK (Remote)",
           imageFit: "contain",
           imageZoom: 1.2,
         },
       ],
     },
     {
-      title: "Open Source Contributor",
-      href: "https://github.com/",
+      title: "Reslink Technologies",
+      href: "https://reslink.org/",
       content: [
         {
-          title: "Open Source Contributor",
+          title: "Reslink Technologies",
           description: `
             Mastered React, Node.js, databases, and deployment technologies
             Contributed to multiple popular open source projects
@@ -125,9 +125,9 @@ export const Timeline = () => {
             Participated in code reviews and community discussions actively
           `,
           src: "/Experience-image/pngegg%20(1).png",
-          href: "https://github.com/",
+          href: "https://reslink.org/",
           tech: ["react", "node", "ts"],
-          dates: "December 2024 - April 2024",
+          dates: "Jun 2025 - Sep 2025",
           location: "Remote",
           imageFit: "contain",
           imageZoom: 1.5,
