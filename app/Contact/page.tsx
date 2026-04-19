@@ -1,7 +1,8 @@
 "use client";
 
 import Container from "@/components/containers";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import DisplacementText from "@/components/ui/displacement-text";
 import { toast } from "sonner";
 import { FlightButton } from "@/components/ui/flight-button";
@@ -163,7 +164,7 @@ export default function Contact() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Twitter
+                <FaXTwitter
                   size={14}
                   className="cursor-pointer transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
                 />

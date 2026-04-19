@@ -6,7 +6,7 @@ import { useTheme } from "next-themes";
 import { Tooltip } from "react-tooltip";
 
 interface PR {
-  id: number;
+  id: string;
   title: string;
   url: string;
   repository: {
@@ -27,7 +27,7 @@ const GithubGraph = () => {
     "all" | "merged" | "open" | "closed"
   >("all");
   const [showPRSection, setShowPRSection] = useState(true);
-  const [closedPRIds, setClosedPRIds] = useState<Set<number>>(new Set());
+  const [closedPRIds, setClosedPRIds] = useState<Set<string>>(new Set());
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
@@ -46,51 +46,10 @@ const GithubGraph = () => {
   useEffect(() => {
     const fetchPRs = async () => {
       try {
-        const searchQuery =
-          filterType === "all"
-            ? "author:sehajmakkar type:pr"
-            : filterType === "merged"
-              ? "author:sehajmakkar type:pr is:merged"
-              : filterType === "open"
-                ? "author:sehajmakkar type:pr is:open"
-                : "author:sehajmakkar type:pr is:closed is:unmerged";
-
-        const query = `query {
-          search(query: "${searchQuery}", type: ISSUE, first: 12) {
-            edges {
-              node {
-                ... on PullRequest {
-                  id
-                  title
-                  url
-                  repository {
-                    nameWithOwner
-                  }
-                  state
-                  createdAt
-                  mergedAt
-                  closedAt
-                }
-              }
-            }
-          }
-        }`;
-
-        const response = await fetch("https://api.github.com/graphql", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_TOKEN || ""}`,
-          },
-          body: JSON.stringify({ query }),
-        });
-
+        const response = await fetch(`/api/github/prs?filter=${filterType}`);
         const data = await response.json();
-        if (data.data?.search?.edges) {
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const fetchedPRs = data.data.search.edges.map(
-            (edge: any) => edge.node,
-          );
+        if (Array.isArray(data?.prs)) {
+          const fetchedPRs = data.prs as PR[];
           // Sort by date (newest first)
           fetchedPRs.sort((a: PR, b: PR) => {
             const dateA = new Date(

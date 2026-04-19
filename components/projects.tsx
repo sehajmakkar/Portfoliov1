@@ -183,6 +183,21 @@ const ProjectCard = ({
         <div className="rounded-[12px] border border-neutral-200 bg-neutral-50 p-[4px] dark:border-neutral-800 dark:bg-neutral-900/50">
           {/* Main Image container */}
           <div className="relative h-[220px] w-full overflow-hidden rounded-[8px] border border-neutral-200 bg-neutral-100 select-none dark:border-neutral-800 dark:bg-neutral-900">
+            {/* Subtle patterned base (visible when not hovered) */}
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(to right, var(--pattern-fg) 1px, transparent 1px), linear-gradient(to bottom, var(--pattern-fg) 1px, transparent 1px)",
+                backgroundSize: "14px 14px",
+              }}
+              variants={{
+                rest: { opacity: 0.18 },
+                hover: { opacity: 0.06 },
+              }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            />
+
             {/* Ambient Background - Image Style */}
             <motion.div
               className="absolute inset-0 bg-cover bg-center"
@@ -211,7 +226,7 @@ const ProjectCard = ({
                 },
                 hover: {
                   left: "50%",
-                  top: "22%",
+                  top: "20%",
                   x: "-50%",
                   color: "#000000",
                   opacity: 1,
@@ -252,10 +267,10 @@ const ProjectCard = ({
 
             {/* Floating screenshot - The signature Narsi move */}
             <motion.div
-              className="absolute bottom-0 left-1/2 z-20 w-[82%] rounded-t-[6px] border-x border-t border-neutral-200 bg-white p-[2px] pb-0 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950"
+              className="absolute bottom-0 left-1/2 z-20 w-[92%] rounded-t-[6px] border-x border-t border-neutral-200 bg-white p-[2px] pb-0 shadow-2xl dark:border-neutral-800 dark:bg-neutral-950"
               variants={{
-                rest: { height: "76%", y: 0, x: "-50%" },
-                hover: { height: "70%", y: 4, x: "-50%" }, // floats down/shrinks slightly
+                rest: { height: "80%", y: 0, x: "-50%" },
+                hover: { height: "74%", y: 4, x: "-50%" }, // floats down/shrinks slightly
               }}
               transition={{ type: "spring", stiffness: 260, damping: 20 }}
             >

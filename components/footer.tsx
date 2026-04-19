@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import Container from "./containers";
 
 const Footer = () => {
@@ -11,9 +12,9 @@ const Footer = () => {
       icon: Github,
     },
     {
-      name: "Twitter",
+      name: "X",
       url: "https://x.com/sehajmakkarr",
-      icon: Twitter,
+      icon: FaXTwitter,
     },
     {
       name: "LinkedIn",

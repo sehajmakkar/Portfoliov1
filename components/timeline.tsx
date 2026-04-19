@@ -105,7 +105,7 @@ export const Timeline = () => {
       content: [
         {
           title: "Perf",
-          type: "Software Engineering Intern",
+          type: "SDE Intern",
           description: `
             Engineered 15+ production features using the MERN stack (MongoDB, Express.js, React.js, Node.js) across a codebase serving 1000s of active users.
             Wrote unit tests and participated in code reviews to maintain high code quality and release confidence.
@@ -122,12 +122,12 @@ export const Timeline = () => {
       ],
     },
     {
-      title: "Reslink Technologies",
+      title: "Reslink",
       href: "https://reslink.org/",
       content: [
         {
-          title: "Reslink Technologies",
-          type: "Software Engineering Intern",
+          title: "Reslink Tech.",
+          type: "SDE Intern",
           description: `
             Improved dashboard initial load time by 15% through lazy loading, component memoization, and API response caching.
             Delivered 6+ feature releases on schedule across a production environment while maintaining release stability.
@@ -186,20 +186,25 @@ export const Timeline = () => {
                     </div>
                     {/* Main summary info */}
                     <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="truncate text-base font-semibold text-neutral-950 md:text-lg dark:text-neutral-50">
+                      <div className="flex items-start gap-2">
+                        <span className="text-base leading-tight font-semibold text-neutral-950 md:text-lg dark:text-neutral-50">
                           {item.title}
                         </span>
-                        {/* Optional: Full Time/Intern/Other badge */}
-                        {item.type && (
-                          <span className="ml-2 rounded border border-neutral-600 bg-neutral-700 px-2 py-0.5 text-xs font-medium text-neutral-100">
+                      </div>
+                      {/* Type: plain small text on mobile/tablet, badge on desktop */}
+                      {item.type && (
+                        <>
+                          <p className="mt-0.5 text-[11px] font-medium text-neutral-600 lg:hidden dark:text-neutral-400">
+                            {item.type}
+                          </p>
+                          <span className="mt-0.5 hidden rounded border border-neutral-600 bg-neutral-700 px-2 py-0.5 text-xs font-medium text-neutral-100 lg:inline-flex">
                             {item.type}
                           </span>
-                        )}
-                      </div>
+                        </>
+                      )}
                     </div>
                     {/* Dates and location */}
-                    <div className="min-w-[120px] text-right">
+                    <div className="min-w-26 text-right sm:min-w-30">
                       <div className="text-xs font-semibold text-neutral-950 md:text-sm dark:text-neutral-50">
                         {item.dates || item.title}
                       </div>
@@ -282,7 +287,7 @@ export const Timeline = () => {
             })}
             {idx !== data.length - 1 && (
               <div
-                className="absolute bottom-0 left-0 h-[1px] w-full opacity-100 dark:opacity-15"
+                className="absolute bottom-0 left-0 h-px w-full opacity-100 dark:opacity-15"
                 style={{
                   backgroundImage:
                     "linear-gradient(to right, var(--pattern-fg) 50%, transparent 50%)",

@@ -5,13 +5,21 @@ import { useState } from "react";
 import Container from "@/components/containers";
 
 import Projects from "@/components/projects";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { FaXTwitter } from "react-icons/fa6";
 import Timeline from "@/components/timeline";
 import GithubGraph from "@/components/githubgraph";
 import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
 
 export default function Home() {
+  const scrollToGetInTouch = () => {
+    document.getElementById("get-in-touch")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
   const socials = [
     {
       name: "GitHub",
@@ -26,7 +34,7 @@ export default function Home() {
     },
     {
       name: "X",
-      icon: Twitter,
+      icon: FaXTwitter,
       action: () => window.open("https://x.com/sehajmakkarr", "_blank"),
     },
     {
@@ -74,26 +82,18 @@ export default function Home() {
         {/* SUBTEXT */}
         {/* ---------------------------------------- */}
 
-        <div className="text-secondary font-custom2 text-s mt-1">
+        <div className="text-secondary font-custom2 text-s mt-1 max-w-3xl space-y-1 dark:text-neutral-300">
+          <p>I build full-stack web apps and AI-powered products.</p>
+          <p>From sleek frontends to scalable backends and LLM integrations.</p>
           <p>
-            <span className="font-semibold text-neutral-950 dark:text-neutral-100"></span>
-            <span className="text-neutral-700 dark:text-neutral-300">
-              Engineer / Artist — I love building and breaking stuff.
-            </span>
-          </p>
-
-          <p>
-            <span className="font-bold text-neutral-950 dark:text-neutral-100"></span>
-            <span className="text-neutral-700 dark:text-neutral-300">
-              AI is something that excites me nowadays.
-            </span>
-          </p>
-
-          <p>
-            <span className="font-semibold text-neutral-950 dark:text-neutral-100"></span>
-            <span className="text-neutral-700 dark:text-neutral-300">
-              Believe in putting my code where my mouth is.
-            </span>
+            I design • code • deploy.{" "}
+            <button
+              type="button"
+              onClick={scrollToGetInTouch}
+              className="font-bold ml-1 underline underline-offset-2 transition-opacity hover:opacity-80"
+            >
+              Let&apos;s have a chat!
+            </button>
           </p>
         </div>
 
@@ -109,7 +109,9 @@ export default function Home() {
 
         <Skills />
 
-        <GetInTouch />
+        <div id="get-in-touch">
+          <GetInTouch />
+        </div>
       </Container>
     </div>
   );
