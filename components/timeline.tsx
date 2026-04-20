@@ -126,7 +126,7 @@ export const Timeline = () => {
       href: "https://reslink.org/",
       content: [
         {
-          title: "Reslink Tech.",
+          title: "Reslink Technologies",
           type: "SDE Intern",
           description: `
             Improved dashboard initial load time by 15% through lazy loading, component memoization, and API response caching.
@@ -162,7 +162,7 @@ export const Timeline = () => {
               return (
                 <React.Fragment key={item.title}>
                   <div
-                    className="group flex cursor-pointer items-center gap-4 py-3"
+                    className="group flex cursor-pointer items-start gap-3 py-3 md:items-center md:gap-4"
                     onClick={() => setOpenIdx(isOpen ? null : idx * 100 + cidx)}
                   >
                     {/* Logo */}
@@ -202,9 +202,15 @@ export const Timeline = () => {
                           </span>
                         </>
                       )}
+
+                      <div className="mt-0.5 md:hidden">
+                        <div className="text-[11px] font-semibold text-neutral-900 dark:text-neutral-100">
+                          {item.dates || item.title}
+                        </div>
+                      </div>
                     </div>
                     {/* Dates and location */}
-                    <div className="min-w-26 text-right sm:min-w-30">
+                    <div className="hidden min-w-26 text-right sm:min-w-30 md:block">
                       <div className="text-xs font-semibold text-neutral-950 md:text-sm dark:text-neutral-50">
                         {item.dates || item.title}
                       </div>
@@ -213,7 +219,7 @@ export const Timeline = () => {
                       </div>
                     </div>
                     {/* See/Arrow button */}
-                    <div className="group ml-2 flex h-7 w-7 items-center justify-center border-none bg-transparent p-0 shadow-none focus:outline-none">
+                    <div className="group mt-0.5 ml-1 flex h-7 w-7 shrink-0 items-center justify-center border-none bg-transparent p-0 shadow-none focus:outline-none md:mt-0 md:ml-2">
                       <FiChevronDown
                         className={`h-5 w-5 stroke-[2.2] transition-transform duration-300 ${isOpen ? "rotate-180 text-neutral-950 dark:text-neutral-50" : "text-neutral-500 group-hover:text-neutral-950 dark:text-neutral-500 dark:group-hover:text-neutral-50"}`}
                         aria-hidden="true"
@@ -232,6 +238,11 @@ export const Timeline = () => {
                       <div
                         className={`${isOpen ? "translate-y-0 pt-2 pb-3 opacity-100" : "-translate-y-2 py-0 opacity-0"} transition-all duration-500 ease-[cubic-bezier(0.33,1,0.68,1)]`}
                       >
+                        <div className="mb-2 md:hidden">
+                          <p className="text-[11px] font-medium text-neutral-500 dark:text-neutral-400">
+                            {item.location || "Remote"}
+                          </p>
+                        </div>
                         <ul className="mb-3 w-full space-y-1.5 text-[13px] leading-snug text-neutral-700 dark:text-neutral-200">
                           {item.description
                             .toString()
