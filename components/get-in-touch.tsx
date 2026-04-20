@@ -40,7 +40,7 @@ export default function GetInTouch() {
                         </button>
                     </Link>
 
-                    <Link href="https://cal.com/ashutosh-singh-f4r48q/30min" target="_blank">
+                    <Link href="https://cal.com/sehajm/meeting" target="_blank">
                         <AnimatedButton className="group relative overflow-hidden rounded-lg 
                             bg-linear-to-b from-white to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 
                             border border-neutral-200 dark:border-neutral-800 

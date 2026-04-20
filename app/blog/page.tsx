@@ -57,9 +57,7 @@ export default async function BlogIndex() {
           </h1>
 
           <p className="text-s font-custom2 mt-1 max-w-xl leading-relaxed tracking-tight text-neutral-600 dark:text-neutral-400">
-            I am a software engineer with a passion for building scalable and
-            efficient systems. I spend my days solving problems at Google while
-            tinkering with ideas after hours.
+            Learning and sharing thoughts on software engineering, web development, and technology.
           </p>
         </div>
         <div className="absolute right-6 hidden h-px w-[53rem] bg-(--pattern-fg) opacity-90 md:block dark:opacity-15"></div>

@@ -8,7 +8,18 @@ import Image from "next/image";
 import Link from "next/link";
 import AnimatedButton from "@/components/ui/AnimatedButton";
 import { motion, AnimatePresence } from "framer-motion";
-import { Globe, Github, Star, X, Network, Search } from "lucide-react";
+import {
+  Globe,
+  Github,
+  Star,
+  X,
+  Network,
+  Search,
+  BrainCircuit,
+  Cpu,
+  CreditCard,
+  ShieldCheck,
+} from "lucide-react";
 import {
   SiNextdotjs,
   SiTypescript,
@@ -35,6 +46,14 @@ import {
   SiClaude,
   SiGooglegemini,
   SiMeta,
+  SiPostgresql,
+  SiDocker,
+  SiVite,
+  SiExpress,
+  SiMongodb,
+  SiSocketdotio,
+  SiSupabase,
+  SiJavascript,
 } from "react-icons/si";
 type TechIcon = ComponentType<{ className?: string }>;
 
@@ -65,7 +84,19 @@ type TechKey =
   | "anthropic"
   | "claude"
   | "gemini"
-  | "llama";
+  | "llama"
+  | "postgres"
+  | "docker"
+  | "vite"
+  | "express"
+  | "mongodb"
+  | "socketio"
+  | "supabase"
+  | "js"
+  | "ml"
+  | "modal"
+  | "clerk"
+  | "dodo";
 
 type TechItem =
   | TechKey
@@ -115,6 +146,18 @@ const iconMap: Record<TechKey, TechIcon> = {
   claude: SiClaude,
   gemini: SiGooglegemini,
   llama: SiMeta,
+  postgres: SiPostgresql,
+  docker: SiDocker,
+  vite: SiVite,
+  express: SiExpress,
+  mongodb: SiMongodb,
+  socketio: SiSocketdotio,
+  supabase: SiSupabase,
+  js: SiJavascript,
+  ml: BrainCircuit,
+  modal: Cpu,
+  clerk: ShieldCheck,
+  dodo: CreditCard,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -145,6 +188,18 @@ const techNames: Record<TechKey, string> = {
   claude: "Claude",
   gemini: "Gemini",
   llama: "LLaMA",
+  postgres: "PostgreSQL",
+  docker: "Docker",
+  vite: "Vite",
+  express: "Express",
+  mongodb: "MongoDB",
+  socketio: "Socket.io",
+  supabase: "Supabase",
+  js: "JavaScript",
+  ml: "Machine Learning",
+  modal: "Modal H100 GPUs",
+  clerk: "Clerk",
+  dodo: "Dodo Payments",
 };
 
 const ProjectCard = ({
@@ -438,10 +493,23 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
       description:
         "The AI-native writing workspace for resumes and technical documents. LaTeX editor, inline AI editing, professional templates, and real-time ATS scoring — all in one place.",
-      tech: ["next", "react", "ts", "tailwind", "motion"],
+      tech: [
+        "next",
+        "cloud",
+        "postgres",
+        "docker",
+        // "gemini",
+        // "clerk",
+        // "dodo",
+        // "react",
+        "ts",
+        // "tailwind",
+        // "motion",
+        "prisma",
+      ],
       github: "https://github.com/sehajmakkar/LaTex",
       live: "https://texels.vercel.app/",
-      starsText: "GFAAD hai laadle",
+      starsText: "Startup",
       backgroundImage: "/image copy 5.png",
     },
     {
@@ -450,8 +518,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/project-image/genomics-cover.png",
       video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
       description:
-        "Supercharge your genomics workflow with an AI engine built on Stanford's Evo 2. Analyze DNA mutations, predict disease impact, and unlock next-gen insights for faster, smarter diagnostics.",
-      tech: ["next", "tldraw", "three", "ts", "fastapi", "gemini"],
+        "AI-powered genetic variant analysis platform using Evo 2 genomic language model to predict mutation pathogenicity with GPU-accelerated inference.",
+      tech: ["next", "fastapi", "python", "ts", "ml", "modal"],
       github: "https://github.com/sehajmakkar/GenomicsAI",
       live: "https://genomics-ai.vercel.app/",
       backgroundImage: "/image copy.png",
@@ -465,13 +533,13 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
         "AI Manager to keep you accountable by hosting Daily Standups, Weekly Reviews, and 1-on-1s.",
       tech: [
         "next",
-        "ts",
-        "tailwind",
-        "prisma",
-        "bun",
-        "node",
-        "langchain",
         "rag",
+        "python",
+        "prisma",
+        "postgres",
+        "supabase",
+        // "ts",
+        // "tailwind",
       ],
       github: "https://github.com/sehajmakkar/RunBook",
       live: "https://runbook.vercel.app/",
@@ -485,13 +553,15 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       description:
         "An AI-powered collaborative coding platform that instantly sets up projects, provides intelligent coding assistance, and enables real-time team collaboration.",
       tech: [
-        "next",
-        "ts",
-        "radixui",
+        "react",
         "node",
+        "mongodb",
+        "socketio",
         "gemini",
-        "langchain",
-        "langgraph",
+        "redis",
+        // "vite",
+        // "tailwind",
+        // "express",
       ],
       github: "https://github.com/sehajmakkar/ChronosAI",
       live: "https://chronos-ai-seven.vercel.app/",
@@ -503,8 +573,15 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/project-image/doctime-cover.png",
       video: "https://www.youtube.com/embed/nuE-KWBeauE?si=z-hrZjuMuFVfSxc5",
       description:
-        "A Doctor appointment booking platform with dedicated dashboards for admins, doctors, and users. It enables seamless appointment scheduling, doctor management, and profile handling.",
-      tech: ["next", "tailwind", "radixui", "charts", "github", "rag"],
+        "A Doctor appointment booking platform with RBAC for admins, doctors, and users.",
+      tech: [
+        "mongodb",
+        "react",
+        "express",
+        "node",
+        "js",
+        // kept as-is (already concise)
+      ],
       github: "https://github.com/sehajmakkar/DocTime",
       live: "https://doc-time-rust.vercel.app/",
     },
@@ -514,8 +591,14 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       lightModeSrc: "/project-image/screamshots-cover.png",
       video: "/scribble.mp4",
       description:
-        "motion-suite is a lightweight animation toolkit for React + Framer Motion",
-      tech: ["ts", "next", "react", "motion"],
+        "Transform Boring Screens Into Stunning Mockups! Drag. Drop. Done. Elegant mockups in seconds.",
+      tech: [
+        "ts",
+        "next",
+        "react",
+        "motion",
+        // kept as-is (already concise)
+      ],
       github: "https://github.com/sehajmakkar/screamshots",
       live: "https://screamshots.vercel.app/",
       backgroundImage: "/image copy.png",
