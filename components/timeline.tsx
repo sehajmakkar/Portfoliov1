@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import Image from "next/image";
+import { Search, PenTool } from "lucide-react";
 import {
+  SiAmazon,
+  SiExpress,
+  SiJavascript,
+  SiMongodb,
   SiNextdotjs,
-  SiTypescript,
-  SiReact,
-  SiThreedotjs,
-  SiPrisma,
-  SiCloudflare,
   SiLangchain,
   SiNodedotjs,
+  SiReact,
+  SiThreedotjs,
+  SiTypescript,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 
@@ -18,20 +21,28 @@ type TechKey =
   | "ts"
   | "react"
   | "three"
-  | "prisma"
-  | "cloud"
   | "langchain"
-  | "node";
+  | "node"
+  | "mongodb"
+  | "aws"
+  | "express"
+  | "js"
+  | "rag"
+  | "canvas";
 
 const iconMap: Record<TechKey, IconType> = {
   next: SiNextdotjs,
   ts: SiTypescript,
   react: SiReact,
   three: SiThreedotjs,
-  prisma: SiPrisma,
-  cloud: SiCloudflare,
   langchain: SiLangchain,
   node: SiNodedotjs,
+  mongodb: SiMongodb,
+  aws: SiAmazon,
+  express: SiExpress,
+  js: SiJavascript,
+  rag: Search,
+  canvas: PenTool,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -39,10 +50,14 @@ const techNames: Record<TechKey, string> = {
   ts: "TypeScript",
   react: "React",
   three: "Three.js",
-  prisma: "Prisma",
-  cloud: "Cloudflare",
   langchain: "LangChain",
   node: "Node.js",
+  mongodb: "MongoDB",
+  aws: "AWS",
+  express: "Express",
+  js: "JavaScript",
+  rag: "RAG",
+  canvas: "Canvas API",
 };
 
 const techColors: Record<TechKey, string> = {
@@ -50,10 +65,14 @@ const techColors: Record<TechKey, string> = {
   ts: "#3178C6",
   react: "#61DAFB",
   three: "#8b5cf6",
-  prisma: "#5A67D8",
-  cloud: "#F38020",
   langchain: "#00A67E",
   node: "#339933",
+  mongodb: "#47A248",
+  aws: "#FF9900",
+  express: "#ffffff",
+  js: "#F7DF1E",
+  rag: "#22c55e",
+  canvas: "#f97316",
 };
 
 type Data = {
@@ -90,7 +109,7 @@ export const Timeline = () => {
           `,
           src: "/Experience-image/powerplay-logo.jpeg",
           href: "https://www.getpowerplay.ai",
-          tech: ["next", "ts", "react", "node"],
+          tech: ["mongodb", "aws", "react", "express", "node", "js"],
           dates: "Feb 2026 – Mar 2026",
           location: "Bengaluru, India (Onsite)",
           imageFit: "contain",
@@ -105,7 +124,7 @@ export const Timeline = () => {
       content: [
         {
           title: "Perf",
-          type: "SDE Intern",
+          type: "Software Engineering Intern",
           description: `
             Engineered 15+ production features using the MERN stack (MongoDB, Express.js, React.js, Node.js) across a codebase serving 1000s of active users.
             Wrote unit tests and participated in code reviews to maintain high code quality and release confidence.
@@ -113,7 +132,17 @@ export const Timeline = () => {
           `,
           src: "/Experience-image/perf-logo.png",
           href: "https://withperf.com/",
-          tech: ["prisma", "cloud", "langchain", "ts"],
+          tech: [
+            "mongodb",
+            "express",
+            "react",
+            "node",
+            "next",
+            "ts",
+            "rag",
+            "langchain",
+            "aws",
+          ],
           dates: "Sep 2025 – Jan 2026",
           location: "London, UK (Remote)",
           imageFit: "contain",
@@ -127,7 +156,7 @@ export const Timeline = () => {
       content: [
         {
           title: "Reslink Technologies",
-          type: "SDE Intern",
+          type: "Software Engineering Intern",
           description: `
             Improved dashboard initial load time by 15% through lazy loading, component memoization, and API response caching.
             Delivered 6+ feature releases on schedule across a production environment while maintaining release stability.
@@ -135,7 +164,7 @@ export const Timeline = () => {
           `,
           src: "/Experience-image/reslink-logo.jpg",
           href: "https://reslink.org/",
-          tech: ["react", "node", "ts"],
+          tech: ["three", "canvas", "next", "ts"],
           dates: "Jun 2025 – Sep 2025",
           location: "Delhi, India (Hybrid)",
           imageFit: "contain",

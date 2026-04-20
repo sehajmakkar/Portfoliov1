@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import {
   SiReact,
   SiJavascript,
@@ -14,6 +14,17 @@ import {
   SiKubernetes,
   SiGit,
   SiExpress,
+  SiMongodb,
+  SiTailwindcss,
+  SiFramer,
+  SiFastapi,
+  SiRedis,
+  SiSupabase,
+  SiVite,
+  SiThreedotjs,
+  SiCloudflare,
+  SiGooglegemini,
+  SiSocketdotio,
 } from "react-icons/si";
 import { FaDatabase, FaLink, FaAws, FaCode } from "react-icons/fa";
 
@@ -24,11 +35,22 @@ const skills = [
   { name: "NextJs", icon: SiNextdotjs, color: "#ffffff" },
   { name: "Express", icon: SiExpress, color: "#ffffff" },
   { name: "Nodejs", icon: SiNodedotjs, color: "#339933" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
   { name: "Python", icon: SiPython, color: "#3776AB" },
+  { name: "FastAPI", icon: SiFastapi, color: "#009688" },
   { name: "Langchain", icon: FaLink, color: "#00A67E" },
   { name: "Langgraph", icon: FaLink, color: "#8B5CF6" },
+  { name: "RAG", icon: FaDatabase, color: "#22C55E" },
+  { name: "Gemini API", icon: SiGooglegemini, color: "#8E75FF" },
+  { name: "Socket.io", icon: SiSocketdotio, color: "#ffffff" },
   { name: "Postgres", icon: SiPostgresql, color: "#4169E1" },
   { name: "Prisma", icon: SiPrisma, color: "#5A67D8" },
+  { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
+  { name: "Cloudflare", icon: SiCloudflare, color: "#F38020" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
+  { name: "Framer Motion", icon: SiFramer, color: "#ffffff" },
+  { name: "Vite", icon: SiVite, color: "#646CFF" },
+  { name: "Three.js", icon: SiThreedotjs, color: "#8B5CF6" },
   { name: "C", icon: FaCode, color: "#A8B9CC" },
   { name: "Docker", icon: SiDocker, color: "#2496ED" },
   { name: "Kubernetes", icon: SiKubernetes, color: "#326CE5" },
@@ -37,8 +59,6 @@ const skills = [
 ];
 
 export default function Skills() {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
   return (
     <div className="relative mt-4 w-full">
       <div className="-mx-2 mb-2 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
@@ -60,14 +80,10 @@ export default function Skills() {
             <div
               key={skill.name}
               className="flex cursor-default items-center gap-1.5 rounded-md border border-neutral-200 bg-neutral-100 px-2.5 py-1.5 transition-colors hover:border-neutral-300 dark:border-neutral-700/50 dark:bg-neutral-800/80 dark:hover:border-neutral-600"
-              onMouseEnter={() => setHoveredSkill(skill.name)}
-              onMouseLeave={() => setHoveredSkill(null)}
             >
               <skill.icon
                 className="h-4 w-4 transition-colors duration-200"
-                style={{
-                  color: hoveredSkill === skill.name ? skill.color : "#737373",
-                }}
+                style={{ color: skill.color }}
               />
               <span className="text-xs font-medium text-neutral-700 dark:text-neutral-200">
                 {skill.name}

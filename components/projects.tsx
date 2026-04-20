@@ -438,13 +438,13 @@ const ProjectCard = ({
             </div>
 
             {(() => {
-              const isNotStarted = project.title === "Inquiro";
-              const isBuilding = project.title === "Blueprint";
+              const isNotStarted = false;
+              const isBuilding = project.title === "RunBook";
 
               const dotColor = isNotStarted
                 ? "bg-neutral-400"
                 : isBuilding
-                  ? "bg-red-500"
+                  ? "bg-yellow-500"
                   : "bg-emerald-500";
 
               const label = isNotStarted
