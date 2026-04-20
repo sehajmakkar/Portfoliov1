@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Blog | Karn Singh",
+  title: "Blog | Sehaj Preet",
   description:
     "Thoughts on software engineering, web development, and technology",
 };
@@ -57,7 +57,8 @@ export default async function BlogIndex() {
           </h1>
 
           <p className="text-s font-custom2 mt-1 max-w-xl leading-relaxed tracking-tight text-neutral-600 dark:text-neutral-400">
-            Learning and sharing thoughts on software engineering, web development, and technology.
+            Learning and sharing thoughts on software engineering, web
+            development, and technology.
           </p>
         </div>
         <div className="absolute right-6 hidden h-px w-[53rem] bg-(--pattern-fg) opacity-90 md:block dark:opacity-15"></div>
