@@ -116,7 +116,13 @@ interface Project {
   live: string;
   starsText?: string;
   backgroundImage?: string;
+  status?: "live" | "building" | "not-started";
 }
+
+type ActiveModal =
+  | { type: "video"; url: string }
+  | { type: "coming-soon"; reason: "building" | "demo" }
+  | null;
 
 const iconMap: Record<TechKey, TechIcon> = {
   next: SiNextdotjs,
@@ -209,7 +215,7 @@ const ProjectCard = ({
 }: {
   project: Project;
   idx: number;
-  setActiveVideo: (video: string) => void;
+  setActiveVideo: (payload: ActiveModal) => void;
 }) => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   const { theme } = useTheme();
@@ -296,7 +302,19 @@ const ProjectCard = ({
             <motion.div
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveVideo(project.video);
+                const isYouTube = project.video.includes("youtube");
+                const isBuilding = project.status === "building";
+                const isNotStarted = project.status === "not-started";
+
+                if (!isYouTube || isBuilding || isNotStarted) {
+                  setActiveVideo({
+                    type: "coming-soon",
+                    reason: isBuilding ? "building" : "demo",
+                  });
+                  return;
+                }
+
+                setActiveVideo({ type: "video", url: project.video });
               }}
               className="pointer-events-none absolute inset-0 z-40 flex items-center justify-center group-hover:pointer-events-auto"
               variants={{
@@ -438,8 +456,8 @@ const ProjectCard = ({
             </div>
 
             {(() => {
-              const isNotStarted = false;
-              const isBuilding = project.title === "RunBook";
+              const isNotStarted = project.status === "not-started";
+              const isBuilding = project.status === "building";
 
               const dotColor = isNotStarted
                 ? "bg-neutral-400"
@@ -475,7 +493,7 @@ const ProjectCard = ({
 };
 
 const Projects = ({ showAll = false }: { showAll?: boolean }) => {
-  const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [activeVideo, setActiveVideo] = useState<ActiveModal>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -511,12 +529,13 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       live: "https://texels.vercel.app/",
       starsText: "Startup",
       backgroundImage: "/image copy 5.png",
+      status: "building",
     },
     {
       title: "Genomics AI",
       src: "/project-image/genomics-cover.png",
       lightModeSrc: "/project-image/genomics-cover.png",
-      video: "https://www.youtube.com/embed/vEW0auc6fXI?si=SEShsAG_h-e9kdnP",
+      video: "https://www.youtube.com/embed/UoxcimVpSIU",
       description:
         "AI-powered genetic variant analysis platform using Evo 2 genomic language model to predict mutation pathogenicity with GPU-accelerated inference.",
       tech: ["next", "fastapi", "python", "ts", "ml", "modal"],
@@ -544,12 +563,13 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       github: "https://github.com/sehajmakkar/RunBook",
       live: "https://runbook.vercel.app/",
       backgroundImage: "/image copy 3.png",
+      status: "building",
     },
     {
       title: "Chronos AI",
       src: "/project-image/chronos-cover.png",
       lightModeSrc: "/project-image/chronos-cover.png",
-      video: "/inquiro.mp4",
+      video: "https://www.youtube.com/embed/vdJw3kE1lqw",
       description:
         "An AI-powered collaborative coding platform that instantly sets up projects, provides intelligent coding assistance, and enables real-time team collaboration.",
       tech: [
@@ -571,7 +591,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       title: "DocTime",
       src: "/project-image/doctime-cover.png",
       lightModeSrc: "/project-image/doctime-cover.png",
-      video: "https://www.youtube.com/embed/nuE-KWBeauE?si=z-hrZjuMuFVfSxc5",
+      video: "",
       description:
         "A Doctor appointment booking platform with RBAC for admins, doctors, and users.",
       tech: [
@@ -589,7 +609,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       title: "ScreamShots",
       src: "/project-image/screamshots-cover.png",
       lightModeSrc: "/project-image/screamshots-cover.png",
-      video: "/scribble.mp4",
+      video: "",
       description:
         "Transform Boring Screens Into Stunning Mockups! Drag. Drop. Done. Elegant mockups in seconds.",
       tech: [
@@ -646,24 +666,40 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-[90%] max-w-3xl overflow-hidden rounded-xl bg-black shadow-2xl"
+              className="relative w-[90%] max-w-3xl overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-black"
             >
               <button
                 onClick={() => setActiveVideo(null)}
-                className="absolute top-3 right-3 z-50 cursor-pointer rounded-full bg-neutral-800/80 p-2 transition-colors hover:bg-neutral-700"
+                className="absolute top-3 right-3 z-50 cursor-pointer rounded-full bg-neutral-200/90 p-2 transition-colors hover:bg-neutral-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700"
               >
-                <X size={20} className="text-neutral-200" />
+                <X
+                  size={20}
+                  className="text-neutral-800 dark:text-neutral-200"
+                />
               </button>
 
-              {activeVideo.includes("youtube") ? (
+              {activeVideo.type === "coming-soon" ? (
+                <div className="flex aspect-video w-full items-center justify-center bg-neutral-100 dark:bg-neutral-950">
+                  <div className="rounded-xl border border-neutral-200 bg-white/90 px-6 py-5 text-center shadow-xl dark:border-neutral-800 dark:bg-neutral-900/70">
+                    <p className="font-custom text-lg font-semibold text-neutral-900 dark:text-neutral-100">
+                      Coming soon!
+                    </p>
+                    <p className="font-custom2 mt-1 text-sm text-neutral-600 dark:text-neutral-400">
+                      {activeVideo.reason === "building"
+                        ? "This project is currently Building."
+                        : "Demo hasn’t been shot yet."}
+                    </p>
+                  </div>
+                </div>
+              ) : activeVideo.url.includes("youtube") ? (
                 <iframe
-                  src={activeVideo}
+                  src={activeVideo.url}
                   className="aspect-video w-full border-0"
                   allowFullScreen
                 ></iframe>
               ) : (
                 <video
-                  src={activeVideo}
+                  src={activeVideo.url}
                   className="h-auto w-full"
                   controls
                   autoPlay
