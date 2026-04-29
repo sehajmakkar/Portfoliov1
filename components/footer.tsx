@@ -25,7 +25,7 @@ const Footer = () => {
 
   return (
     <footer className="w-full bg-neutral-50 dark:bg-neutral-950">
-      <Container className="flex flex-col items-center justify-between gap-4 border border-neutral-200 py-2 sm:flex-row dark:border-neutral-800">
+      <Container className="flex flex-col items-center justify-center gap-4 border border-neutral-200 py-2 text-center sm:flex-row sm:justify-between sm:text-left dark:border-neutral-800">
         <Link
           href="https://x.com/sehajmakkarr"
           target="_blank"
@@ -34,7 +34,7 @@ const Footer = () => {
         >
           @sehajmakkar
         </Link>
-        <div className="ml-9 flex items-center gap-4">
+        <div className="flex items-center justify-center gap-4">
           {socialLinks.map((link) => {
             const IconComponent = link.icon;
             return (
