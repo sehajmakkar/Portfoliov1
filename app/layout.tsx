@@ -8,6 +8,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import FractalTree from "@/components/ui/fractal-tree";
 import { Toaster } from "sonner";
+import SmoothScroll from "@/components/smooth-scroll";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -84,13 +85,15 @@ export default function RootLayout({
         className={`${instrumentSerif.className} bg-neutral-50 antialiased transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)] dark:bg-neutral-950`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Analytics />
-          <SpeedInsights />
-          <FractalTree />
-          <Navbar />
-          <main className="min-h-screen">{children}</main>
-          <Footer />
-          <Toaster />
+          <SmoothScroll>
+            <Analytics />
+            <SpeedInsights />
+            <FractalTree />
+            <Navbar />
+            <main className="min-h-screen">{children}</main>
+            <Footer />
+            <Toaster />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

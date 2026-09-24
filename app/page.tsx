@@ -11,13 +11,16 @@ import Timeline from "@/components/timeline";
 import GithubGraph from "@/components/githubgraph";
 import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
+import { useLenis } from "lenis/react";
 
 export default function Home() {
+  const lenis = useLenis();
+
   const scrollToGetInTouch = () => {
-    document.getElementById("get-in-touch")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+    const target = document.getElementById("get-in-touch");
+    if (!target) return;
+    if (lenis) lenis.scrollTo(target);
+    else target.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const socials = [
