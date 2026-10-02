@@ -508,7 +508,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
       title: "Vero",
       src: "/project-image/vero-cover.png",
       lightModeSrc: "/project-image/vero-cover.png",
-      video: "https://www.youtube.com/embed/Z-5Y1JQlrdw?si=hA_aQJ3Syv-_jzo0",
+      // demo hosted on YouTube (embed)
+      video: "https://www.youtube.com/embed/KV65sAj8Za4",
       description:
         "The AI-native writing workspace for resumes and technical documents. LaTeX editor, inline AI editing, professional templates, and real-time ATS scoring — all in one place.",
       tech: [
@@ -516,20 +517,14 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
         "cloud",
         "postgres",
         "docker",
-        // "gemini",
-        // "clerk",
-        // "dodo",
-        // "react",
         "ts",
-        // "tailwind",
-        // "motion",
         "prisma",
       ],
-      github: "https://github.com/sehajmakkar/LaTex",
-      live: "https://texels.vercel.app/",
+      github: "https://github.com/sehajmakkar/Vero",
+      live: "https://www.withvero.app/",
       starsText: "Startup",
       backgroundImage: "/image copy 5.png",
-      status: "building",
+      status: "live",
     },
     {
       title: "Genomics AI",
