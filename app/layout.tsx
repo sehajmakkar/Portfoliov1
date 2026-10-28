@@ -9,6 +9,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import FractalTree from "@/components/ui/fractal-tree";
 import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
+import HideOnKryptonite from "@/components/hide-on-kryptonite";
+import { fontVariables } from "@/lib/fonts";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -67,8 +69,8 @@ export const metadata: Metadata = {
     title: "Sehaj Preet",
     description:
       "Full-Stack + AI developer building products across web, apps, and AI solutions.",
-    creator: "@sehajmakkar",
-    site: "@sehajmakkar",
+    creator: "@kryptokodes",
+    site: "@kryptokodes",
     images: ["/myavatar.png"],
   },
 };
@@ -82,16 +84,20 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       {/* 🛠 Important for dark mode */}
       <body
-        className={`${instrumentSerif.className} bg-neutral-50 antialiased transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)] dark:bg-neutral-950`}
+        className={`${instrumentSerif.className} ${fontVariables} bg-neutral-50 antialiased transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)] dark:bg-neutral-950`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SmoothScroll>
             <Analytics />
             <SpeedInsights />
-            <FractalTree />
-            <Navbar />
+            <HideOnKryptonite>
+              <FractalTree />
+              <Navbar />
+            </HideOnKryptonite>
             <main className="min-h-screen">{children}</main>
-            <Footer />
+            <HideOnKryptonite>
+              <Footer />
+            </HideOnKryptonite>
             <Toaster />
           </SmoothScroll>
         </ThemeProvider>

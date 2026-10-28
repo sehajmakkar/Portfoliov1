@@ -1,6 +1,6 @@
 # Portfoliov1
 
-[![Live Site](https://img.shields.io/badge/Live-karnashutosh.tech-111111?style=for-the-badge&logo=vercel)](https://www.karnashutosh.tech/)
+[![Live Site](https://img.shields.io/badge/Live-sehaj.works-111111?style=for-the-badge&logo=vercel)](https://www.sehaj.works/)
 [![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
 [![React](https://img.shields.io/badge/React-19-20232A?style=for-the-badge&logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)

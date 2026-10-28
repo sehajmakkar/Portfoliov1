@@ -153,12 +153,12 @@ export default function Contact() {
           <div className="font-custom2 mt-10 flex flex-col items-center justify-between gap-4 text-xs text-neutral-500 md:flex-row dark:text-neutral-400">
             <div className="flex items-center gap-2">
               <a
-                href="https://x.com/sehajmakkarr"
+                href="https://x.com/kryptokodes"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="transition-colors hover:text-neutral-900 dark:hover:text-neutral-200"
               >
-                @sehajmakkar
+                @kryptokodes
               </a>
             </div>
 
@@ -167,7 +167,7 @@ export default function Contact() {
 
             <div className="flex items-center gap-4">
               <a
-                href="https://x.com/sehajmakkarr"
+                href="https://x.com/kryptokodes"
                 target="_blank"
                 rel="noopener noreferrer"
               >

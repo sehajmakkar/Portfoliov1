@@ -24,7 +24,7 @@ export default function GetInTouch() {
 
         <div className="flex w-full max-w-2xl gap-4">
           <Link
-            href="mailto:sehajmakkar@gmail.com?subject=New%20Project%20Inquiry&body=Hi%20Sehaj%2C%0A%0AI%E2%80%99d%20love%20to%20connect%20about%20%5Bproject%20name%2Frole%5D.%0A%0AContext%3A%0A-%20Company%2FTeam%3A%0A-%20Timeline%3A%0A-%20Budget%2FScope%3A%0A%0AThanks!"
+            href="mailto:sehajmakkar007@gmail.com?subject=New%20Project%20Inquiry&body=Hi%20Sehaj%2C%0A%0AI%E2%80%99d%20love%20to%20connect%20about%20%5Bproject%20name%2Frole%5D.%0A%0AContext%3A%0A-%20Company%2FTeam%3A%0A-%20Timeline%3A%0A-%20Budget%2FScope%3A%0A%0AThanks!"
             target="_blank"
             rel="noreferrer"
             aria-label="Shoot a DM on Gmail"

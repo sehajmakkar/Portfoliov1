@@ -90,7 +90,7 @@ export function CommandMenu() {
         // Links
         else if (key === "x") {
           e.preventDefault();
-          runCommand(() => openExternal("https://x.com/sehajmakkarr"));
+          runCommand(() => openExternal("https://x.com/kryptokodes"));
         } else if (key === "l") {
           e.preventDefault();
           runCommand(() => openExternal("https://linkedin.com"));
@@ -208,7 +208,7 @@ export function CommandMenu() {
           <CommandGroup heading="Links">
             <CommandItem
               onSelect={() =>
-                runCommand(() => openExternal("https://x.com/sehajmakkarr"))
+                runCommand(() => openExternal("https://x.com/kryptokodes"))
               }
               className="rounded-lg py-3"
             >

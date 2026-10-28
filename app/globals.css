@@ -32,6 +32,9 @@
   --color-secondary: var(--color-neutral-600);
   --font-custom: "Instrument Serif", serif;
   --font-custom2: "Instrument Sans", sans-serif;
+  --font-pen: var(--nf-pen), cursive;
+  --font-plex: var(--nf-plex), ui-monospace, monospace;
+  --font-vt: var(--nf-vt), ui-monospace, monospace;
   --color-border: var(--border);
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);

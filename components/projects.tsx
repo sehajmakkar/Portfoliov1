@@ -105,7 +105,7 @@ type TechItem =
       tooltip?: string;
     };
 
-interface Project {
+export interface Project {
   title: string;
   src: string;
   lightModeSrc?: string;
@@ -492,6 +492,123 @@ const ProjectCard = ({
   );
 };
 
+export const projects: Project[] = [
+  {
+    title: "Vero",
+    src: "/project-image/vero-cover.png",
+    lightModeSrc: "/project-image/vero-cover.png",
+    // demo hosted on YouTube (embed)
+    video: "https://www.youtube.com/embed/KV65sAj8Za4",
+    description:
+      "The AI-native writing workspace for resumes and technical documents. LaTeX editor, inline AI editing, professional templates, and real-time ATS scoring — all in one place.",
+    tech: [
+      "next",
+      "cloud",
+      "postgres",
+      "docker",
+      "ts",
+      "prisma",
+    ],
+    github: "https://github.com/sehajmakkar/Vero",
+    live: "https://www.withvero.app/",
+    starsText: "Startup",
+    backgroundImage: "/image copy 5.png",
+    status: "live",
+  },
+  {
+    title: "Genomics AI",
+    src: "/project-image/genomics-cover.png",
+    lightModeSrc: "/project-image/genomics-cover.png",
+    video: "https://www.youtube.com/embed/UoxcimVpSIU",
+    description:
+      "AI-powered genetic variant analysis platform using Evo 2 genomic language model to predict mutation pathogenicity with GPU-accelerated inference.",
+    tech: ["next", "fastapi", "python", "ts", "ml", "modal"],
+    github: "https://github.com/sehajmakkar/GenomicsAI",
+    live: "https://genomics-ai.vercel.app/",
+    backgroundImage: "/image copy.png",
+  },
+  {
+    title: "RunBook",
+    src: "/project-image/runbook-cover.png",
+    lightModeSrc: "/project-image/runbook-cover.png",
+    video: "",
+    description:
+      "AI Manager to keep you accountable by hosting Daily Standups, Weekly Reviews, and 1-on-1s.",
+    tech: [
+      "next",
+      "rag",
+      "python",
+      "prisma",
+      "postgres",
+      "supabase",
+      // "ts",
+      // "tailwind",
+    ],
+    github: "https://github.com/sehajmakkar/RunBook",
+    live: "https://runbook.vercel.app/",
+    backgroundImage: "/image copy 3.png",
+    status: "building",
+  },
+  {
+    title: "Chronos AI",
+    src: "/project-image/chronos-cover.png",
+    lightModeSrc: "/project-image/chronos-cover.png",
+    video: "https://www.youtube.com/embed/vdJw3kE1lqw",
+    description:
+      "An AI-powered collaborative coding platform that instantly sets up projects, provides intelligent coding assistance, and enables real-time team collaboration.",
+    tech: [
+      "react",
+      "node",
+      "mongodb",
+      "socketio",
+      "gemini",
+      "redis",
+      // "vite",
+      // "tailwind",
+      // "express",
+    ],
+    github: "https://github.com/sehajmakkar/ChronosAI",
+    live: "https://chronos-ai-seven.vercel.app/",
+    backgroundImage: "/image copy 4.png",
+  },
+  {
+    title: "DocTime",
+    src: "/project-image/doctime-cover.png",
+    lightModeSrc: "/project-image/doctime-cover.png",
+    video: "",
+    description:
+      "A Doctor appointment booking platform with RBAC for admins, doctors, and users.",
+    tech: [
+      "mongodb",
+      "react",
+      "express",
+      "node",
+      "js",
+      // kept as-is (already concise)
+    ],
+    github: "https://github.com/sehajmakkar/DocTime",
+    live: "https://doc-time-rust.vercel.app/",
+  },
+  {
+    title: "ScreamShots",
+    src: "/project-image/screamshots-cover.png",
+    lightModeSrc: "/project-image/screamshots-cover.png",
+    video: "",
+    description:
+      "Transform Boring Screens Into Stunning Mockups! Drag. Drop. Done. Elegant mockups in seconds.",
+    tech: [
+      "ts",
+      "next",
+      "react",
+      "motion",
+      // kept as-is (already concise)
+    ],
+    github: "https://github.com/sehajmakkar/screamshots",
+    live: "https://screamshots.vercel.app/",
+    backgroundImage: "/image copy.png",
+  },
+];
+
 const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   const [activeVideo, setActiveVideo] = useState<ActiveModal>(null);
 
@@ -502,123 +619,6 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, []);
-
-  const projects: Project[] = [
-    {
-      title: "Vero",
-      src: "/project-image/vero-cover.png",
-      lightModeSrc: "/project-image/vero-cover.png",
-      // demo hosted on YouTube (embed)
-      video: "https://www.youtube.com/embed/KV65sAj8Za4",
-      description:
-        "The AI-native writing workspace for resumes and technical documents. LaTeX editor, inline AI editing, professional templates, and real-time ATS scoring — all in one place.",
-      tech: [
-        "next",
-        "cloud",
-        "postgres",
-        "docker",
-        "ts",
-        "prisma",
-      ],
-      github: "https://github.com/sehajmakkar/Vero",
-      live: "https://www.withvero.app/",
-      starsText: "Startup",
-      backgroundImage: "/image copy 5.png",
-      status: "live",
-    },
-    {
-      title: "Genomics AI",
-      src: "/project-image/genomics-cover.png",
-      lightModeSrc: "/project-image/genomics-cover.png",
-      video: "https://www.youtube.com/embed/UoxcimVpSIU",
-      description:
-        "AI-powered genetic variant analysis platform using Evo 2 genomic language model to predict mutation pathogenicity with GPU-accelerated inference.",
-      tech: ["next", "fastapi", "python", "ts", "ml", "modal"],
-      github: "https://github.com/sehajmakkar/GenomicsAI",
-      live: "https://genomics-ai.vercel.app/",
-      backgroundImage: "/image copy.png",
-    },
-    {
-      title: "RunBook",
-      src: "/project-image/runbook-cover.png",
-      lightModeSrc: "/project-image/runbook-cover.png",
-      video: "",
-      description:
-        "AI Manager to keep you accountable by hosting Daily Standups, Weekly Reviews, and 1-on-1s.",
-      tech: [
-        "next",
-        "rag",
-        "python",
-        "prisma",
-        "postgres",
-        "supabase",
-        // "ts",
-        // "tailwind",
-      ],
-      github: "https://github.com/sehajmakkar/RunBook",
-      live: "https://runbook.vercel.app/",
-      backgroundImage: "/image copy 3.png",
-      status: "building",
-    },
-    {
-      title: "Chronos AI",
-      src: "/project-image/chronos-cover.png",
-      lightModeSrc: "/project-image/chronos-cover.png",
-      video: "https://www.youtube.com/embed/vdJw3kE1lqw",
-      description:
-        "An AI-powered collaborative coding platform that instantly sets up projects, provides intelligent coding assistance, and enables real-time team collaboration.",
-      tech: [
-        "react",
-        "node",
-        "mongodb",
-        "socketio",
-        "gemini",
-        "redis",
-        // "vite",
-        // "tailwind",
-        // "express",
-      ],
-      github: "https://github.com/sehajmakkar/ChronosAI",
-      live: "https://chronos-ai-seven.vercel.app/",
-      backgroundImage: "/image copy 4.png",
-    },
-    {
-      title: "DocTime",
-      src: "/project-image/doctime-cover.png",
-      lightModeSrc: "/project-image/doctime-cover.png",
-      video: "",
-      description:
-        "A Doctor appointment booking platform with RBAC for admins, doctors, and users.",
-      tech: [
-        "mongodb",
-        "react",
-        "express",
-        "node",
-        "js",
-        // kept as-is (already concise)
-      ],
-      github: "https://github.com/sehajmakkar/DocTime",
-      live: "https://doc-time-rust.vercel.app/",
-    },
-    {
-      title: "ScreamShots",
-      src: "/project-image/screamshots-cover.png",
-      lightModeSrc: "/project-image/screamshots-cover.png",
-      video: "",
-      description:
-        "Transform Boring Screens Into Stunning Mockups! Drag. Drop. Done. Elegant mockups in seconds.",
-      tech: [
-        "ts",
-        "next",
-        "react",
-        "motion",
-        // kept as-is (already concise)
-      ],
-      github: "https://github.com/sehajmakkar/screamshots",
-      live: "https://screamshots.vercel.app/",
-      backgroundImage: "/image copy.png",
-    },
-  ];
 
   return (
     <div className="mt-8">

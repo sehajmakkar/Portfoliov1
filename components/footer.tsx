@@ -13,7 +13,7 @@ const Footer = () => {
     },
     {
       name: "X",
-      url: "https://x.com/sehajmakkarr",
+      url: "https://x.com/kryptokodes",
       icon: FaXTwitter,
     },
     {
@@ -27,12 +27,12 @@ const Footer = () => {
     <footer className="w-full bg-neutral-50 dark:bg-neutral-950">
       <Container className="flex flex-col items-center justify-center gap-4 border border-neutral-200 py-2 text-center sm:flex-row sm:justify-between sm:text-left dark:border-neutral-800">
         <Link
-          href="https://x.com/sehajmakkarr"
+          href="https://x.com/kryptokodes"
           target="_blank"
           rel="noopener noreferrer"
           className="font-custom2 text-sm tracking-normal text-neutral-600 transition-colors duration-300 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
         >
-          @sehajmakkar
+          @kryptokodes
         </Link>
         <div className="flex items-center justify-center gap-4">
           {socialLinks.map((link) => {

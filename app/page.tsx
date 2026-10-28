@@ -12,6 +12,9 @@ import GithubGraph from "@/components/githubgraph";
 import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
 import { useLenis } from "lenis/react";
+import KoiPond from "@/components/pond/koi-pond";
+import Desk from "@/components/desk/desk";
+import NameSwitch from "@/components/kryptonite/name-switch";
 
 export default function Home() {
   const lenis = useLenis();
@@ -38,7 +41,7 @@ export default function Home() {
     {
       name: "X",
       icon: FaXTwitter,
-      action: () => window.open("https://x.com/sehajmakkarr", "_blank"),
+      action: () => window.open("https://x.com/kryptokodes", "_blank"),
     },
     {
       name: "Email",
@@ -56,13 +59,15 @@ export default function Home() {
         {/* LEFT BORDER */}
         <div className="absolute top-0 left-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"></div>
 
+        <KoiPond />
+
         {/* ---------------------------------------- */}
         {/* HEADING + SOCIALS (FIXED SAME LINE) */}
         {/* ---------------------------------------- */}
 
         <div className="flex w-full flex-wrap items-center justify-between gap-4">
           <h1 className="font-custom text-3xl font-bold tracking-tight text-neutral-900 md:text-3xl dark:text-neutral-50">
-            <span className="link--elara">Sehaj Preet</span>
+            <NameSwitch />
           </h1>
 
           <div className="flex flex-wrap gap-4 sm:justify-end">
@@ -109,6 +114,8 @@ export default function Home() {
         <Timeline></Timeline>
 
         <GithubGraph></GithubGraph>
+
+        <Desk />
 
         <Skills />
 
