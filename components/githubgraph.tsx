@@ -43,6 +43,7 @@ const GithubGraph = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  /* pull requests are hidden for now, so they aren't fetched either
   useEffect(() => {
     const fetchPRs = async () => {
       try {
@@ -72,6 +73,7 @@ const GithubGraph = () => {
 
     fetchPRs();
   }, [filterType]);
+  */
 
   return (
     <div>
@@ -130,6 +132,9 @@ const GithubGraph = () => {
           )}
         </div>
       </div>
+      {/* Pull requests section, hidden for now. To bring it back, remove this
+          comment wrapper (and the one around the fetch above) and turn the
+          "// Sliding Pill Background" and "// Buttons" lines back into JSX comments.
       {showPRSection && (
         <div className="mt-4">
           <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -138,7 +143,7 @@ const GithubGraph = () => {
             </h2>
             <div className="flex items-center gap-2">
               <div className="relative grid w-fit grid-cols-4 rounded-lg border border-neutral-300/30 bg-black/5 p-1 select-none dark:border-neutral-700/30 dark:bg-white/5">
-                {/* Sliding Pill Background */}
+                // Sliding Pill Background
                 <div
                   className={`absolute top-1 bottom-1 left-1 w-[calc((100%-8px)/4)] transform rounded bg-white shadow-sm transition-transform duration-300 ease-[cubic-bezier(0.33,1,0.68,1)] will-change-transform dark:bg-neutral-800 ${
                     filterType === "all"
@@ -151,7 +156,7 @@ const GithubGraph = () => {
                   }`}
                 />
 
-                {/* Buttons */}
+                // Buttons
                 <button
                   onClick={() => setFilterType("all")}
                   className={`relative z-10 px-3 py-1.5 text-center text-xs font-medium transition-colors duration-200 ${
@@ -268,6 +273,7 @@ const GithubGraph = () => {
           )}
         </div>
       )}
+      */}
     </div>
   );
 };

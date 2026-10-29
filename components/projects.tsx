@@ -13,6 +13,8 @@ import {
   Github,
   Star,
   X,
+  ChevronLeft,
+  ChevronRight,
   Network,
   Search,
   BrainCircuit,
@@ -54,6 +56,8 @@ import {
   SiSocketdotio,
   SiSupabase,
   SiJavascript,
+  SiSwift,
+  SiSqlite,
 } from "react-icons/si";
 type TechIcon = ComponentType<{ className?: string }>;
 
@@ -96,7 +100,9 @@ type TechKey =
   | "ml"
   | "modal"
   | "clerk"
-  | "dodo";
+  | "dodo"
+  | "swift"
+  | "sqlite";
 
 type TechItem =
   | TechKey
@@ -117,10 +123,15 @@ export interface Project {
   starsText?: string;
   backgroundImage?: string;
   status?: "live" | "building" | "not-started";
+  // screenshots shown in place of a demo video, until there is one
+  gallery?: { src: string; caption: string }[];
 }
+
+type GalleryImage = { src: string; caption: string };
 
 type ActiveModal =
   | { type: "video"; url: string }
+  | { type: "gallery"; title: string; images: GalleryImage[] }
   | { type: "coming-soon"; reason: "building" | "demo" }
   | null;
 
@@ -164,6 +175,8 @@ const iconMap: Record<TechKey, TechIcon> = {
   modal: Cpu,
   clerk: ShieldCheck,
   dodo: CreditCard,
+  swift: SiSwift,
+  sqlite: SiSqlite,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -206,6 +219,8 @@ const techNames: Record<TechKey, string> = {
   modal: "Modal H100 GPUs",
   clerk: "Clerk",
   dodo: "Dodo Payments",
+  swift: "Swift (macOS Accessibility API)",
+  sqlite: "SQLite + sqlite-vec",
 };
 
 const ProjectCard = ({
@@ -306,6 +321,18 @@ const ProjectCard = ({
                 const isBuilding = project.status === "building";
                 const isNotStarted = project.status === "not-started";
 
+                if (
+                  (!isYouTube || isBuilding || isNotStarted) &&
+                  project.gallery?.length
+                ) {
+                  setActiveVideo({
+                    type: "gallery",
+                    title: project.title,
+                    images: project.gallery,
+                  });
+                  return;
+                }
+
                 if (!isYouTube || isBuilding || isNotStarted) {
                   setActiveVideo({
                     type: "coming-soon",
@@ -379,7 +406,8 @@ const ProjectCard = ({
               )}
             </div>
             <div className="flex items-center gap-3">
-              {project.title !== "Scribble3D" &&
+              {project.live &&
+                project.title !== "Scribble3D" &&
                 project.title !== "Blueprint" &&
                 project.title !== "RepoLens" &&
                 project.title !== "Inquiro" && (
@@ -516,6 +544,62 @@ export const projects: Project[] = [
     status: "live",
   },
   {
+    title: "McAgent",
+    src: "/project-image/mcagent-cover.png",
+    lightModeSrc: "/project-image/mcagent-cover.png",
+    video: "",
+    description:
+      "A local-first macOS agent that reads your screen text, remembers your work and finds your open loops: promises, follow-ups, unanswered asks. Then it closes them: drafts the email, you approve, it sends and verifies.",
+    tech: ["swift", "python", "fastapi", "gemini", "sqlite"],
+    github: "https://github.com/sehajmakkar/contextagent",
+    live: "",
+    backgroundImage: "/image copy 2.png",
+    gallery: [
+      {
+        src: "/project-image/mcagent/inbox.png",
+        caption: "The inbox: open loops found on screen, each with the quote that created it",
+      },
+      {
+        src: "/project-image/mcagent/draft.png",
+        caption: "Close it for me: the agent drafts the email, nothing sends until you approve",
+      },
+      {
+        src: "/project-image/mcagent/menu-bar.png",
+        caption: "The menu-bar panel",
+      },
+    ],
+  },
+  {
+    title: "Agent Labs",
+    src: "/project-image/agent-labs-cover.png",
+    lightModeSrc: "/project-image/agent-labs-cover.png",
+    video: "",
+    description:
+      "Find the exact step where an AI agent went wrong, and prove the fix. Deterministic replay, auto-blame verified by forking runs, trajectory diffs, and evals that gate CI.",
+    tech: ["python", "fastapi", "gemini", "react", "ts", "vite"],
+    github: "https://github.com/sehajmakkar/agent-labs",
+    live: "",
+    backgroundImage: "/image copy 3.png",
+    gallery: [
+      {
+        src: "/project-image/agent-labs/overview.png",
+        caption: "Record, evaluate, blame, fork, diff, lock it in",
+      },
+      {
+        src: "/project-image/agent-labs/decision-tree.png",
+        caption: "Every run as a decision tree you can click through",
+      },
+      {
+        src: "/project-image/agent-labs/fork.png",
+        caption: "A fork proving the fix: 5/5 with the change, 0/5 without",
+      },
+      {
+        src: "/project-image/agent-labs/blame-accuracy.png",
+        caption: "Blame accuracy on 50 deliberately planted bugs",
+      },
+    ],
+  },
+  {
     title: "Genomics AI",
     src: "/project-image/genomics-cover.png",
     lightModeSrc: "/project-image/genomics-cover.png",
@@ -609,6 +693,68 @@ export const projects: Project[] = [
   },
 ];
 
+const Gallery = ({ title, images }: { title: string; images: GalleryImage[] }) => {
+  const [index, setIndex] = useState(0);
+  const go = (step: number) =>
+    setIndex((i) => (i + step + images.length) % images.length);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") setIndex((i) => (i + 1) % images.length);
+      if (e.key === "ArrowLeft")
+        setIndex((i) => (i - 1 + images.length) % images.length);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [images.length]);
+
+  const image = images[index];
+
+  return (
+    <div className="flex flex-col bg-neutral-100 dark:bg-neutral-950">
+      <div className="relative flex max-h-[72vh] items-center justify-center p-3 pt-14">
+        <Image
+          key={image.src}
+          src={image.src}
+          alt={`${title}: ${image.caption}`}
+          width={1600}
+          height={1000}
+          className="h-auto max-h-[calc(72vh-4rem)] w-auto max-w-full rounded-md border border-neutral-200 object-contain dark:border-neutral-800"
+        />
+      </div>
+      <div className="flex items-center justify-between gap-4 border-t border-neutral-200 px-4 py-3 dark:border-neutral-800">
+        <p className="font-custom2 min-w-0 text-sm text-neutral-700 dark:text-neutral-300">
+          <span className="font-custom mr-2 text-base text-neutral-900 dark:text-neutral-100">
+            {title}
+          </span>
+          {image.caption}
+        </p>
+        {images.length > 1 && (
+          <div className="flex shrink-0 items-center gap-2">
+            <span className="font-custom2 text-xs text-neutral-500 tabular-nums">
+              {index + 1} / {images.length}
+            </span>
+            <button
+              onClick={() => go(-1)}
+              aria-label="Previous screenshot"
+              className="cursor-pointer rounded-full bg-neutral-200/90 p-1.5 transition-colors hover:bg-neutral-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700"
+            >
+              <ChevronLeft size={16} className="text-neutral-800 dark:text-neutral-200" />
+            </button>
+            <button
+              onClick={() => go(1)}
+              aria-label="Next screenshot"
+              className="cursor-pointer rounded-full bg-neutral-200/90 p-1.5 transition-colors hover:bg-neutral-300 dark:bg-neutral-800/80 dark:hover:bg-neutral-700"
+            >
+              <ChevronRight size={16} className="text-neutral-800 dark:text-neutral-200" />
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   const [activeVideo, setActiveVideo] = useState<ActiveModal>(null);
 
@@ -661,7 +807,9 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative w-[90%] max-w-3xl overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-black"
+              className={`relative w-[90%] cursor-default overflow-hidden rounded-xl bg-white shadow-2xl dark:bg-black ${
+                activeVideo.type === "gallery" ? "max-w-5xl" : "max-w-3xl"
+              }`}
             >
               <button
                 onClick={() => setActiveVideo(null)}
@@ -673,7 +821,9 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                 />
               </button>
 
-              {activeVideo.type === "coming-soon" ? (
+              {activeVideo.type === "gallery" ? (
+                <Gallery title={activeVideo.title} images={activeVideo.images} />
+              ) : activeVideo.type === "coming-soon" ? (
                 <div className="flex aspect-video w-full items-center justify-center bg-neutral-100 dark:bg-neutral-950">
                   <div className="rounded-xl border border-neutral-200 bg-white/90 px-6 py-5 text-center shadow-xl dark:border-neutral-800 dark:bg-neutral-900/70">
                     <p className="font-custom text-lg font-semibold text-neutral-900 dark:text-neutral-100">

@@ -422,6 +422,7 @@ const DISK_COLORS = ["#2a2927", "#3c4752", "#6a3128", "#7b776c", "#3b4a3a", "#c9
 function Floppy({
   shared,
   index,
+  total,
   title,
   home,
   state,
@@ -429,6 +430,7 @@ function Floppy({
 }: {
   shared: Shared;
   index: number;
+  total: number;
   title: string;
   home: { pos: THREE.Vector3; quat: THREE.Quaternion };
   state: { current: { index: number; t: number } };
@@ -438,7 +440,7 @@ function Floppy({
   const [hovered, bind] = useItem(shared, "floppies", () => {
     if (state.current.index !== index || state.current.t === 0) onPick(index);
   });
-  const label = useMemo(() => floppyLabel(title, index, pen.style.fontFamily), [title, index]);
+  const label = useMemo(() => floppyLabel(title, index, total, pen.style.fontFamily), [title, index, total]);
   const body = useMemo(() => rounded(0.09, 0.0033, 0.094, 0.0016, 2), []);
   const lift = useRef(0);
   const tmp = useMemo(() => {
@@ -575,6 +577,7 @@ export function Floppies({ shared, titles }: { shared: Shared; titles: string[] 
           key={title}
           shared={shared}
           index={i}
+          total={titles.length}
           title={title}
           home={homes[i]}
           state={state}

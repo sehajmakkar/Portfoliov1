@@ -90,7 +90,7 @@ export function woodTexture() {
   });
 }
 
-export function floppyLabel(title: string, index: number, pen: string) {
+export function floppyLabel(title: string, index: number, total: number, pen: string) {
   return canvasTexture(256, 160, (c, w, h) => {
     c.fillStyle = "#f1ecdf";
     c.fillRect(0, 0, w, h);
@@ -113,7 +113,7 @@ export function floppyLabel(title: string, index: number, pen: string) {
     c.restore();
     c.font = `30px ${pen}`;
     c.fillStyle = "rgba(38,48,74,0.75)";
-    c.fillText(`disk ${index + 1} of 6`, 16, 140);
+    c.fillText(`disk ${index + 1} of ${total}`, 16, 140);
   });
 }
 
