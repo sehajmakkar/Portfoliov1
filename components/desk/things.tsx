@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
-import { perfume as perfumeData } from "@/lib/setup";
+import { perfume as perfumeData, record as onThePlatter } from "@/lib/setup";
 import { pen } from "@/lib/fonts";
-import { LAMP, SPOT, damp, rounded, useItem, type Shared } from "./kit";
-import { footballTexture, notebookCover, perfumeLabel, watchDial } from "./textures";
+import { LAMP, SPOT, TURNTABLE, damp, rounded, useItem, type Shared } from "./kit";
+import { footballTexture, notebookCover, perfumeLabel, vinylTexture, watchDial, whiteCanTexture } from "./textures";
 
 const STEEL = { color: "#c9cbcc", metalness: 1, roughness: 0.22 } as const;
 
@@ -69,7 +69,7 @@ export function Watch({ shared }: { shared: Shared }) {
       </mesh>
       <mesh position={[0, 0.0102, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <circleGeometry args={[0.0172, 48]} />
-        <meshStandardMaterial map={dial} roughness={0.35} metalness={0.15} />
+        <meshStandardMaterial map={dial} color="#c4d0d6" roughness={0.4} metalness={0.1} envMapIntensity={0.5} />
       </mesh>
       {/* hour, minute, second */}
       {[
@@ -399,6 +399,154 @@ export function Lamp({ shared, on, onToggle }: { shared: Shared; on: boolean; on
         <sphereGeometry args={[0.024, 16, 12]} />
         <meshStandardMaterial ref={bulb} color="#f3ead8" emissive="#ffd9a3" emissiveIntensity={0} />
       </mesh>
+    </group>
+  );
+}
+
+// A turntable with Lunch Break on the platter. The needle drops when music plays.
+export function Turntable({ shared, onPlay }: { shared: Shared; onPlay(): void }) {
+  const [hovered, bind] = useItem(shared, "turntable", () => {
+    onPlay();
+    shared.focus("turntable");
+  });
+  const vinyl = useMemo(() => vinylTexture(), []);
+  const [label, setLabel] = useState<THREE.Texture | null>(null);
+  useEffect(() => {
+    let live = true;
+    new THREE.TextureLoader().load(onThePlatter.cover, (t) => {
+      t.colorSpace = THREE.SRGBColorSpace;
+      if (live) setLabel(t);
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
+  const geo = useMemo(() => ({ plinth: rounded(0.38, 0.05, 0.3, 0.01) }), []);
+  const record = useRef<THREE.Group>(null);
+  const arm = useRef<THREE.Group>(null);
+  const speed = useRef(0);
+  const P = { x: -0.03, y: 0.066 }; // platter centre on the plinth
+  useFrame((_, dt) => {
+    const playing = shared.radio.station !== "off";
+    // 33⅓ rpm, spinning up and down like a real motor
+    speed.current += ((playing ? 3.49 : 0) - speed.current) * damp(dt, playing ? 2.5 : 1.2);
+    if (record.current) record.current.rotation.y -= speed.current * dt;
+    if (arm.current) {
+      const target = playing ? -0.52 : hovered ? -0.12 : 0;
+      arm.current.rotation.y += (target - arm.current.rotation.y) * damp(dt, 3);
+    }
+  });
+  return (
+    <group position={[TURNTABLE.x, 0, TURNTABLE.z]} rotation={[0, TURNTABLE.rot, 0]} {...bind}>
+      <mesh geometry={geo.plinth} position={[0, 0.025, 0]} castShadow receiveShadow>
+        <meshStandardMaterial color="#5b3d28" roughness={0.45} />
+      </mesh>
+      <mesh position={[0, 0.0505, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[0.36, 0.28]} />
+        <meshStandardMaterial color="#1c1b1a" roughness={0.5} metalness={0.3} />
+      </mesh>
+      {/* platter */}
+      <mesh position={[P.x, 0.056, 0]} castShadow>
+        <cylinderGeometry args={[0.128, 0.128, 0.012, 64]} />
+        <meshStandardMaterial color="#9a9893" metalness={0.85} roughness={0.3} />
+      </mesh>
+      <group ref={record} position={[P.x, P.y, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
+          <circleGeometry args={[0.122, 64]} />
+          <meshStandardMaterial map={vinyl} roughness={0.25} metalness={0.2} />
+        </mesh>
+        <mesh position={[0, 0.0004, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[0.042, 48]} />
+          <meshStandardMaterial key={label?.uuid ?? "plain"} map={label} color={label ? "#ffffff" : "#a8432c"} roughness={0.7} />
+        </mesh>
+        <mesh position={[0, 0.006, 0]}>
+          <cylinderGeometry args={[0.0028, 0.0028, 0.014, 12]} />
+          <meshStandardMaterial color="#c9cbcc" metalness={1} roughness={0.2} />
+        </mesh>
+      </group>
+      {/* tonearm: pivots from the back right, swings over the record */}
+      <mesh position={[0.14, 0.064, -0.09]} castShadow>
+        <cylinderGeometry args={[0.02, 0.024, 0.028, 24]} />
+        <meshStandardMaterial color="#2a2928" metalness={0.6} roughness={0.35} />
+      </mesh>
+      <group ref={arm} position={[0.14, 0.082, -0.09]}>
+        <mesh position={[0, 0, 0.1]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+          <cylinderGeometry args={[0.0032, 0.0032, 0.2, 10]} />
+          <meshStandardMaterial color="#c9cbcc" metalness={1} roughness={0.25} />
+        </mesh>
+        <mesh position={[-0.006, -0.006, 0.205]} rotation={[0, 0.35, 0]} castShadow>
+          <boxGeometry args={[0.016, 0.008, 0.03]} />
+          <meshStandardMaterial color="#1c1b1a" roughness={0.4} />
+        </mesh>
+        <mesh position={[0, 0.002, -0.03]} castShadow>
+          <cylinderGeometry args={[0.009, 0.009, 0.02, 16]} />
+          <meshStandardMaterial color="#2a2928" metalness={0.6} roughness={0.35} />
+        </mesh>
+      </group>
+      {/* speed buttons and a small light */}
+      {[-0.13, -0.1].map((x) => (
+        <mesh key={x} position={[x, 0.052, 0.115]}>
+          <cylinderGeometry args={[0.009, 0.009, 0.004, 16]} />
+          <meshStandardMaterial color="#c9cbcc" metalness={0.9} roughness={0.3} />
+        </mesh>
+      ))}
+      <mesh position={[0.15, 0.052, 0.115]}>
+        <sphereGeometry args={[0.004, 10, 8]} />
+        <meshStandardMaterial color="#c94a35" emissive="#d35a3c" emissiveIntensity={1.2} />
+      </mesh>
+    </group>
+  );
+}
+
+// A white Monster, opened, always within reach.
+export function MonsterCan({ shared }: { shared: Shared }) {
+  const [hovered, bind] = useItem(shared, "monster");
+  const { body, wrap } = useMemo(() => {
+    const pts = [
+      [0, 0.003],
+      [0.022, 0.0],
+      [0.03, 0.004],
+      [0.033, 0.012],
+      [0.033, 0.152],
+      [0.0295, 0.163],
+      [0.0272, 0.168],
+      [0.0285, 0.17],
+    ].map(([x, y]) => new THREE.Vector2(x, y));
+    const body = new THREE.LatheGeometry(pts, 64);
+    // a lathe spreads v evenly per profile point, which squeezes the whole
+    // wall into a sliver of the texture; map v by height instead
+    const pos = body.attributes.position;
+    const uv = body.attributes.uv;
+    for (let i = 0; i < uv.count; i++) uv.setY(i, pos.getY(i) / 0.17);
+    uv.needsUpdate = true;
+    return { body, wrap: whiteCanTexture() };
+  }, []);
+  const ref = useRef<THREE.Group>(null);
+  useFrame((_, dt) => {
+    if (!ref.current) return;
+    ref.current.rotation.y += ((hovered ? 0.6 : 0) - ref.current.rotation.y) * damp(dt, 5);
+  });
+  return (
+    // the print is centred at u = 0.5, which this turns towards the camera
+    <group position={SPOT.monster} rotation={[0, Math.PI - 0.4, 0]} {...bind}>
+      <group ref={ref}>
+        <mesh geometry={body} castShadow receiveShadow>
+          <meshStandardMaterial map={wrap} metalness={0.1} roughness={0.3} />
+        </mesh>
+        <mesh position={[0, 0.1675, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[0.0272, 40]} />
+          <meshStandardMaterial color="#c9cccf" metalness={1} roughness={0.28} />
+        </mesh>
+        {/* opened: the tab up, the mouth dark */}
+        <mesh position={[0, 0.168, -0.012]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[0.007, 20]} />
+          <meshStandardMaterial color="#1a1a1a" roughness={0.6} />
+        </mesh>
+        <mesh position={[0, 0.17, 0.004]} rotation={[0.25, 0, 0]}>
+          <boxGeometry args={[0.012, 0.0012, 0.02]} />
+          <meshStandardMaterial color="#d7d9db" metalness={1} roughness={0.25} />
+        </mesh>
+      </group>
     </group>
   );
 }

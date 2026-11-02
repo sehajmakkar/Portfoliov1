@@ -25,6 +25,19 @@ export const frames = {
   },
 };
 
+// The record on the turntable. The cover is the label on the vinyl and what
+// the big screen shows while it plays.
+//
+// `audio` is the track the turntable and speakers play. Remove it and they
+// fall back to the lo-fi station.
+export const record = {
+  title: "Joint in the Booth",
+  artist: "Seedhe Maut",
+  album: "Lunch Break",
+  cover: "/desk/lunch-break.jpg",
+  audio: "/desk/joint-in-the-booth.mp3" as string | undefined,
+};
+
 export const perfume = {
   label: "eau de parfum",
 };
@@ -53,16 +66,18 @@ export type ItemId =
   | "scarf"
   | "football"
   | "sunset"
-  | "lights";
+  | "lights"
+  | "turntable"
+  | "monster";
 
 // `tag` is what shows next to the cursor; `title` and `note` are the card
 // you get after clicking something.
 export const items: Record<ItemId, { tag: string; title?: string; note?: string }> = {
-  monitor: { tag: "the macintosh · click to use it" },
+  monitor: { tag: "the big screen · click to use it" },
   macbook: {
     tag: "macbook",
     title: "MacBook",
-    note: "The one doing the actual work, wired into the Mac like it's 1984. Everything on this site was written on it.",
+    note: "Open under the big screen, the way it always is. Everything on this site was written on it.",
   },
   keyboard: { tag: "keyboard · type on yours, watch this one" },
   mouse: { tag: "mouse" },
@@ -73,9 +88,9 @@ export const items: Record<ItemId, { tag: string; title?: string; note?: string 
     note: "For 3am sessions when the speakers are too much. Half my verses get written with these on.",
   },
   watch: {
-    tag: "casio · ice blue dial",
-    title: "Casio, ice blue dial",
-    note: "Steel, simple, never needs charging. It's showing your local time right now.",
+    tag: "casio enticer · mtp-1302pe-2av",
+    title: "Casio Enticer MTP-1302PE-2AV",
+    note: "Steel bracelet, light blue sunburst dial, date at three. It's showing your local time and today's date right now.",
   },
   perfume: {
     tag: "perfume",
@@ -118,4 +133,14 @@ export const items: Record<ItemId, { tag: string; title?: string; note?: string 
   },
   sunset: { tag: "sunset lamp · click to switch" },
   lights: { tag: "string lights · click to switch" },
+  monster: {
+    tag: "white monster",
+    title: "White Monster",
+    note: "Zero sugar, all the commits. The reason some of them are timestamped 4am.",
+  },
+  turntable: {
+    tag: "turntable · lunch break on the platter",
+    title: "Lunch Break, on vinyl",
+    note: "Seedhe Maut, Lunch Break. The record that never leaves the platter. Click it and the needle drops.",
+  },
 };

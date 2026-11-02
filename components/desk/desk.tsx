@@ -64,7 +64,7 @@ export default function Desk() {
 
       {/* <p className="font-custom2 mt-3 mb-2 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-2 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
         Where it all happens. Hover anything, click for a closer look. Put some music on, and click the
-        Mac to type <span className="font-vt text-base">help</span>.
+        screen to type <span className="font-vt text-base">help</span>.
       </p> */}
 
       <div

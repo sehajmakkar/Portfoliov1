@@ -1,16 +1,75 @@
 import { BeatEngine, PRESETS, patternFrom, type Preset } from "@/components/kryptonite/beat-engine";
 import { getAudioContext, noiseBuffer } from "@/lib/audio";
+import { record } from "@/lib/setup";
 
-// What the desk speakers play. Both stations come out of the KR-88 engine from
-// the Kryptonite side; rain is filtered noise that can sit under either.
+// What the desk speakers play. The record is a real track (see lib/setup.ts);
+// the other two stations come out of the KR-88 engine from the Kryptonite
+// side; rain is filtered noise that can sit under any of them.
 
-export type Station = "off" | "lofi" | "boombap";
+export type Station = "off" | "record" | "lofi" | "boombap";
 
 export const STATIONS: { id: Station; label: string }[] = [
   { id: "off", label: "off" },
+  ...(record.audio ? [{ id: "record" as const, label: "the record" }] : []),
   { id: "lofi", label: "lo-fi" },
   { id: "boombap", label: "boom bap" },
 ];
+
+/** The record on the turntable, through an analyser so the desk can move to it. */
+class Deck {
+  private el: HTMLAudioElement;
+  private analyser: AnalyserNode | null = null;
+  private bins: Uint8Array<ArrayBuffer> | null = null;
+  private avg = 0;
+
+  constructor(src: string) {
+    this.el = new Audio(src);
+    this.el.loop = true;
+    this.el.preload = "auto";
+    const ac = getAudioContext();
+    if (!ac) return;
+    const node = ac.createMediaElementSource(this.el);
+    this.analyser = ac.createAnalyser();
+    this.analyser.fftSize = 512;
+    this.analyser.smoothingTimeConstant = 0.5;
+    this.bins = new Uint8Array(this.analyser.frequencyBinCount);
+    node.connect(this.analyser).connect(ac.destination);
+  }
+
+  get playing() {
+    return !this.el.paused;
+  }
+
+  get time() {
+    return this.el.currentTime;
+  }
+
+  play() {
+    getAudioContext();
+    void this.el.play().catch(() => {});
+  }
+
+  pause() {
+    this.el.pause();
+  }
+
+  /** 1 on a bass hit, 0 otherwise. */
+  kick() {
+    if (!this.analyser || !this.bins || this.el.paused) return 0;
+    this.analyser.getByteFrequencyData(this.bins);
+    let bass = 0;
+    for (let i = 1; i < 6; i++) bass += this.bins[i];
+    bass /= 5 * 255;
+    const hit = bass > 0.55 && bass > this.avg * 1.18;
+    this.avg += (bass - this.avg) * 0.08;
+    return hit ? 1 : 0;
+  }
+
+  dispose() {
+    this.el.pause();
+    this.el.removeAttribute("src");
+  }
+}
 
 const LOFI: Preset = {
   bpm: 74,
@@ -26,7 +85,7 @@ const LOFI: Preset = {
   },
 };
 
-const SOUND: Record<Exclude<Station, "off">, { preset: Preset; tone: number; dust: number }> = {
+const SOUND: Record<Exclude<Station, "off" | "record">, { preset: Preset; tone: number; dust: number }> = {
   lofi: { preset: LOFI, tone: 0.3, dust: 0.85 },
   boombap: { preset: PRESETS["boom bap"], tone: 0.65, dust: 0.5 },
 };
@@ -94,6 +153,7 @@ function startRain(ac: AudioContext): Rain {
 
 export class Radio {
   engine: BeatEngine | null = null;
+  deck: Deck | null = null;
   station: Station = "off";
   private rain: Rain | null = null;
 
@@ -102,9 +162,14 @@ export class Radio {
   }
 
   tune(station: Station) {
+    if (station === "record" && !record.audio) station = "lofi";
     this.station = station;
-    if (station === "off") {
-      this.engine?.stop();
+    if (station !== "record") this.deck?.pause();
+    if (station === "off" || station === "record") this.engine?.stop();
+    if (station === "off") return;
+    if (station === "record") {
+      if (!this.deck) this.deck = new Deck(record.audio!);
+      this.deck.play();
       return;
     }
     const { preset, tone, dust } = SOUND[station];
@@ -137,5 +202,6 @@ export class Radio {
   dispose() {
     this.stopAll();
     this.engine?.dispose();
+    this.deck?.dispose();
   }
 }

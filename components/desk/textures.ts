@@ -372,8 +372,8 @@ export function watchDial() {
   return canvasTexture(512, 512, (c, w, h) => {
     const cx = w / 2;
     const cy = h / 2;
-    // ice blue sunburst
-    c.fillStyle = "#bcd8e2";
+    // the Enticer's light blue sunburst, a touch of turquoise in it
+    c.fillStyle = "#5c9ec2";
     c.fillRect(0, 0, w, h);
     for (let i = 0; i < 360; i++) {
       const a = (i / 360) * Math.PI * 2;
@@ -402,6 +402,7 @@ export function watchDial() {
     }
     // applied steel batons
     for (let i = 0; i < 12; i++) {
+      if (i === 3) continue; // the date window sits there
       const a = (i / 12) * Math.PI * 2 - Math.PI / 2;
       c.save();
       c.translate(cx + Math.cos(a) * 180, cy + Math.sin(a) * 180);
@@ -418,8 +419,18 @@ export function watchDial() {
       c.fillRect(-wid / 2, -len / 2, wid, len);
       c.restore();
     }
-    c.fillStyle = "#1f2a36";
+    // the date at three o'clock, in a white window
+    c.fillStyle = "#3a4650";
+    c.fillRect(cx + 128, cy - 21, 52, 42);
+    c.fillStyle = "#f4f2ec";
+    c.fillRect(cx + 131, cy - 18, 46, 36);
+    c.fillStyle = "#1c1c1c";
     c.textAlign = "center";
+    c.textBaseline = "middle";
+    c.font = "bold 26px 'Instrument Sans', Helvetica, Arial, sans-serif";
+    c.fillText(String(new Date().getDate()), cx + 154, cy + 1);
+    c.textBaseline = "alphabetic";
+    c.fillStyle = "#1f2a36";
     c.font = "bold 34px 'Instrument Sans', Helvetica, Arial, sans-serif";
     c.fillText("CASIO", cx, cy - 80);
     c.font = "15px 'Instrument Sans', Helvetica, Arial, sans-serif";
@@ -616,5 +627,125 @@ export function glowTexture() {
     g.addColorStop(1, "rgba(255,160,80,0)");
     c.fillStyle = g;
     c.fillRect(0, 0, w, h);
+  });
+}
+
+/** A record seen from above: grooves, a dead wax ring, and a soft sheen. */
+export function vinylTexture() {
+  return canvasTexture(512, 512, (c, w, h) => {
+    const cx = w / 2;
+    const cy = h / 2;
+    c.fillStyle = "#111111";
+    c.fillRect(0, 0, w, h);
+    for (let r = 250; r > 90; r -= 1.6) {
+      c.strokeStyle = `rgba(255,255,255,${0.025 + ((r * 7) % 5) * 0.006})`;
+      c.lineWidth = 0.7;
+      c.beginPath();
+      c.arc(cx, cy, r, 0, Math.PI * 2);
+      c.stroke();
+    }
+    // gaps between tracks
+    for (const r of [210, 172, 138]) {
+      c.strokeStyle = "rgba(0,0,0,0.9)";
+      c.lineWidth = 3;
+      c.beginPath();
+      c.arc(cx, cy, r, 0, Math.PI * 2);
+      c.stroke();
+    }
+    const sheen = c.createConicGradient(0.6, cx, cy);
+    sheen.addColorStop(0, "rgba(255,255,255,0)");
+    sheen.addColorStop(0.08, "rgba(255,255,255,0.10)");
+    sheen.addColorStop(0.16, "rgba(255,255,255,0)");
+    sheen.addColorStop(0.5, "rgba(255,255,255,0)");
+    sheen.addColorStop(0.58, "rgba(255,255,255,0.08)");
+    sheen.addColorStop(0.66, "rgba(255,255,255,0)");
+    sheen.addColorStop(1, "rgba(255,255,255,0)");
+    c.fillStyle = sheen;
+    c.beginPath();
+    c.arc(cx, cy, 252, 0, Math.PI * 2);
+    c.fill();
+  });
+}
+
+/** White can wrap: pale silver claw marks and a thin vertical word. */
+export function whiteCanTexture() {
+  // 1024 wide around the can, 840 tall: the can's circumference to height
+  return canvasTexture(1024, 840, (c, w, h) => {
+    c.fillStyle = "#f4f4f1";
+    c.fillRect(0, 0, w, h);
+    const fx = w / 2; // the front of the print, turned to face the camera
+
+    // the claw M: three torn slashes, grey with a darker edge
+    const claw = (x: number, top: number, bottom: number, width: number, seed: number) => {
+      let r = seed;
+      const rnd = () => ((r = (r * 9301 + 49297) % 233280) / 233280);
+      const left: [number, number][] = [];
+      const right: [number, number][] = [];
+      const steps = 11;
+      for (let k = 0; k <= steps; k++) {
+        const t = k / steps;
+        const y = top + (bottom - top) * t;
+        const half = (width / 2) * (1 - t * 0.85);
+        const lean = t * t * width * 0.35; // slashes curl a little at the end
+        const j = k % 2 ? 1 : -1;
+        left.push([x - half + lean + j * (4 + rnd() * 7), y]);
+        right.push([x + half + lean - j * (4 + rnd() * 7), y + (rnd() - 0.5) * 8]);
+      }
+      c.beginPath();
+      c.moveTo(x - width * 0.45, top - 22); // torn points at the top
+      c.lineTo(left[0][0], left[0][1]);
+      left.forEach(([px, py]) => c.lineTo(px, py));
+      c.lineTo(x + width * 0.42 + width * 0.35, bottom + 30);
+      for (let k = right.length - 1; k >= 0; k--) c.lineTo(right[k][0], right[k][1]);
+      c.lineTo(x + width * 0.4, top - 30);
+      c.closePath();
+      c.fillStyle = "#8d9398";
+      c.fill();
+      c.lineWidth = 5;
+      c.strokeStyle = "#5c6267";
+      c.stroke();
+    };
+    claw(fx - 92, 150, 520, 66, 3);
+    claw(fx, 168, 470, 60, 11);
+    claw(fx + 92, 150, 520, 66, 29);
+
+    // the wordmark
+    c.textAlign = "center";
+    c.textBaseline = "alphabetic";
+    c.fillStyle = "#151515";
+    c.save();
+    c.translate(fx, 640);
+    c.transform(1, 0, -0.14, 1, 0, 0);
+    c.font = "900 60px Impact, 'Arial Black', 'Helvetica Neue', sans-serif";
+    c.fillText("MONSTER", 0, 0);
+    c.restore();
+    c.font = "700 22px 'Instrument Sans', Helvetica, Arial, sans-serif";
+    c.fillStyle = "#151515";
+    c.fillText("E N E R G Y", fx, 676);
+
+    // ZERO ULTRA up the side, ZERO SUGAR down the other
+    const side = (text: string, x: number, size: number, color: string, angle: number) => {
+      c.save();
+      c.translate(x, h * 0.45);
+      c.rotate(angle);
+      c.font = `800 ${size}px 'Instrument Sans', Helvetica, Arial, sans-serif`;
+      c.fillStyle = color;
+      c.textAlign = "center";
+      c.fillText(text, 0, 0);
+      c.restore();
+    };
+    side("ZERO  ULTRA", fx + 200, 52, "#9aa0a5", -Math.PI / 2);
+    side("ZERO SUGAR", fx - 190, 28, "#2b2b2b", -Math.PI / 2);
+
+    // the small print round the back
+    c.fillStyle = "#c5c8cb";
+    for (let k = 0; k < 18; k++) c.fillRect(70, 240 + k * 22, 120 + ((k * 37) % 60), 7);
+    c.fillStyle = "#b8bcc0";
+    c.fillRect(w - 200, 300, 130, 180);
+
+    // silver bands at the shoulder and the base
+    c.fillStyle = "#c9cdd1";
+    c.fillRect(0, h * 0.05, w, 10);
+    c.fillRect(0, h * 0.91, w, 10);
   });
 }

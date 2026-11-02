@@ -18,7 +18,6 @@ import {
   DeskTop,
   Frames,
   Lights,
-  PowerStrip,
   Scarf,
   SceneEnvironment,
   Shelf,
@@ -26,8 +25,9 @@ import {
   SunsetLamp,
   Wall,
 } from "./room";
-import { CuttingMat, Floppies, Headphones, Keyboard, MacBook, Macintosh, Mouse, Speakers } from "./gear";
-import { Clawd, Football, Lamp, Mug, Notebook, Perfume, Watch } from "./things";
+import { CuttingMat, Floppies, FloppyDrive, Headphones, Keyboard, MacBook, Monitor, Mouse, Speakers } from "./gear";
+import { Clawd, Football, Lamp, MonsterCan, Mug, Notebook, Perfume, Turntable, Watch } from "./things";
+import { NowPlaying } from "./now-playing";
 
 const CHAR_TO_CODE: Record<string, string> = {
   " ": "Space",
@@ -43,36 +43,36 @@ function codeForChar(ch: string) {
 }
 
 const v = (pts: number[][]) => pts.map((p) => new THREE.Vector3(...p));
-// cables, laid once: MacBook → back of the Mac, and the extension board's leads
-const MAC_CABLE = v([
-  [-0.529, 0.008, -0.475],
-  [-0.4, 0.005, -0.56],
-  [-0.33, 0.005, -0.72],
-  [-0.27, 0.01, -0.87],
-  [-0.15, 0.06, -0.9],
-  [-0.1, 0.12, -0.885],
+// cables, laid once: MacBook → back of the monitor, drive → MacBook, and
+// the extension board's leads
+const MONITOR_CABLE = v([
+  [-0.22, 0.007, -0.387],
+  [-0.28, 0.004, -0.47],
+  [-0.22, 0.004, -0.62],
+  [-0.12, 0.004, -0.79],
+  [-0.06, 0.15, -0.77],
+  [-0.05, 0.36, -0.7],
 ]);
-const STRIP_CABLES = [
-  v([
-    [-0.88, 0.02, -0.86],
-    [-0.95, 0.005, -0.83],
-    [-1.0, 0.012, -0.78],
-  ]),
-  v([
-    [-0.62, 0.02, -0.86],
-    [-0.66, 0.005, -0.72],
-    [-0.86, 0.005, -0.52],
-    [-0.957, 0.008, -0.317],
-  ]),
-];
+const DRIVE_CABLE = v([
+  [0.381, 0.009, -0.295],
+  [0.33, 0.003, -0.33],
+  [0.27, 0.003, -0.335],
+  [0.22, 0.007, -0.329],
+]);
 
 function BeatTicker({ shared }: { shared: Shared }) {
   useFrame((_, dt) => {
     const b = shared.beat;
-    const engine = shared.radio.engine;
-    const step = engine?.playing ? engine.currentStep() : -1;
-    if (step !== b.step && step >= 0 && engine?.pattern[0][step]) b.kick = 1;
-    b.step = step;
+    const { engine, deck, station } = shared.radio;
+    if (station === "record" && deck) {
+      // a real track: bass hits from the analyser, sixteenths at ~90bpm
+      if (deck.kick()) b.kick = 1;
+      b.step = deck.playing ? Math.floor(deck.time * 6) % 16 : -1;
+    } else {
+      const step = engine?.playing ? engine.currentStep() : -1;
+      if (step !== b.step && step >= 0 && engine?.pattern[0][step]) b.kick = 1;
+      b.step = step;
+    }
     b.kick *= Math.exp(-dt * 9);
   });
   return null;
@@ -176,6 +176,7 @@ export default function DeskExperience({
       radio,
       os: null as unknown as ScreenOS,
       laptop: new LaptopScreen(`${plexMono.style.fontFamily}, ui-monospace, monospace`),
+      nowPlaying: new NowPlaying("'Instrument Sans', Helvetica, Arial, sans-serif", "'Instrument Serif', Georgia, serif"),
       onInserted(index) {
         s.os.insertDisk(list[index]);
         setFocus("monitor");
@@ -191,10 +192,10 @@ export default function DeskExperience({
       },
       tune(next) {
         radio.tune(next);
-        setStation(next);
+        setStation(radio.station);
       },
       toggleMusic() {
-        s.tune(radio.station === "off" ? "lofi" : "off");
+        s.tune(radio.station === "off" ? "record" : "off");
       },
     };
     s.os = new ScreenOS(`${vt323.style.fontFamily}, ui-monospace, monospace`, list, {
@@ -218,7 +219,7 @@ export default function DeskExperience({
         inputRef.current?.blur();
       },
       autoKey: (ch) => flash(codeForChar(ch)),
-    });
+    }, { width: 800, height: 500, tube: false });
     return s;
   }, [fontsReady]);
 
@@ -315,10 +316,17 @@ export default function DeskExperience({
         <StringLights shared={shared} on={stringOn} night={night} onToggle={() => (setStringOn((v) => !v), click())} />
         <SunsetLamp shared={shared} on={sunsetOn} night={night} onToggle={() => (setSunsetOn((v) => !v), click())} />
         <Shelf />
-        <PowerStrip cables={STRIP_CABLES} />
         <CuttingMat />
-        <Macintosh shared={shared} onScreenClick={openScreen} />
-        <MacBook shared={shared} cable={MAC_CABLE} />
+        <Monitor
+          shared={shared}
+          nowPlaying={shared.nowPlaying}
+          showOS={focus === "monitor"}
+          night={night}
+          onScreenClick={openScreen}
+        />
+        <MacBook shared={shared} cable={MONITOR_CABLE} />
+        <FloppyDrive shared={shared} cable={DRIVE_CABLE} />
+        <Turntable shared={shared} onPlay={() => shared.radio.station === "off" && shared.tune("record")} />
         <Keyboard shared={shared} onClick={() => openScreen(undefined)} />
         <Mouse shared={shared} />
         <Floppies shared={shared} titles={projects.map((p) => p.title)} />
@@ -330,6 +338,7 @@ export default function DeskExperience({
         <Football shared={shared} />
         <Notebook shared={shared} onOpen={() => callbacks.current.onKryptonite()} />
         <Mug shared={shared} />
+        <MonsterCan shared={shared} />
         <Lamp shared={shared} on={lampOn} onToggle={() => (setLampOn((v) => !v), click())} />
         <BeatTicker shared={shared} />
         <CameraRig focus={focus} />

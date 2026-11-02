@@ -44,7 +44,7 @@ export function SceneEnvironment({ night }: { night: boolean }) {
 const SUN_DIR = new THREE.Vector3(-0.72, 0.42, 0.55).normalize();
 const SUN_TARGET = new THREE.Vector3(0, 0.4, -0.5);
 const WINDOW_AT = new THREE.Vector3(-0.25, 0.85, WALL_Z).addScaledVector(SUN_DIR, 1.3);
-const GLOW_AT = new THREE.Vector3(0.27, 0.86, WALL_Z + 0.004);
+const GLOW_AT = new THREE.Vector3(0.3, 0.98, WALL_Z + 0.004);
 
 function WindowGobo() {
   const ref = useRef<THREE.Group>(null);
@@ -188,7 +188,7 @@ export function Lights({
       />
       <pointLight
         ref={string}
-        position={[0, 1.25, WALL_Z + 0.4]}
+        position={[0, 1.32, WALL_Z + 0.4]}
         color="#ffc98a"
         distance={2.4}
         decay={2}
@@ -388,9 +388,9 @@ export function Frames({ shared }: { shared: Shared }) {
   const bayaan = useArt(frames.bayaan.image, painters.bayaan);
   return (
     <>
-      <Frame shared={shared} id="messi" position={[-0.54, 0.92]} size={[0.36 * frames.messi.aspect, 0.36]} art={messi} frameColor="#1b1a18" mat={0.03} tilt={0.008} />
-      <Frame shared={shared} id="whatIf" position={[0, 0.94]} size={[0.38 * frames.whatIf.aspect, 0.38]} art={whatIf} frameColor="#a57e52" tilt={-0.01} />
-      <Frame shared={shared} id="bayaan" position={[0.54, 0.92]} size={[0.34 * frames.bayaan.aspect, 0.34]} art={bayaan} frameColor="#151413" mat={0.025} tilt={0.006} />
+      <Frame shared={shared} id="messi" position={[-0.54, 1.0]} size={[0.36 * frames.messi.aspect, 0.36]} art={messi} frameColor="#1b1a18" mat={0.03} tilt={0.008} />
+      <Frame shared={shared} id="whatIf" position={[0, 1.02]} size={[0.38 * frames.whatIf.aspect, 0.38]} art={whatIf} frameColor="#a57e52" tilt={-0.01} />
+      <Frame shared={shared} id="bayaan" position={[0.54, 1.0]} size={[0.34 * frames.bayaan.aspect, 0.34]} art={bayaan} frameColor="#151413" mat={0.025} tilt={0.006} />
     </>
   );
 }
@@ -422,7 +422,7 @@ export function Scarf({ shared }: { shared: Shared }) {
     ref.current.rotation.z += (target - ref.current.rotation.z) * damp(dt, 4);
   });
   return (
-    <group position={[-1.0, 1.16, WALL_Z]} {...bind}>
+    <group position={[-1.0, 1.22, WALL_Z]} {...bind}>
       <mesh position={[0, 0, 0.01]}>
         <cylinderGeometry args={[0.004, 0.004, 0.03, 8]} />
         <meshStandardMaterial color="#77736b" metalness={0.8} roughness={0.4} />
@@ -466,7 +466,7 @@ export function StringLights({ shared, on, night, onToggle }: Switchable) {
         if (s > 0 && i === 0) continue;
         const k = i / 24;
         const x = hooks[s] + (hooks[s + 1] - hooks[s]) * k;
-        const y = 1.27 - Math.sin(k * Math.PI) * (0.05 + s * 0.01);
+        const y = 1.36 - Math.sin(k * Math.PI) * (0.05 + s * 0.01);
         pts.push(new THREE.Vector3(x, y, WALL_Z + 0.03));
       }
     }
@@ -633,38 +633,5 @@ export function Shelf() {
         ))}
       </group>
     </group>
-  );
-}
-
-/** The extension board from the real desk, red light and all. */
-export function PowerStrip({ cables }: { cables: THREE.Vector3[][] }) {
-  const geos = useMemo(
-    () => cables.map((pts) => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 40, 0.0035, 6, false)),
-    [cables],
-  );
-  return (
-    <>
-      <group position={[-0.74, 0, WALL_Z + 0.06]}>
-        <mesh position={[0, 0.02, 0]} castShadow receiveShadow>
-          <boxGeometry args={[0.3, 0.04, 0.07]} />
-          <meshStandardMaterial color="#e8e5de" roughness={0.5} />
-        </mesh>
-        {[-0.08, 0, 0.08].map((sx) => (
-          <mesh key={sx} position={[sx, 0.0405, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-            <planeGeometry args={[0.045, 0.04]} />
-            <meshStandardMaterial color="#cfcbc2" roughness={0.6} />
-          </mesh>
-        ))}
-        <mesh position={[-0.13, 0.042, 0]}>
-          <boxGeometry args={[0.012, 0.004, 0.012]} />
-          <meshStandardMaterial color="#b0382d" emissive="#c2402f" emissiveIntensity={1.4} />
-        </mesh>
-      </group>
-      {geos.map((g, i) => (
-        <mesh key={i} geometry={g} castShadow>
-          <meshStandardMaterial color="#1f1f1f" roughness={0.6} />
-        </mesh>
-      ))}
-    </>
   );
 }
