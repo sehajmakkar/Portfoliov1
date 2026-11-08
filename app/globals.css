@@ -199,3 +199,16 @@
     opacity: 0.12;
   }
 }
+/* diwali: the footer diya's flame */
+@keyframes diyaFlicker {
+  0%, 100% { transform: scale(1, 1) rotate(0deg); }
+  25% { transform: scale(0.94, 1.06) rotate(-2deg); }
+  50% { transform: scale(1.04, 0.95) rotate(1.5deg); }
+  75% { transform: scale(0.97, 1.03) rotate(-1deg); }
+}
+.diya-flame {
+  animation: diyaFlicker 1.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .diya-flame { animation: none; }
+}

@@ -9,6 +9,8 @@ import { projects } from "@/components/projects";
 import { loadCanvasFont, pen, plexMono, vt323 } from "@/lib/fonts";
 import { playSample } from "@/lib/audio";
 import { items, type ItemId } from "@/lib/setup";
+import { useDiwali } from "@/lib/festive";
+import { Diyas, Marigolds } from "./diwali";
 import { DeskPlaceholder } from "./placeholder";
 import { ScreenOS, type ScreenProject } from "./screen-os";
 import { LaptopScreen } from "./laptop-screen";
@@ -123,6 +125,7 @@ export default function DeskExperience({
 }) {
   const { resolvedTheme } = useTheme();
   const night = resolvedTheme === "dark";
+  const diwali = useDiwali();
   const [lampOn, setLampOn] = useState(night);
   const [sunsetOn, setSunsetOn] = useState(true);
   const [stringOn, setStringOn] = useState(true);
@@ -139,7 +142,12 @@ export default function DeskExperience({
     callbacks.current = { onKryptonite, onPond };
   });
 
-  useEffect(() => setLampOn(night), [night]);
+  useEffect(() => setLampOn(night && !diwali), [night, diwali]);
+  // Diwali: every other light off, so the room is lit by the diyas alone
+  useEffect(() => {
+    setSunsetOn(!diwali);
+    setStringOn(!diwali);
+  }, [diwali]);
 
   useEffect(() => {
     Promise.all([
@@ -339,6 +347,8 @@ export default function DeskExperience({
         <Notebook shared={shared} onOpen={() => callbacks.current.onKryptonite()} />
         <Mug shared={shared} />
         <MonsterCan shared={shared} />
+        {diwali && <Diyas shared={shared} night={night} />}
+        {diwali && <Marigolds shared={shared} />}
         <Lamp shared={shared} on={lampOn} onToggle={() => (setLampOn((v) => !v), click())} />
         <BeatTicker shared={shared} />
         <CameraRig focus={focus} />

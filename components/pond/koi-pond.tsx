@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { playPlop } from "@/lib/audio";
 import { loadCanvasFont, plexMono } from "@/lib/fonts";
+import { useDiwali } from "@/lib/festive";
+import Ladi from "@/components/diwali/ladi";
 import { createPond, type PondHandle } from "./pond-engine";
 
 // Feathered edges, like a photo of a pond with the paper showing around it.
@@ -22,6 +24,7 @@ export default function KoiPond() {
   const hovered = useRef(false);
   const [ascii, setAscii] = useState(false);
   const [fed, setFed] = useState(0);
+  const diwali = useDiwali();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -47,6 +50,8 @@ export default function KoiPond() {
       handle.current = null;
     };
   }, []);
+
+  useEffect(() => handle.current?.setDiyas(diwali), [diwali]);
 
   useEffect(() => {
     if (!ascii) {
@@ -76,6 +81,8 @@ export default function KoiPond() {
       onPointerEnter={() => (hovered.current = true)}
       onPointerLeave={() => (hovered.current = false)}
     >
+      {diwali && <Ladi />}
+
       <div className="absolute inset-0 overflow-hidden rounded-[28px]" style={feather}>
         <canvas
           ref={canvasRef}
@@ -90,7 +97,7 @@ export default function KoiPond() {
           className="transition-opacity duration-700"
           style={{ opacity: fed > 0 || ascii ? 0 : 1 }}
         >
-          click the water to feed them
+          {diwali ? "happy diwali · click the water to feed them" : "click the water to feed them"}
         </span>
         <button
           type="button"

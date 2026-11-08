@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Github, Linkedin } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import Container from "./containers";
+import DiwaliGreeting from "./diwali/greeting";
 
 const Footer = () => {
   const socialLinks = [
@@ -34,6 +35,7 @@ const Footer = () => {
         >
           @kryptokodes
         </Link>
+        <DiwaliGreeting />
         <div className="flex items-center justify-center gap-4">
           {socialLinks.map((link) => {
             const IconComponent = link.icon;

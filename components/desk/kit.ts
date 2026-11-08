@@ -74,6 +74,7 @@ export const FOCUS: Partial<Record<ItemId, Spot>> = {
   mug: { at: SPOT.mug, dist: 0.45 },
   monster: { at: [SPOT.monster[0], 0.09, SPOT.monster[2]], dist: 0.5, dir: [-0.15, 0.25, 1] },
   sunset: { at: [0.27, 0.95, WALL_Z], dist: 1.5, dir: [0, 0.1, 1] },
+  diya: { at: [-0.62, 0.04, -0.03], dist: 0.42, dir: [0.15, 0.7, 1] },
 };
 
 // ---------------------------------------------------------------------------

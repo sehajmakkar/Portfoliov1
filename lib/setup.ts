@@ -68,7 +68,9 @@ export type ItemId =
   | "sunset"
   | "lights"
   | "turntable"
-  | "monster";
+  | "monster"
+  | "diya"
+  | "marigolds";
 
 // `tag` is what shows next to the cursor; `title` and `note` are the card
 // you get after clicking something.
@@ -137,6 +139,14 @@ export const items: Record<ItemId, { tag: string; title?: string; note?: string 
     tag: "white monster",
     title: "White Monster",
     note: "Zero sugar, all the commits. The reason some of them are timestamped 4am.",
+  },
+  diya: {
+    tag: "diya · shubh deepavali",
+    title: "Shubh Deepavali",
+    note: "Clay diyas, lit for Diwali, the way they are on every ledge back home. Happy Diwali from my desk to yours.",
+  },
+  marigolds: { 
+    tag: "genda phool · strung for diwali" 
   },
   turntable: {
     tag: "turntable · lunch break on the platter",

@@ -3,6 +3,8 @@ import { Koi, VARIETIES, type Pellet, type PondWorld } from "./koi";
 
 export type PondHandle = {
   setAscii(on: boolean): void;
+  /** Floating diyas, for Diwali. */
+  setDiyas(on: boolean): void;
   setActive(on: boolean): void;
   destroy(): void;
 };
@@ -12,6 +14,8 @@ type Ripple = CausticRipple & { life: number };
 type Blade = { a: number; len: number; w: number; bend: number; color: string; seed: number };
 type Clump = { x: number; y: number; blades: Blade[] };
 type Floater = { x: number; y: number; a: number; len: number; drift: number; seed: number };
+// a clay diya floating on the surface; x and y are 0..1 so they survive resizes
+type Diya = { x: number; y: number; vx: number; vy: number; a: number; spin: number; seed: number; bob: number };
 
 const ASCII_RAMP = " .:-=+*xo#%@";
 const ASCII_FPS = 24;
@@ -59,6 +63,7 @@ export function createPond(
   const ripples: Ripple[] = [];
   const pellets: Pellet[] = [];
   const pointer = { x: 0, y: 0, speed: 0, inside: false, lastT: 0 };
+  const diyas: Diya[] = [];
 
   // plants live in normalised coordinates so they survive resizes
   const clumps: Clump[] = [
@@ -255,6 +260,154 @@ export function createPond(
       if (p.eaten || p.age > 30) pellets.splice(i, 1);
     }
     pointer.speed *= 0.9;
+    stepDiyas(dt);
+  }
+
+  function makeDiyas() {
+    const n = W && W < 520 ? 2 : 3;
+    diyas.length = 0;
+    for (let i = 0; i < n; i++)
+      diyas.push({
+        x: (i + 0.3 + rand() * 0.4) / n,
+        y: 0.3 + rand() * 0.4,
+        vx: 0,
+        vy: 0,
+        a: rand() * Math.PI * 2,
+        spin: (rand() - 0.5) * 0.08,
+        seed: rand() * 100,
+        bob: 2 + rand() * 4,
+      });
+  }
+
+  // a slow current carries them left to right; they come back round from the
+  // left edge, which is feathered, so nobody sees the jump
+  function stepDiyas(dt: number) {
+    if (!W || !H) return;
+    for (const d of diyas) {
+      const drift = 7 + Math.sin(t * 0.13 + d.seed) * 3;
+      d.vx += (drift - d.vx) * dt * 0.4;
+      d.vy += (Math.sin(t * 0.21 + d.seed * 2) * 3 - d.vy) * dt * 0.4;
+      // keep off the top and bottom edges
+      if (d.y < 0.22) d.vy += (0.22 - d.y) * 60 * dt;
+      if (d.y > 0.78) d.vy -= (d.y - 0.78) * 60 * dt;
+      // nudge apart when two meet
+      for (const o of diyas) {
+        if (o === d) continue;
+        const dx = (d.x - o.x) * W;
+        const dy = (d.y - o.y) * H;
+        const dist = Math.hypot(dx, dy);
+        if (dist > 0 && dist < 46) {
+          d.vx += (dx / dist) * 30 * dt;
+          d.vy += (dy / dist) * 30 * dt;
+        }
+      }
+      d.x += (d.vx * dt) / W;
+      d.y += (d.vy * dt) / H;
+      if (d.x > 1.08) d.x = -0.08;
+      d.a += d.spin * dt;
+      d.spin += ((d.seed % 2 > 1 ? 0.04 : -0.04) - d.spin) * dt * 0.3;
+      d.bob -= dt;
+      if (d.bob < 0) {
+        d.bob = 3 + rand() * 5;
+        addRipple(d.x * W, d.y * H, 0.12);
+      }
+    }
+  }
+
+  function drawDiyas(c: CanvasRenderingContext2D, pass: "glow" | "body") {
+    const s = Math.max(15, Math.min(24, Math.min(W, H) * 0.085));
+    for (const d of diyas) {
+      const x = d.x * W;
+      const y = d.y * H;
+      const flicker = 0.88 + 0.12 * Math.sin(t * 13 + d.seed) * Math.sin(t * 7.3 + d.seed * 3);
+      // the flame sits on the spout, which points along the diya's angle
+      const fx = x + Math.cos(d.a) * s * 0.52;
+      const fy = y + Math.sin(d.a) * s * 0.52;
+      if (pass === "glow") {
+        const r = s * 4.2 * flicker;
+        const g = c.createRadialGradient(fx, fy, 0, fx, fy, r);
+        g.addColorStop(0, "rgba(255,190,110,0.42)");
+        g.addColorStop(0.35, "rgba(240,150,70,0.14)");
+        g.addColorStop(1, "rgba(230,130,60,0)");
+        c.fillStyle = g;
+        c.fillRect(fx - r, fy - r, r * 2, r * 2);
+        continue;
+      }
+      // shadow on the floor, below
+      c.save();
+      c.translate(x + 5, y + 8);
+      c.rotate(d.a);
+      c.fillStyle = "rgba(4,14,6,0.32)";
+      c.beginPath();
+      c.ellipse(-s * 0.05, 0, s * 0.62, s * 0.42, 0, 0, Math.PI * 2);
+      c.fill();
+      c.restore();
+
+      c.save();
+      c.translate(x, y);
+      c.rotate(d.a);
+      // a few marigold petals keeping it company
+      for (let k = 0; k < 3; k++) {
+        const pa = d.seed + k * 2.1 + t * 0.05;
+        c.fillStyle = k % 2 ? "#e9952f" : "#d9762a";
+        c.beginPath();
+        c.ellipse(Math.cos(pa) * s * 0.95, Math.sin(pa) * s * 0.8, s * 0.11, s * 0.06, pa, 0, Math.PI * 2);
+        c.fill();
+      }
+      // clay body: round at the back, pinched into a spout at the front
+      const body = (k: number) => {
+        c.beginPath();
+        c.moveTo(s * 0.62 * k, 0);
+        c.quadraticCurveTo(s * 0.18 * k, -s * 0.5 * k, -s * 0.25 * k, -s * 0.44 * k);
+        c.bezierCurveTo(-s * 0.62 * k, -s * 0.4 * k, -s * 0.62 * k, s * 0.4 * k, -s * 0.25 * k, s * 0.44 * k);
+        c.quadraticCurveTo(s * 0.18 * k, s * 0.5 * k, s * 0.62 * k, 0);
+        c.closePath();
+      };
+      const clay = c.createLinearGradient(-s * 0.5, -s * 0.5, s * 0.4, s * 0.5);
+      clay.addColorStop(0, "#b8653a");
+      clay.addColorStop(1, "#7c3a1c");
+      body(1);
+      c.fillStyle = clay;
+      c.fill();
+      c.strokeStyle = "rgba(230,160,110,0.55)";
+      c.lineWidth = 1;
+      c.stroke();
+      // the bowl of oil
+      body(0.68);
+      c.fillStyle = "#4a2312";
+      c.fill();
+      c.fillStyle = "rgba(214,160,72,0.45)";
+      c.beginPath();
+      c.ellipse(-s * 0.12, -s * 0.06, s * 0.16, s * 0.08, -0.4, 0, Math.PI * 2);
+      c.fill();
+      // the wick
+      c.strokeStyle = "#2a1a10";
+      c.lineWidth = 1.4;
+      c.beginPath();
+      c.moveTo(s * 0.22, 0);
+      c.lineTo(s * 0.5, 0);
+      c.stroke();
+      c.restore();
+
+      // the flame, seen from above: a hot core in a soft teardrop
+      const lean = Math.sin(t * 1.7 + d.seed) * 0.4;
+      c.save();
+      c.translate(fx, fy);
+      c.rotate(-Math.PI / 2 + lean * 0.3);
+      const halo = c.createRadialGradient(0, 0, 0, 0, 0, s * 0.42 * flicker);
+      halo.addColorStop(0, "rgba(255,236,190,0.95)");
+      halo.addColorStop(0.4, "rgba(255,176,80,0.6)");
+      halo.addColorStop(1, "rgba(255,150,60,0)");
+      c.fillStyle = halo;
+      c.beginPath();
+      c.arc(0, 0, s * 0.42 * flicker, 0, Math.PI * 2);
+      c.fill();
+      c.fillStyle = "#fff6df";
+      c.beginPath();
+      c.ellipse(0, -s * 0.04, s * 0.08, s * 0.13 * flicker, 0, 0, Math.PI * 2);
+      c.fill();
+      c.restore();
+    }
   }
 
   function drawPlants(c: CanvasRenderingContext2D) {
@@ -360,6 +513,13 @@ export function createPond(
         c.arc(r.x, r.y, rad * 0.68, 0, Math.PI * 2);
         c.stroke();
       }
+    }
+
+    if (diyas.length) {
+      c.globalCompositeOperation = "screen";
+      drawDiyas(c, "glow");
+      c.globalCompositeOperation = "source-over";
+      drawDiyas(c, "body");
     }
 
     for (const p of pellets) {
@@ -603,6 +763,17 @@ export function createPond(
     for (const f of fish) {
       if (Math.hypot(f.head.x - x, f.head.y - y) < f.length * 0.45) f.scare(x, y, 0.6);
     }
+    for (const d of diyas) {
+      const dx = d.x * W - x;
+      const dy = d.y * H - y;
+      const dist = Math.hypot(dx, dy);
+      if (dist < 70) {
+        const k = (70 - Math.max(dist, 8)) / 70;
+        d.vx += (dx / Math.max(dist, 1)) * 60 * k;
+        d.vy += (dy / Math.max(dist, 1)) * 60 * k;
+        d.spin += (rand() - 0.5) * 0.6 * k;
+      }
+    }
     opts.onFeed?.();
     if (opts.reducedMotion) render();
   }
@@ -615,6 +786,11 @@ export function createPond(
   resize();
 
   return {
+    setDiyas(on) {
+      if (on && !diyas.length) makeDiyas();
+      if (!on) diyas.length = 0;
+      if (!raf) render();
+    },
     setAscii(on) {
       ascii = on;
       asciiAcc = 1;

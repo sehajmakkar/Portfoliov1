@@ -15,9 +15,12 @@ import { useLenis } from "lenis/react";
 import KoiPond from "@/components/pond/koi-pond";
 import Desk from "@/components/desk/desk";
 import NameSwitch from "@/components/kryptonite/name-switch";
+import Rangoli from "@/components/diwali/rangoli";
+import { useDiwali } from "@/lib/festive";
 
 export default function Home() {
   const lenis = useLenis();
+  const diwali = useDiwali();
 
   const scrollToGetInTouch = () => {
     const target = document.getElementById("get-in-touch");
@@ -105,7 +108,10 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="-mx-2 my-6 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
+        <div className="relative">
+          <div className={`-mx-2 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15 ${diwali ? "my-10" : "my-6"}`}></div>
+          {diwali && <Rangoli />}
+        </div>
 
         <Projects />
 
