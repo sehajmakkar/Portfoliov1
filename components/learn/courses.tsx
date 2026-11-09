@@ -38,9 +38,6 @@ function StatusPill({ status }: { status: CourseStatus }) {
   );
 }
 
-// Paid alternatives, crossed out by hand. fanout.sh's price is from its pricing page.
-const PAID = ["fanout.sh · $28/mo", "$499 bootcamps", "paid cohorts", "paywalled video courses"];
-
 /** A hand-drawn scribble across a word; the stroke draws itself in when it scrolls into view. */
 function Scribble({ text, delay }: { text: string; delay: number }) {
   return (
@@ -69,22 +66,20 @@ function Scribble({ text, delay }: { text: string; delay: number }) {
   );
 }
 
-function StruckOut() {
+function ScribbleNote({ struck, note }: { struck: string; note: string }) {
   return (
-    <div className="font-pen mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[26px] leading-tight">
-      {PAID.map((t, i) => (
-        <Scribble key={t} text={t} delay={0.2 + i * 0.25} />
-      ))}
+    <span className="font-pen pointer-events-none absolute right-3 bottom-2 flex -rotate-3 flex-col items-end text-[19px] leading-[1.05]">
+      <Scribble text={struck} delay={0.35} />
       <motion.span
-        className="whitespace-nowrap text-neutral-800 dark:text-neutral-200"
+        className="pr-1 whitespace-nowrap text-neutral-800 dark:text-neutral-200"
         initial={{ opacity: 0, x: -6 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: 0.25 + PAID.length * 0.25 }}
+        transition={{ duration: 0.35, delay: 0.85 }}
       >
-        → free, for everyone
+        → {note}
       </motion.span>
-    </div>
+    </span>
   );
 }
 
@@ -114,17 +109,16 @@ function CourseCard({ course }: { course: LearnCourse }) {
     >
       <div className="flex w-full flex-1 flex-col gap-4">
         <div className="rounded-[12px] border border-neutral-200 bg-neutral-50 p-[4px] dark:border-neutral-800 dark:bg-neutral-900/50">
-          <div className="relative flex h-[200px] w-full items-center justify-center overflow-hidden rounded-[8px] border border-neutral-200 bg-neutral-100 select-none dark:border-neutral-800 dark:bg-neutral-900">
+          <div className="relative flex h-[220px] w-full items-center justify-center overflow-hidden rounded-[8px] border border-neutral-200 bg-neutral-100 select-none dark:border-neutral-800 dark:bg-neutral-900">
             <div
               className="absolute inset-0 opacity-[0.18] transition-opacity duration-300 group-hover:opacity-[0.08]"
               style={gridBg}
             />
-            <span className="absolute top-3 left-3 font-plex text-[10px] tracking-wide text-neutral-400 dark:text-neutral-500">
-              learn.sehaj.tech/{course.id}
+            <span className="absolute top-3 left-3 flex flex-col gap-0.5 font-plex text-[10px] tracking-wide text-neutral-400 dark:text-neutral-500">
+              <span>learn.sehaj.tech/{course.id}</span>
+              <span>{course.meta}</span>
             </span>
-            <span className="absolute right-3 bottom-3 font-plex text-[10px] text-neutral-400 dark:text-neutral-500">
-              {course.meta}
-            </span>
+            {course.scribble && <ScribbleNote {...course.scribble} />}
             <motion.div
               className="relative"
               animate={{ scale: hovered ? 1.06 : 1 }}
@@ -207,8 +201,6 @@ export default function Courses() {
       <p className="font-custom2 mt-3 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-4 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
         Courses for everyone. Free, open source, no login, no paywall.
       </p>
-
-      <StruckOut />
 
       <div className="grid grid-cols-1 gap-6 py-8 md:grid-cols-2">
         {courses.map((course, idx) => (
