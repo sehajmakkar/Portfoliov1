@@ -38,6 +38,56 @@ function StatusPill({ status }: { status: CourseStatus }) {
   );
 }
 
+// Paid alternatives, crossed out by hand. fanout.sh's price is from its pricing page.
+const PAID = ["fanout.sh · $28/mo", "$499 bootcamps", "paid cohorts", "paywalled video courses"];
+
+/** A hand-drawn scribble across a word; the stroke draws itself in when it scrolls into view. */
+function Scribble({ text, delay }: { text: string; delay: number }) {
+  return (
+    <span className="relative inline-block px-1 whitespace-nowrap text-neutral-600 dark:text-neutral-400">
+      {text}
+      <svg
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-[0.9em] w-full -translate-y-1/2 overflow-visible"
+        viewBox="0 0 100 20"
+        preserveAspectRatio="none"
+        aria-hidden
+      >
+        <motion.path
+          d="M1 12 C 14 8, 26 15, 40 10 S 66 7, 80 11 S 94 12, 99 8"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          className="text-red-500/75 dark:text-red-400/70"
+          initial={{ pathLength: 0 }}
+          whileInView={{ pathLength: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, delay, ease: "easeOut" }}
+        />
+      </svg>
+    </span>
+  );
+}
+
+function StruckOut() {
+  return (
+    <div className="font-pen mt-5 flex flex-wrap items-center gap-x-5 gap-y-1 text-[26px] leading-tight">
+      {PAID.map((t, i) => (
+        <Scribble key={t} text={t} delay={0.2 + i * 0.25} />
+      ))}
+      <motion.span
+        className="whitespace-nowrap text-neutral-800 dark:text-neutral-200"
+        initial={{ opacity: 0, x: -6 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.4, delay: 0.25 + PAID.length * 0.25 }}
+      >
+        → free, for everyone
+      </motion.span>
+    </div>
+  );
+}
+
 const gridBg = {
   backgroundImage:
     "linear-gradient(to right, var(--pattern-fg) 1px, transparent 1px), linear-gradient(to bottom, var(--pattern-fg) 1px, transparent 1px)",
@@ -60,9 +110,9 @@ function CourseCard({ course }: { course: LearnCourse }) {
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
       onBlur={() => setHovered(false)}
-      className="group relative z-10 block rounded-xl border border-neutral-200 bg-white p-3 transition-all duration-300 hover:border-neutral-300 hover:shadow-2xl hover:shadow-neutral-500/5 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
+      className="group relative z-10 flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-3 transition-all duration-300 hover:border-neutral-300 hover:shadow-2xl hover:shadow-neutral-500/5 dark:border-neutral-800 dark:bg-black dark:hover:border-neutral-700"
     >
-      <div className="flex w-full flex-col gap-4">
+      <div className="flex w-full flex-1 flex-col gap-4">
         <div className="rounded-[12px] border border-neutral-200 bg-neutral-50 p-[4px] dark:border-neutral-800 dark:bg-neutral-900/50">
           <div className="relative flex h-[200px] w-full items-center justify-center overflow-hidden rounded-[8px] border border-neutral-200 bg-neutral-100 select-none dark:border-neutral-800 dark:bg-neutral-900">
             <div
@@ -92,7 +142,7 @@ function CourseCard({ course }: { course: LearnCourse }) {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 px-1">
+        <div className="flex flex-1 flex-col gap-2 px-1">
           <div className="flex items-center justify-between gap-3">
             <h3 className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 dark:text-neutral-100">
               {course.title}
@@ -105,10 +155,10 @@ function CourseCard({ course }: { course: LearnCourse }) {
           <p className="font-custom text-[15px] text-neutral-500 italic dark:text-neutral-400">
             {course.tagline}
           </p>
-          <p className="font-custom2 text-sm text-neutral-600 transition-colors duration-300 group-hover:text-neutral-900 md:min-h-[60px] dark:text-neutral-400 dark:group-hover:text-neutral-200">
+          <p className="font-custom2 text-sm text-neutral-600 transition-colors duration-300 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-200">
             {course.description}
           </p>
-          <div className="flex items-center justify-between gap-3 pt-2">
+          <div className="mt-auto flex items-center justify-between gap-3 pt-2">
             <span className="font-plex text-[10px] text-neutral-500 dark:text-neutral-400">
               free · open source
             </span>
@@ -155,8 +205,10 @@ export default function Courses() {
   return (
     <div className="mt-8">
       <p className="font-custom2 mt-3 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-4 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-        Free, open-source courses I write in public. No login, no paywall.
+        Courses for everyone. Free, open source, no login, no paywall.
       </p>
+
+      <StruckOut />
 
       <div className="grid grid-cols-1 gap-6 py-8 md:grid-cols-2">
         {courses.map((course, idx) => (
@@ -166,6 +218,7 @@ export default function Courses() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: idx * 0.1 }}
+            className="h-full"
           >
             <CourseCard course={course} />
           </motion.div>
