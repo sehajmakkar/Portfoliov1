@@ -11,6 +11,7 @@ import { CommandMenu } from "@/components/command-menu";
 const Navbar = () => {
   const navItems = [
     { title: "Projects", href: "/projects" },
+    { title: "Learn", href: "/learn" },
     { title: "Blog", href: "/blog" },
     // { title: "Contact", href: "/Contact" },
   ];
