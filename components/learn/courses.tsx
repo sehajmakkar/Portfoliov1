@@ -114,9 +114,8 @@ function CourseCard({ course }: { course: LearnCourse }) {
               className="absolute inset-0 opacity-[0.18] transition-opacity duration-300 group-hover:opacity-[0.08]"
               style={gridBg}
             />
-            <span className="absolute top-3 left-3 flex flex-col gap-0.5 font-plex text-[10px] tracking-wide text-neutral-400 dark:text-neutral-500">
-              <span>learn.sehaj.tech/{course.id}</span>
-              <span>{course.meta}</span>
+            <span className="absolute top-3 left-3 font-plex text-[10px] tracking-wide text-neutral-400 dark:text-neutral-500">
+              learn.sehaj.tech/{course.id}
             </span>
             {course.scribble && <ScribbleNote {...course.scribble} />}
             <motion.div
