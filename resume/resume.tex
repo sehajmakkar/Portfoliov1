@@ -1,0 +1,129 @@
+%-------------------------
+% Public resume for sehaj.tech/resume.pdf (general AI + full-stack)
+% Jake's template. No phone number: this copy is public.
+% Build: pdflatex resume.tex, then copy resume.pdf to public/resume.pdf
+%-------------------------
+\documentclass[letterpaper,11pt]{article}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\input{glyphtounicode}
+\hypersetup{pdftitle={Sehaj Preet - Resume}, pdfauthor={Sehaj Preet}, pdfsubject={AI and full-stack engineer}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+\titleformat{\section}{\vspace{-4pt}\scshape\raggedright\large}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+\pdfgentounicode=1
+\newcommand{\resumeItem}[1]{\item\small{{#1 \vspace{-2pt}}}}
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}}
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}}
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+\begin{document}
+\begin{center}
+    \textbf{\Huge \scshape Sehaj Preet} \\ \vspace{1pt}
+    \small \href{mailto:sehajmakkar007@gmail.com}{\underline{sehajmakkar007@gmail.com}} $|$
+    \href{https://linkedin.com/in/sehajmakkar}{\underline{linkedin.com/in/sehajmakkar}} $|$
+    \href{https://github.com/sehajmakkar}{\underline{github.com/sehajmakkar}} $|$
+    \href{https://sehaj.tech}{\underline{sehaj.tech}} $|$
+    \href{https://x.com/kryptokodes}{\underline{x.com/kryptokodes}}
+\end{center}
+
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {Maharaja Agrasen Institute of Technology, GGSIPU}{Aug 2023 -- Aug 2027}
+      {Bachelor of Technology in Information Technology (GPA: 9.05)}{Delhi, India}
+  \resumeSubHeadingListEnd
+
+\section{Experience}
+  \resumeSubHeadingListStart
+    \resumeSubheading{PowerPlay}{Feb 2026 -- Mar 2026}{Backend Development Intern}{Onsite, Bengaluru}
+      \resumeItemListStart
+        \resumeItem{Refactored Excel export from offset pagination to \textbf{MongoDB streaming}, processing \textbf{100K+ records in under 2 minutes} (previously 7+ minutes) with much lower memory use.}
+        \resumeItem{Built \textbf{5+ client-facing backend scripts}, including a \textbf{deduplication engine} using composite field hashing that recalculated uniqueness across \textbf{95,000+} existing records.}
+      \resumeItemListEnd
+    \resumeSubheading{Perf}{Sep 2025 -- Jan 2026}{Software Engineering Intern}{Remote, London}
+      \resumeItemListStart
+        \resumeItem{Built an \textbf{AI browser agent} as a Chrome extension (Manifest V3, TypeScript) that records workflows via DOM events and replays them with \textbf{LLM element grounding} to self-heal across UI changes.}
+        \resumeItem{Designed a \textbf{human-in-the-loop} fallback with \textbf{LangGraph} interrupts for low-confidence matches, and auto-generated SOPs with screenshots, cutting documentation time by \textbf{80\%+}.}
+        \resumeItem{Shipped \textbf{15+ production features} in React and TypeScript and ran \textbf{7+ production deployments} on AWS (Elastic Beanstalk, Amplify) with CI/CD.}
+      \resumeItemListEnd
+    % Reslink (Jun--Sep 2025) trimmed to keep one page; see the site for it.
+  \resumeSubHeadingListEnd
+
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Vero} $|$ \emph{Next.js, TypeScript, PostgreSQL, Drizzle, Gemini, Docker}}{\href{https://withvero.app}{\underline{Live}} \href{https://github.com/sehajmakkar/Vero}{\underline{GitHub}}}
+          \resumeItemListStart
+            \resumeItem{Built an AI LaTeX editor where inline edits (Ctrl+K) stream in as \textbf{reviewable diffs}, each checked against \textbf{13+ validation rules}; ATS scoring combines rule checks with LLM grading.}
+            \resumeItem{Moved compilation to a \textbf{Dockerized TeX service} after it broke on serverless: per-job sandbox, shell escape off, 60s timeout, bounded queue, and pdflatex/xelatex/lualatex fallback.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{McAgent} $|$ \emph{Swift, Python, FastAPI, SQLite + sqlite-vec, Gemini}}{\href{https://github.com/sehajmakkar/contextagent}{\underline{GitHub}}}
+          \resumeItemListStart
+            \resumeItem{Built a local-first macOS agent that reads screen text via the \textbf{Accessibility API}, detects open loops, and drafts follow-up emails that send only after \textbf{human approval}.}
+            \resumeItem{Reached \textbf{97\% Recall@5} on hybrid memory retrieval and passed \textbf{12/12} agent scenarios incl. prompt injection, with authority rules enforced in code.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Agent Labs} $|$ \emph{Python, Gemini, OpenTelemetry, SQLite, React, GitHub Actions}}{\href{https://agent-labs-chi.vercel.app}{\underline{Live}} \href{https://github.com/sehajmakkar/agent-labs}{\underline{GitHub}}}
+          \resumeItemListStart
+            \resumeItem{Built an agent eval and debugging framework with deterministic replay (\textbf{13/13} runs at \$0), forked reruns scored with \textbf{Fisher's exact test}, and a CI gate below 90\% pass rate.}
+            \resumeItem{Auto-Blame finds the first wrong step in \textbf{92\%} of 50 seeded failures, against a \textbf{30\%} baseline.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Genomics AI} $|$ \emph{Next.js, TypeScript, Python, FastAPI, GPU backend}}{\href{https://genomics-ai.vercel.app/}{\underline{Live}} \href{https://github.com/sehajmakkar/GenomicsAI}{\underline{GitHub}}}
+          \resumeItemListStart
+            \resumeItem{Built variant analysis on Stanford's \textbf{Evo 2} model, integrating \textbf{5+ genomic APIs} and comparing predictions against \textbf{20,000+} validated clinical records.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, TypeScript, JavaScript, SQL, C/C++, Swift} \\
+     \textbf{AI and Evals}{: Gemini API, LangGraph, function calling, structured outputs, hybrid RAG, embeddings, LLM-as-judge} \\
+     \textbf{Backend and Data}{: Node.js, Express, FastAPI, REST, SSE, PostgreSQL, Drizzle, MongoDB, SQLite, sqlite-vec} \\
+     \textbf{Frontend and Tools}{: React, Next.js, Tailwind, Chrome Extensions, Docker, AWS, GitHub Actions, pytest, Vitest}
+    }}
+ \end{itemize}
+
+\section{Achievements}
+  \resumeItemListStart
+    \resumeItem{\textbf{1st place} at Hackaccino 3.0 (250+ teams, 3600+ participants), Bennett University.}
+    \resumeItem{Ranked \textbf{1640/26,806} in a LeetCode contest; solved \textbf{500+} problems across LeetCode and Codeforces.}
+  \resumeItemListEnd
+\end{document}

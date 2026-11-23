@@ -85,6 +85,9 @@ export function CommandMenu() {
         } else if (key === "w") {
           e.preventDefault();
           runCommand(() => router.push("/blog"));
+        } else if (key === "r") {
+          e.preventDefault();
+          runCommand(() => openExternal("/resume.pdf"));
         }
 
         // Links
@@ -93,13 +96,13 @@ export function CommandMenu() {
           runCommand(() => openExternal("https://x.com/kryptokodes"));
         } else if (key === "l") {
           e.preventDefault();
-          runCommand(() => openExternal("https://linkedin.com"));
+          runCommand(() => openExternal("https://www.linkedin.com/in/sehajmakkar"));
         } else if (key === "g") {
           e.preventDefault();
-          runCommand(() => openExternal("https://github.com"));
+          runCommand(() => openExternal("https://github.com/sehajmakkar"));
         } else if (key === "e") {
           e.preventDefault();
-          runCommand(() => router.push("/Contact"));
+          runCommand(() => router.push("/contact"));
         }
 
         // General
@@ -201,6 +204,16 @@ export function CommandMenu() {
                 shift + W
               </CommandShortcut>
             </CommandItem>
+            <CommandItem
+              onSelect={() => runCommand(() => openExternal("/resume.pdf"))}
+              className="rounded-lg py-3"
+            >
+              <FileText className="mr-2 h-4 w-4 text-neutral-500" />
+              <span>Open Resume (PDF)</span>
+              <CommandShortcut className="rounded border border-neutral-200 bg-neutral-100 px-1.5 py-0.5 font-mono text-[10px] dark:border-neutral-700 dark:bg-neutral-800">
+                shift + R
+              </CommandShortcut>
+            </CommandItem>
           </CommandGroup>
 
           <CommandSeparator className="my-2" />
@@ -220,7 +233,7 @@ export function CommandMenu() {
             </CommandItem>
             <CommandItem
               onSelect={() =>
-                runCommand(() => openExternal("https://linkedin.com"))
+                runCommand(() => openExternal("https://www.linkedin.com/in/sehajmakkar"))
               }
               className="rounded-lg py-3"
             >
@@ -232,7 +245,7 @@ export function CommandMenu() {
             </CommandItem>
             <CommandItem
               onSelect={() =>
-                runCommand(() => openExternal("https://github.com"))
+                runCommand(() => openExternal("https://github.com/sehajmakkar"))
               }
               className="rounded-lg py-3"
             >
@@ -243,7 +256,7 @@ export function CommandMenu() {
               </CommandShortcut>
             </CommandItem>
             <CommandItem
-              onSelect={() => runCommand(() => router.push("/Contact"))}
+              onSelect={() => runCommand(() => router.push("/contact"))}
               className="rounded-lg py-3"
             >
               <Mail className="mr-2 h-4 w-4 text-neutral-500" />

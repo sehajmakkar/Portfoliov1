@@ -179,7 +179,7 @@ export function mousePadTexture(pen: string) {
     }
     c.fillStyle = "rgba(230,224,210,0.35)";
     c.font = `34px ${pen}`;
-    c.fillText("sehaj.works", w - 190, h - 26);
+    c.fillText("sehaj.tech", w - 190, h - 26);
   });
 }
 
@@ -271,7 +271,7 @@ export function deskMatTexture(pen: string) {
     c.setLineDash([]);
     c.fillStyle = "rgba(225,218,200,0.3)";
     c.font = `30px ${pen}`;
-    c.fillText("sehaj.works", w - 170, h - 30);
+    c.fillText("sehaj.tech", w - 170, h - 30);
   });
 }
 
@@ -598,7 +598,7 @@ export function cuttingMatTexture(mono: string, aspect: number) {
     c.fillStyle = "rgba(226,236,224,0.55)";
     c.font = `18px ${mono}`;
     c.textAlign = "right";
-    c.fillText("SELF HEALING · A2 · sehaj.works", w - m, h - 24);
+    c.fillText("SELF HEALING · A2 · sehaj.tech", w - m, h - 24);
   });
 }
 

@@ -9,8 +9,17 @@ export default function FractalTree() {
     const [size, setSize] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
+        // Off on phones: a full-screen canvas redrawn every frame, mostly hidden
+        // behind the content there, and mobile fires resize on every scroll as
+        // the address bar moves.
+        if (!window.matchMedia("(min-width: 768px)").matches) return;
         const updateSize = () => {
-            setSize({ width: window.innerWidth, height: window.innerHeight });
+            setSize((prev) => {
+                const width = window.innerWidth, height = window.innerHeight;
+                // ignore small height-only changes (browser chrome showing/hiding)
+                if (prev.width === width && Math.abs(prev.height - height) < 120) return prev;
+                return { width, height };
+            });
         };
         updateSize();
         window.addEventListener("resize", updateSize);
@@ -163,7 +172,7 @@ export default function FractalTree() {
 
     return (
         <div
-            className="fixed top-0 bottom-0 left-0 right-0 pointer-events-none print:hidden z-[-1]"
+            className="fixed top-0 bottom-0 left-0 right-0 pointer-events-none print:hidden z-[-1] hidden md:block"
             style={{
                 maskImage: mask,
                 WebkitMaskImage: mask,

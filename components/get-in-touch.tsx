@@ -11,33 +11,33 @@ export default function GetInTouch() {
     <div className="relative z-10 mt-8 mb-10 w-full">
       <div className="-mx-2 mb-2 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
       <div className="flex w-full items-center justify-between py-2">
-        <h1 className="font-custom text-3xl font-bold tracking-tight text-neutral-900 md:text-3xl dark:text-neutral-50">
+        <h2 className="font-custom text-3xl font-bold tracking-tight text-neutral-900 md:text-3xl dark:text-neutral-50">
           <span className="link--elara">Get in touch</span>
-        </h1>
+        </h2>
       </div>
       <div className="-mx-2 mb-4 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
 
       <div className="flex flex-col items-start space-y-6">
         <p className="font-custom2 mt-3 mb-6 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-2 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-          Hi there — I’m currently open to meaningful work.
+          Open to AI and backend roles, and to freelance projects. I can start right away.
         </p>
 
         <div className="flex w-full max-w-2xl gap-4">
           <Link
-            href="mailto:sehajmakkar007@gmail.com?subject=New%20Project%20Inquiry&body=Hi%20Sehaj%2C%0A%0AI%E2%80%99d%20love%20to%20connect%20about%20%5Bproject%20name%2Frole%5D.%0A%0AContext%3A%0A-%20Company%2FTeam%3A%0A-%20Timeline%3A%0A-%20Budget%2FScope%3A%0A%0AThanks!"
+            href="mailto:sehajmakkar007@gmail.com?subject=Hello%20from%20sehaj.tech&body=Hi%20Sehaj%2C%0A%0AI%27m%20reaching%20out%20about%20%5Brole%20or%20project%5D.%0A%0A-%20Company%3A%0A-%20Role%20or%20scope%3A%0A-%20Timeline%3A%0A%0AThanks%21"
             target="_blank"
             rel="noreferrer"
-            aria-label="Shoot a DM on Gmail"
+            aria-label="Email Sehaj"
           >
             <AnimatedButton className="group relative overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-b from-white to-neutral-100 px-6 py-2.5 text-sm font-medium text-neutral-800 shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-300 hover:from-neutral-50 hover:to-neutral-100 dark:border-neutral-800 dark:from-neutral-800 dark:to-neutral-900 dark:text-neutral-200 dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] dark:hover:from-neutral-800 dark:hover:to-neutral-800">
               <span className="relative z-10 flex items-center gap-2">
                 <SiGmail className="h-4 w-4" />
-                Shoot a DM
+                Email me
               </span>
             </AnimatedButton>
           </Link>
 
-          <Link href="https://cal.com/sehajm/meeting" target="_blank">
+          <Link href="https://cal.com/sehajm/meeting" target="_blank" rel="noopener noreferrer">
             <AnimatedButton className="group relative overflow-hidden rounded-lg border border-neutral-200 bg-linear-to-b from-white to-neutral-100 px-6 py-2.5 text-sm font-medium text-neutral-800 shadow-[0_1px_2px_rgba(0,0,0,0.04),inset_0_1px_0_rgba(255,255,255,1)] transition-all duration-300 hover:from-neutral-50 hover:to-neutral-100 dark:border-neutral-800 dark:from-neutral-800 dark:to-neutral-900 dark:text-neutral-200 dark:shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.05)] dark:hover:from-neutral-800 dark:hover:to-neutral-800">
               <span className="relative z-10 flex items-center gap-2">
                 Book a call

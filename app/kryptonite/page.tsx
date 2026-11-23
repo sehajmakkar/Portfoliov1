@@ -1,11 +1,12 @@
-import type { Metadata } from "next";
 import KryptoniteSide from "@/components/kryptonite/kryptonite-side";
 
-export const metadata: Metadata = {
+import { pageMeta } from "@/lib/seo";
+
+export const metadata = pageMeta({
   title: "Kryptonite",
   description: "The other side of Sehaj Preet: beats, bars and the booth.",
-  alternates: { canonical: "/kryptonite" },
-};
+  path: "/kryptonite",
+});
 
 export default function KryptonitePage() {
   return <KryptoniteSide />;

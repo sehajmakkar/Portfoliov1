@@ -1,48 +1,12 @@
 "use client";
 
-import { useEffect, useState, cloneElement } from "react";
-import { GitHubCalendar } from "react-github-calendar";
-import { useTheme } from "next-themes";
-import { Tooltip } from "react-tooltip";
+import ProofOfWork from "@/components/proof-of-work";
+import type { ContributionData } from "@/lib/contributions";
 
-interface PR {
-  id: string;
-  title: string;
-  url: string;
-  repository: {
-    nameWithOwner: string;
-  };
-  state: string;
-  createdAt: string;
-  mergedAt?: string;
-  closedAt?: string;
-}
 
-const GithubGraph = () => {
-  const { theme } = useTheme();
-  const [prs, setPrs] = useState<PR[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false);
-  const [filterType, setFilterType] = useState<
-    "all" | "merged" | "open" | "closed"
-  >("all");
-  const [showPRSection, setShowPRSection] = useState(true);
-  const [closedPRIds, setClosedPRIds] = useState<Set<string>>(new Set());
-  const [mounted, setMounted] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  const initialCount = 2;
-
-  useEffect(() => {
-    setMounted(true);
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+const GithubGraph = ({ contributions }: { contributions: ContributionData | null }) => {
+  // The pull request list below is hidden for now; its state and fetch live
+  // in git history (see the commented block) if it comes back.
   /* pull requests are hidden for now, so they aren't fetched either
   useEffect(() => {
     const fetchPRs = async () => {
@@ -79,59 +43,11 @@ const GithubGraph = () => {
     <div>
       <div className="-mx-2 mb-2 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
 
-      <h1 className="font-custom py-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-        <span className="link--elara">Proof Of Work</span>
-      </h1>
+      <h2 className="font-custom py-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+        <span className="link--elara">Proof of work</span>
+      </h2>
       <div className="-mx-2 mb-4 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
-      <p className="font-custom2 mt-3 mb-6 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-2 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-        {" "}
-        I live spending time in open source,building real stuff and solving real
-        problems
-      </p>
-
-      {/* Graph Component */}
-      <div className="flex w-full justify-center">
-        <div className="flex w-full justify-center">
-          {mounted && (
-            <>
-              <GitHubCalendar
-                username="sehajmakkar"
-                colorScheme={theme === "dark" ? "dark" : "light"}
-                blockSize={isMobile ? 6 : 10}
-                blockMargin={isMobile ? 2 : 3}
-                fontSize={isMobile ? 10 : 12}
-                style={{
-                  color: theme === "dark" ? "#e5e5e5" : "#171717",
-                }}
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                renderBlock={(block: any, activity: any) =>
-                  cloneElement(block, {
-                    "data-tooltip-id": "github-tooltip",
-                    "data-tooltip-content": `${activity.count} contributions on ${activity.date}`,
-                  })
-                }
-              />
-              <Tooltip
-                id="github-tooltip"
-                style={{
-                  backgroundColor: theme === "dark" ? "#171717" : "#ffffff",
-                  color: theme === "dark" ? "#e5e5e5" : "#171717",
-                  borderRadius: "8px",
-                  padding: "8px 12px",
-                  fontSize: "12px",
-                  boxShadow:
-                    "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                  border:
-                    theme === "dark"
-                      ? "1px solid #404040"
-                      : "1px solid #e5e5e5",
-                  opacity: 1,
-                }}
-              />
-            </>
-          )}
-        </div>
-      </div>
+      <ProofOfWork data={contributions} />
       {/* Pull requests section, hidden for now. To bring it back, remove this
           comment wrapper (and the one around the fetch above) and turn the
           "// Sliding Pill Background" and "// Buttons" lines back into JSX comments.

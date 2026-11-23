@@ -36,6 +36,14 @@ const Footer = () => {
           @kryptokodes
         </Link>
         <DiwaliGreeting />
+        <a
+          href="/resume.pdf"
+          target="_blank"
+          rel="noopener"
+          className="font-custom2 text-sm tracking-normal text-neutral-600 transition-colors duration-300 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"
+        >
+          Resume
+        </a>
         <div className="flex items-center justify-center gap-4">
           {socialLinks.map((link) => {
             const IconComponent = link.icon;
@@ -44,11 +52,12 @@ const Footer = () => {
                 key={link.name}
                 href={link.url}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
                 className="cursor-pointer text-neutral-700 opacity-70 transition hover:opacity-100 dark:text-neutral-50"
                 title={link.name}
+                aria-label={link.name}
               >
-                <IconComponent size={15} />
+                <IconComponent size={15} aria-hidden="true" />
               </Link>
             );
           })}

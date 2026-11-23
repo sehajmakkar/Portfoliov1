@@ -1,14 +1,15 @@
 import Container from "@/components/containers";
 import { getAllBlogs } from "@/util/mdx_clean";
-import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMeta } from "@/lib/seo";
 import { ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "Blog | Sehaj Preet",
+export const metadata = pageMeta({
+  title: "Blog",
   description:
-    "Thoughts on software engineering, web development, and technology",
-};
+    "Writing by Sehaj Preet on AI agents, evals, and building web products.",
+  path: "/blog",
+});
 
 export default async function BlogIndex() {
   const posts = await getAllBlogs();

@@ -7,7 +7,7 @@ export const LAPTOP_W = 640;
 export const LAPTOP_H = 400;
 
 const CODE = [
-  "// the koi at the top of sehaj.works",
+  "// the koi at the top of sehaj.tech",
   "export function createPond(canvas, opts) {",
   "  const fish: Koi[] = [];",
   "  const ripples: Ripple[] = [];",

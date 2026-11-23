@@ -4,13 +4,28 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import { getSingleBlog } from "@/util/mdx_clean";
-
-export const metadata: Metadata = {
-  title: "Blog | Sehaj Preet",
-  description: "Reading a blog...",
-};
+import { pageMeta } from "@/lib/seo";
 
 type PageParams = Promise<{ slug: string }>;
+
+export async function generateMetadata({
+  params,
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  try {
+    const { data } = await getSingleBlog(slug);
+    return pageMeta({
+      title: data.title ?? slug,
+      description: data.description ?? `A post by Sehaj Preet: ${data.title ?? slug}`,
+      path: `/blog/${slug}`,
+      type: "article",
+    });
+  } catch {
+    return { title: "Post not found" };
+  }
+}
 
 export default async function SingleBlogPage({
   params,

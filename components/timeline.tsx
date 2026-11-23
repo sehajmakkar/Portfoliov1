@@ -13,6 +13,7 @@ import {
   SiReact,
   SiThreedotjs,
   SiTypescript,
+  SiGooglechrome,
 } from "react-icons/si";
 import { IconType } from "react-icons";
 
@@ -28,7 +29,9 @@ type TechKey =
   | "express"
   | "js"
   | "rag"
-  | "canvas";
+  | "canvas"
+  | "langgraph"
+  | "chrome";
 
 const iconMap: Record<TechKey, IconType> = {
   next: SiNextdotjs,
@@ -43,6 +46,8 @@ const iconMap: Record<TechKey, IconType> = {
   js: SiJavascript,
   rag: Search,
   canvas: PenTool,
+  langgraph: SiLangchain,
+  chrome: SiGooglechrome,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -58,6 +63,8 @@ const techNames: Record<TechKey, string> = {
   js: "JavaScript",
   rag: "RAG",
   canvas: "Canvas API",
+  langgraph: "LangGraph",
+  chrome: "Chrome Extension (MV3)",
 };
 
 const techColors: Record<TechKey, string> = {
@@ -73,6 +80,8 @@ const techColors: Record<TechKey, string> = {
   js: "#F7DF1E",
   rag: "#22c55e",
   canvas: "#f97316",
+  langgraph: "#00A67E",
+  chrome: "#4285F4",
 };
 
 type Data = {
@@ -80,6 +89,7 @@ type Data = {
   href?: string;
   content: {
     title: string;
+    summary?: string;
     description: string;
     src: string;
     href: string;
@@ -95,26 +105,29 @@ type Data = {
 export const Timeline = () => {
   const [hoveredTech, setHoveredTech] = useState<string | null>(null);
   // Track which experience is open (by index)
-  const [openIdx, setOpenIdx] = useState<number | null>(null);
+  const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   const data: Data[] = [
     {
-      title: "Powerplay",
+      title: "PowerPlay",
       href: "https://www.getpowerplay.ai/",
       content: [
         {
-          title: "Powerplay",
+          title: "PowerPlay",
+          summary:
+            "Construction management software. I worked on the backend: exports, data quality and client scripts.",
           description: `
-            Refactored excel export architecture from offset pagination to MongoDB streaming, processing 100K+ records under 2 minutes (previously 7+ minutes) with significant memory reduction.
+            Moved the Excel export from offset pagination to MongoDB streaming: 100K+ records now export in under 2 minutes (was 7+), with much lower memory use.
+            Built 5+ client-facing backend scripts, including a deduplication engine that uses composite field hashing to recheck uniqueness across 95,000+ existing records.
           `,
           src: "/Experience-image/powerplay-logo.jpeg",
           href: "https://www.getpowerplay.ai",
-          tech: ["mongodb", "aws", "react", "express", "node", "js"],
+          tech: ["mongodb", "node", "express", "js"],
           dates: "Feb 2026 – Mar 2026",
           location: "Bengaluru, India (Onsite)",
           imageFit: "contain",
           imageZoom: 0.9,
-          type: "Backend Intern",
+          type: "Backend Development Intern",
         },
       ],
     },
@@ -125,24 +138,17 @@ export const Timeline = () => {
         {
           title: "Perf",
           type: "Software Engineering Intern",
+          summary:
+            "Vrkflo, a Chrome extension that records a workflow, turns it into a guide, and lets an AI agent replay it.",
           description: `
-            Engineered 15+ production features using the MERN stack (MongoDB, Express.js, React.js, Node.js) across a codebase serving 1000s of active users.
-            Wrote unit tests and participated in code reviews to maintain high code quality and release confidence.
-            Orchestrated 25+ production deployments via AWS Amplify and Elastic Beanstalk, implementing CI/CD best practices and maintaining 99.9% uptime across staging and production environments.
+            Built an AI browser agent as a Chrome extension (Manifest V3, TypeScript) that records workflows from DOM events and replays them, using LLM element grounding to self-heal when the UI changes.
+            Added a human-in-the-loop fallback with LangGraph interrupts that pauses replay on low-confidence matches, and auto-generated step-by-step SOPs with screenshots, cutting documentation time by 80%+.
+            Shipped 15+ production features in React and TypeScript from Figma designs, with proper loading, empty and error states against REST APIs.
+            Ran 7+ production deployments on AWS (Elastic Beanstalk, Amplify) across staging and production with CI/CD.
           `,
           src: "/Experience-image/perf-logo.png",
           href: "https://withperf.com/",
-          tech: [
-            "mongodb",
-            "express",
-            "react",
-            "node",
-            "next",
-            "ts",
-            "rag",
-            "langchain",
-            "aws",
-          ],
+          tech: ["ts", "react", "chrome", "langgraph", "aws"],
           dates: "Sep 2025 – Jan 2026",
           location: "London, UK (Remote)",
           imageFit: "contain",
@@ -157,14 +163,15 @@ export const Timeline = () => {
         {
           title: "Reslink Technologies",
           type: "Software Engineering Intern",
+          summary:
+            "3D solar design software for Indian EPCs. I worked on internal dashboards and the panel design tool.",
           description: `
-            Improved dashboard initial load time by 15% through lazy loading, component memoization, and API response caching.
-            Delivered 6+ feature releases on schedule across a production environment while maintaining release stability.
-            Developed a full-stack solar panel design tool using Three.js, Next.js, and TypeScript with object-oriented design patterns to render real-time 3D models across 5+ panel configurations with sub-2s load performance.
+            Cut internal dashboard load time by 15% with lazy loading, memoization and API response caching.
+            Built a solar panel design tool in Next.js, TypeScript and Three.js with a real-time 3D preview.
           `,
           src: "/Experience-image/reslink-logo.jpg",
           href: "https://reslink.org/",
-          tech: ["three", "canvas", "next", "ts"],
+          tech: ["three", "next", "ts"],
           dates: "Jun 2025 – Sep 2025",
           location: "Delhi, India (Hybrid)",
           imageFit: "contain",
@@ -176,9 +183,9 @@ export const Timeline = () => {
 
   return (
     <div>
-      <h1 className="font-custom mt-2 pb-2 text-3xl font-bold tracking-tight text-neutral-950 md:text-3xl dark:text-neutral-50">
-        <span className="link--elara">Experiences</span>
-      </h1>
+      <h2 className="font-custom mt-2 pb-2 text-3xl font-bold tracking-tight text-neutral-950 md:text-3xl dark:text-neutral-50">
+        <span className="link--elara">Experience</span>
+      </h2>
       <div className="-mx-2 mb-4 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
       <div className="flex flex-col gap-4">
         {data.map((year, idx) => (
@@ -258,6 +265,11 @@ export const Timeline = () => {
                       </span>
                     </div>
                   </div>
+                  {item.summary && (
+                    <p className="-mt-1 mb-2 pl-15 text-[13px] leading-snug text-neutral-600 md:pl-16 dark:text-neutral-400">
+                      {item.summary}
+                    </p>
+                  )}
                   {/* Details section with smooth accordion animation */}
                   <div
                     className={`grid transition-[grid-template-rows] duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}

@@ -13,7 +13,7 @@ const Navbar = () => {
     { title: "Projects", href: "/projects" },
     { title: "Learn", href: "/learn" },
     { title: "Blog", href: "/blog" },
-    // { title: "Contact", href: "/Contact" },
+    { title: "Resume", href: "/resume.pdf" },
   ];
 
   const [hovered, setHovered] = useState<number | null>(null);
@@ -77,12 +77,17 @@ const Navbar = () => {
           className="ml-auto flex items-center justify-end gap-2"
           onMouseLeave={() => setHovered(null)}
         >
-          {navItems.map((item, idx) => (
-            <Link
-              className="font-custom relative px-3 py-1.5 text-md tracking-normal text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-50"
+          {navItems.map((item, idx) => {
+            // the PDF is a static file, not a route: use a plain link
+            const Tag = item.href.endsWith(".pdf") ? "a" : Link;
+            return (
+            <Tag
+              // the PDF link hides on phones: the hero has a Resume button and the bar overflowed
+              className={`font-custom relative px-3 py-1.5 text-md tracking-normal text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-50 ${item.href.endsWith(".pdf") ? "hidden sm:inline-block" : ""}`}
               href={item.href}
               key={idx}
               onMouseEnter={() => setHovered(idx)}
+              {...(item.href.endsWith(".pdf") ? { target: "_blank", rel: "noopener" } : {})}
             >
               {hovered === idx && (
                 <motion.span
@@ -92,8 +97,9 @@ const Navbar = () => {
                 />
               )}
               {item.title}
-            </Link>
-          ))}
+            </Tag>
+            );
+          })}
 
           {/* Separator */}
           <div className="mx-1 h-5 w-px bg-neutral-300/40 dark:bg-neutral-700/50" />

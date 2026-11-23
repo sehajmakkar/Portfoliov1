@@ -212,3 +212,10 @@
 @media (prefers-reduced-motion: reduce) {
   .diya-flame { animation: none; }
 }
+
+/* contribution graph: no reveal or hover motion for reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .proof-of-work * {
+    transition: none !important;
+  }
+}

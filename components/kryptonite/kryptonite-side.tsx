@@ -121,7 +121,7 @@ export default function KryptoniteSide() {
         )}
 
         <footer className="font-plex flex flex-col gap-3 border-t border-[#e6dfcf]/10 py-8 text-[11px] tracking-[0.12em] text-[#e6dfcf]/45 uppercase sm:flex-row sm:items-center sm:justify-between">
-          <span>kryptonite · the b-side of sehaj.works</span>
+          <span>kryptonite · the b-side of sehaj.tech</span>
           <div className="flex gap-6">
             <a
               href="https://x.com/kryptokodes"

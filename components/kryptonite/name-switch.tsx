@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const NAME = "Sehaj Preet";
-const ALIAS = "kryptonite";
+const ALIAS = "kryptokodes";
 const GLYPHS = "abcdefghijklmnopqrstuvwxyz";
 
 // Hovering the name decodes it into the alias, letter by letter.

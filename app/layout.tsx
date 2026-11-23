@@ -11,6 +11,7 @@ import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import HideOnKryptonite from "@/components/hide-on-kryptonite";
 import { fontVariables } from "@/lib/fonts";
+import { SITE, SITE_URL } from "@/lib/site";
 
 const instrumentSerif = Instrument_Serif({
   weight: ["400"],
@@ -18,50 +19,49 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.sehaj.tech"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sehaj Preet",
-    template: "%s | Sehaj Preet",
+    default: SITE.name,
+    template: `%s | ${SITE.name}`,
   },
-  description:
-    "Full-Stack + AI developer building products across web, apps, and AI solutions.",
-  applicationName: "Sehaj Preet",
-  authors: [{ name: "Sehaj Preet", url: "https://www.sehaj.tech" }],
-  creator: "Sehaj Preet",
-  publisher: "Sehaj Preet",
+  description: SITE.description,
+  applicationName: SITE.name,
+  authors: [{ name: SITE.name, url: SITE_URL }],
+  creator: SITE.name,
+  publisher: SITE.name,
   keywords: [
     "Sehaj Preet",
     "Sehaj Makkar",
     "sehajmakkar",
-    "Full Stack Developer",
-    "AI Developer",
-    "Freelance",
+    "AI engineer",
+    "Backend engineer",
+    "Full stack developer",
+    "AI agents",
+    "LLM evals",
     "Next.js",
     "TypeScript",
-    "Portfolio",
+    "Python",
+    "Delhi",
   ],
-  alternates: {
-    canonical: "/",
-  },
+  // canonical is set per page (see lib/seo.ts); a root canonical would be
+  // inherited by every route and mark them all as copies of the home page
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
     apple: "/myavatar.png",
   },
   openGraph: {
-    title: "Sehaj Preet",
-    description:
-      "Full-Stack + AI developer building products across web, apps, and AI solutions.",
-    url: "https://www.sehaj.tech",
-    siteName: "Sehaj Preet",
+    title: SITE.name,
+    description: SITE.description,
+    siteName: SITE.name,
     type: "website",
+    locale: "en_IN",
     // image: app/opengraph-image.jpg (file convention)
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sehaj Preet",
-    description:
-      "Full-Stack + AI developer building products across web, apps, and AI solutions.",
+    title: SITE.name,
+    description: SITE.description,
     creator: "@kryptokodes",
     site: "@kryptokodes",
     // image: app/twitter-image.jpg (file convention)

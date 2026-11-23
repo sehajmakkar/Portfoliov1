@@ -58,74 +58,21 @@ import {
   SiJavascript,
   SiSwift,
   SiSqlite,
+  SiDrizzle,
+  SiOpentelemetry,
 } from "react-icons/si";
 type TechIcon = ComponentType<{ className?: string }>;
 
-type TechKey =
-  | "next"
-  | "ts"
-  | "react"
-  | "three"
-  | "prisma"
-  | "cloud"
-  | "langchain"
-  | "langgraph"
-  | "rag"
-  | "node"
-  | "motion"
-  | "tailwind"
-  | "bun"
-  | "eslint"
-  | "radixui"
-  | "charts"
-  | "github"
-  | "fastapi"
-  | "redis"
-  | "celery"
-  | "tldraw"
-  | "css3"
-  | "python"
-  | "anthropic"
-  | "claude"
-  | "gemini"
-  | "llama"
-  | "postgres"
-  | "docker"
-  | "vite"
-  | "express"
-  | "mongodb"
-  | "socketio"
-  | "supabase"
-  | "js"
-  | "ml"
-  | "modal"
-  | "clerk"
-  | "dodo"
-  | "swift"
-  | "sqlite";
+import {
+  projects,
+  featuredProjects,
+  earlierProjects,
+  statusLabel,
+  type Project,
+  type TechKey,
+} from "@/lib/projects-data";
 
-type TechItem =
-  | TechKey
-  | {
-      label: string;
-      tooltip?: string;
-    };
-
-export interface Project {
-  title: string;
-  src: string;
-  lightModeSrc?: string;
-  video: string;
-  description: string;
-  tech: TechItem[];
-  github: string;
-  live: string;
-  starsText?: string;
-  backgroundImage?: string;
-  status?: "live" | "building" | "not-started";
-  // screenshots shown in place of a demo video, until there is one
-  gallery?: { src: string; caption: string }[];
-}
+export { projects };
 
 type GalleryImage = { src: string; caption: string };
 
@@ -177,6 +124,8 @@ const iconMap: Record<TechKey, TechIcon> = {
   dodo: CreditCard,
   swift: SiSwift,
   sqlite: SiSqlite,
+  drizzle: SiDrizzle,
+  otel: SiOpentelemetry,
 };
 
 const techNames: Record<TechKey, string> = {
@@ -221,6 +170,8 @@ const techNames: Record<TechKey, string> = {
   dodo: "Dodo Payments",
   swift: "Swift (macOS Accessibility API)",
   sqlite: "SQLite + sqlite-vec",
+  drizzle: "Drizzle ORM",
+  otel: "OpenTelemetry",
 };
 
 const ProjectCard = ({
@@ -290,7 +241,8 @@ const ProjectCard = ({
             />
 
             {/* Title - Subtler slide */}
-            <motion.h1
+            <motion.span
+              aria-hidden="true"
               className="font-custom absolute top-2 left-2 z-30 text-[11px] font-bold tracking-widest text-neutral-500 uppercase drop-shadow-[0_2px_4px_rgba(0,0,0,0.4)] dark:text-neutral-400"
               variants={{
                 rest: {
@@ -311,7 +263,7 @@ const ProjectCard = ({
               transition={{ type: "spring", stiffness: 200, damping: 25 }}
             >
               View Project
-            </motion.h1>
+            </motion.span>
 
             {/* Play Button - Scales up with a nice bounce */}
             <motion.div
@@ -392,7 +344,13 @@ const ProjectCard = ({
           <div className="flex items-center justify-between">
             <div className="flex min-w-0 items-center gap-2">
               <h3 className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 transition-colors duration-300 dark:text-neutral-100">
-                {project.title}
+                {project.detail ? (
+                  <Link href={`/projects/${project.slug}`} className="hover:underline hover:underline-offset-4">
+                    {project.title}
+                  </Link>
+                ) : (
+                  project.title
+                )}
               </h3>
               {project.starsText && (
                 <span className="font-custom2 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50/80 px-2 py-0.5 text-[10px] font-medium text-neutral-700 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200">
@@ -406,32 +364,34 @@ const ProjectCard = ({
               )}
             </div>
             <div className="flex items-center gap-3">
-              {project.live &&
-                project.title !== "Scribble3D" &&
-                project.title !== "Blueprint" &&
-                project.title !== "RepoLens" &&
-                project.title !== "Inquiro" && (
-                  <Globe
-                    size={16}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(project.live, "_blank");
-                    }}
-                    className="cursor-pointer text-neutral-700 opacity-50 transition hover:opacity-100 dark:text-neutral-300"
-                  />
-                )}
-              <Github
-                size={16}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.open(project.github, "_blank");
-                }}
-                className="cursor-pointer text-neutral-700 opacity-50 transition hover:opacity-100 dark:text-neutral-300"
-              />
+              {project.live && (
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} live site`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-neutral-700 opacity-50 transition hover:opacity-100 dark:text-neutral-300"
+                >
+                  <Globe size={16} aria-hidden="true" />
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${project.title} source on GitHub`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="text-neutral-700 opacity-50 transition hover:opacity-100 dark:text-neutral-300"
+                >
+                  <Github size={16} aria-hidden="true" />
+                </a>
+              )}
             </div>
           </div>
 
-          <p className="font-custom2 line-clamp-2 h-10 text-sm text-neutral-600 transition-colors duration-300 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-200">
+          <p className="font-custom2 line-clamp-3 h-15 text-sm text-neutral-600 transition-colors duration-300 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-neutral-200">
             {project.description}
           </p>
 
@@ -484,27 +444,24 @@ const ProjectCard = ({
             </div>
 
             {(() => {
-              const isNotStarted = project.status === "not-started";
-              const isBuilding = project.status === "building";
-
-              const dotColor = isNotStarted
-                ? "bg-neutral-400"
-                : isBuilding
-                  ? "bg-yellow-500"
-                  : "bg-emerald-500";
-
-              const label = isNotStarted
-                ? "Not Started Yet"
-                : isBuilding
-                  ? "Building"
-                  : "All Systems Operational";
+              const status = project.status ?? "oss";
+              const dotColor =
+                status === "live"
+                  ? "bg-emerald-500"
+                  : status === "building"
+                    ? "bg-yellow-500"
+                    : "bg-neutral-400";
+              const pulse = status === "live" || status === "building";
+              const label = statusLabel[status];
 
               return (
                 <span className="font-custom2 inline-flex shrink-0 items-center gap-2 rounded-full border border-neutral-200 bg-white px-3 py-1 text-[10px] font-medium text-neutral-700 dark:border-neutral-800 dark:bg-black dark:text-neutral-200">
                   <span className="relative flex h-2 w-2">
-                    <span
-                      className={`absolute inline-flex h-full w-full rounded-full ${dotColor} animate-[statusDotPulse_2.6s_ease-in-out_infinite] motion-reduce:animate-none`}
-                    />
+                    {pulse && (
+                      <span
+                        className={`absolute inline-flex h-full w-full rounded-full ${dotColor} animate-[statusDotPulse_2.6s_ease-in-out_infinite] motion-reduce:animate-none`}
+                      />
+                    )}
                     <span
                       className={`relative inline-flex h-2 w-2 rounded-full ${dotColor}`}
                     />
@@ -519,179 +476,6 @@ const ProjectCard = ({
     </motion.div>
   );
 };
-
-export const projects: Project[] = [
-  {
-    title: "Vero",
-    src: "/project-image/vero-cover.png",
-    lightModeSrc: "/project-image/vero-cover.png",
-    // demo hosted on YouTube (embed)
-    video: "https://www.youtube.com/embed/KV65sAj8Za4",
-    description:
-      "The AI-native writing workspace for resumes and technical documents. LaTeX editor, inline AI editing, professional templates, and real-time ATS scoring — all in one place.",
-    tech: [
-      "next",
-      "cloud",
-      "postgres",
-      "docker",
-      "ts",
-      "prisma",
-    ],
-    github: "https://github.com/sehajmakkar/Vero",
-    live: "https://www.withvero.app/",
-    starsText: "Startup",
-    backgroundImage: "/image copy 5.png",
-    status: "live",
-  },
-  {
-    title: "McAgent",
-    src: "/project-image/mcagent-cover.png",
-    lightModeSrc: "/project-image/mcagent-cover.png",
-    video: "",
-    description:
-      "A local-first macOS agent that reads your screen text, remembers your work and finds your open loops: promises, follow-ups, unanswered asks. Then it closes them: drafts the email, you approve, it sends and verifies.",
-    tech: ["swift", "python", "fastapi", "gemini", "sqlite"],
-    github: "https://github.com/sehajmakkar/contextagent",
-    live: "",
-    backgroundImage: "/image copy 2.png",
-    gallery: [
-      {
-        src: "/project-image/mcagent/inbox.png",
-        caption: "The inbox: open loops found on screen, each with the quote that created it",
-      },
-      {
-        src: "/project-image/mcagent/draft.png",
-        caption: "Close it for me: the agent drafts the email, nothing sends until you approve",
-      },
-      {
-        src: "/project-image/mcagent/menu-bar.png",
-        caption: "The menu-bar panel",
-      },
-    ],
-  },
-  {
-    title: "Agent Labs",
-    src: "/project-image/agent-labs-cover.png",
-    lightModeSrc: "/project-image/agent-labs-cover.png",
-    video: "",
-    description:
-      "Find the exact step where an AI agent went wrong, and prove the fix. Deterministic replay, auto-blame verified by forking runs, trajectory diffs, and evals that gate CI.",
-    tech: ["python", "fastapi", "gemini", "react", "ts", "vite"],
-    github: "https://github.com/sehajmakkar/agent-labs",
-    live: "",
-    backgroundImage: "/image copy 3.png",
-    gallery: [
-      {
-        src: "/project-image/agent-labs/overview.png",
-        caption: "Record, evaluate, blame, fork, diff, lock it in",
-      },
-      {
-        src: "/project-image/agent-labs/decision-tree.png",
-        caption: "Every run as a decision tree you can click through",
-      },
-      {
-        src: "/project-image/agent-labs/fork.png",
-        caption: "A fork proving the fix: 5/5 with the change, 0/5 without",
-      },
-      {
-        src: "/project-image/agent-labs/blame-accuracy.png",
-        caption: "Blame accuracy on 50 deliberately planted bugs",
-      },
-    ],
-  },
-  {
-    title: "Genomics AI",
-    src: "/project-image/genomics-cover.png",
-    lightModeSrc: "/project-image/genomics-cover.png",
-    video: "https://www.youtube.com/embed/UoxcimVpSIU",
-    description:
-      "AI-powered genetic variant analysis platform using Evo 2 genomic language model to predict mutation pathogenicity with GPU-accelerated inference.",
-    tech: ["next", "fastapi", "python", "ts", "ml", "modal"],
-    github: "https://github.com/sehajmakkar/GenomicsAI",
-    live: "https://genomics-ai.vercel.app/",
-    backgroundImage: "/image copy.png",
-  },
-  {
-    title: "RunBook",
-    src: "/project-image/runbook-cover.png",
-    lightModeSrc: "/project-image/runbook-cover.png",
-    video: "",
-    description:
-      "AI Manager to keep you accountable by hosting Daily Standups, Weekly Reviews, and 1-on-1s.",
-    tech: [
-      "next",
-      "rag",
-      "python",
-      "prisma",
-      "postgres",
-      "supabase",
-      // "ts",
-      // "tailwind",
-    ],
-    github: "https://github.com/sehajmakkar/RunBook",
-    live: "https://runbook.vercel.app/",
-    backgroundImage: "/image copy 3.png",
-    status: "building",
-  },
-  {
-    title: "Chronos AI",
-    src: "/project-image/chronos-cover.png",
-    lightModeSrc: "/project-image/chronos-cover.png",
-    video: "https://www.youtube.com/embed/vdJw3kE1lqw",
-    description:
-      "An AI-powered collaborative coding platform that instantly sets up projects, provides intelligent coding assistance, and enables real-time team collaboration.",
-    tech: [
-      "react",
-      "node",
-      "mongodb",
-      "socketio",
-      "gemini",
-      "redis",
-      // "vite",
-      // "tailwind",
-      // "express",
-    ],
-    github: "https://github.com/sehajmakkar/ChronosAI",
-    live: "https://chronos-ai-seven.vercel.app/",
-    backgroundImage: "/image copy 4.png",
-  },
-  {
-    title: "DocTime",
-    src: "/project-image/doctime-cover.png",
-    lightModeSrc: "/project-image/doctime-cover.png",
-    video: "",
-    description:
-      "A Doctor appointment booking platform with RBAC for admins, doctors, and users.",
-    tech: [
-      "mongodb",
-      "react",
-      "express",
-      "node",
-      "js",
-      // kept as-is (already concise)
-    ],
-    github: "https://github.com/sehajmakkar/DocTime",
-    live: "https://doc-time-rust.vercel.app/",
-  },
-  {
-    title: "ScreamShots",
-    src: "/project-image/screamshots-cover.png",
-    lightModeSrc: "/project-image/screamshots-cover.png",
-    video: "",
-    description:
-      "Transform Boring Screens Into Stunning Mockups! Drag. Drop. Done. Elegant mockups in seconds.",
-    tech: [
-      "ts",
-      "next",
-      "react",
-      "motion",
-      // kept as-is (already concise)
-    ],
-    github: "https://github.com/sehajmakkar/screamshots",
-    live: "https://screamshots.vercel.app/",
-    backgroundImage: "/image copy.png",
-  },
-];
 
 const Gallery = ({ title, images }: { title: string; images: GalleryImage[] }) => {
   const [index, setIndex] = useState(0);
@@ -767,15 +551,20 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
   }, []);
 
   return (
-    <div className="mt-8">
+    <div className={showAll ? "mt-8" : "mt-2"}>
+      {!showAll && (
+        <h2 className="font-custom py-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+          <span className="link--elara">Projects</span>
+        </h2>
+      )}
       {/* Subtitle */}
       <p className="font-custom2 mt-3 inline-block border border-dashed border-neutral-300 bg-neutral-100 px-4 py-[7px] text-sm text-neutral-700 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-        I love designing and building thoughtful, production-grade applications.
+        AI systems, backends and the products around them. Most recent first.
       </p>
 
       {/* GRID */}
       <div className="grid grid-cols-1 gap-6 py-8 md:grid-cols-2 lg:grid-cols-2">
-        {(showAll ? projects : projects.slice(0, 2)).map((project, idx) => (
+        {featuredProjects.map((project, idx) => (
           <motion.div
             key={project.title}
             initial={{ opacity: 0, y: 20 }}
@@ -791,6 +580,46 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
           </motion.div>
         ))}
       </div>
+
+      {showAll && earlierProjects.length > 0 && (
+        <section aria-labelledby="earlier-work" className="pb-8">
+          <h2
+            id="earlier-work"
+            className="font-custom mb-3 text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50"
+          >
+            Earlier work
+          </h2>
+          <ul className="divide-y divide-dashed divide-neutral-200 dark:divide-neutral-800">
+            {earlierProjects.map((p) => (
+              <li key={p.slug} className="flex flex-col gap-1 py-3 sm:flex-row sm:items-baseline sm:gap-4">
+                <span className="font-custom w-32 shrink-0 text-base font-semibold text-neutral-900 dark:text-neutral-100">
+                  {p.title}
+                  {p.status === "building" && (
+                    <span className="font-custom2 ml-2 text-[10px] font-medium text-yellow-600 dark:text-yellow-500">
+                      building
+                    </span>
+                  )}
+                </span>
+                <span className="font-custom2 flex-1 text-sm text-neutral-600 dark:text-neutral-400">
+                  {p.description}
+                </span>
+                <span className="font-custom2 flex shrink-0 gap-3 text-xs">
+                  {p.live && (
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" className="text-neutral-700 underline-offset-2 hover:underline dark:text-neutral-300">
+                      Live
+                    </a>
+                  )}
+                  {p.github && (
+                    <a href={p.github} target="_blank" rel="noopener noreferrer" className="text-neutral-700 underline-offset-2 hover:underline dark:text-neutral-300">
+                      GitHub
+                    </a>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* MODAL */}
       <AnimatePresence>
@@ -831,8 +660,8 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                     </p>
                     <p className="font-custom2 mt-1 text-sm text-neutral-600 dark:text-neutral-400">
                       {activeVideo.reason === "building"
-                        ? "This project is currently Building."
-                        : "Demo hasn’t been shot yet."}
+                        ? "Still building this one."
+                        : "No demo video yet."}
                     </p>
                   </div>
                 </div>

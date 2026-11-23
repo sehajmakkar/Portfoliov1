@@ -32,6 +32,9 @@ export default function Desk() {
   useEffect(() => {
     const el = frameRef.current;
     if (!el) return;
+    // Phones skip the 3D desk entirely: three.js alone is ~300 KB gzipped and
+    // the scene made scrolling stutter. The section is hidden below md too.
+    if (!window.matchMedia("(min-width: 768px)").matches) return;
     const nearIO = new IntersectionObserver(
       ([e]) => {
         if (e.isIntersecting) {
@@ -53,12 +56,12 @@ export default function Desk() {
   }, []);
 
   return (
-    <div className="relative mt-10 w-full">
+    <div className="relative mt-10 hidden w-full md:block">
       <div className="-mx-2 mb-2 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
       <div className="flex flex-col items-start space-y-3">
-        <h1 className="font-custom py-2 text-3xl font-bold tracking-tight text-neutral-900 md:text-3xl dark:text-neutral-50">
+        <h2 className="font-custom py-2 text-3xl font-bold tracking-tight text-neutral-900 md:text-3xl dark:text-neutral-50">
           <span className="link--elara">The setup</span>
-        </h1>
+        </h2>
       </div>
       <div className="-mx-2 mb-4 w-auto border-t border-solid border-[var(--pattern-fg)] opacity-100 md:-mx-14 dark:opacity-15"></div>
 
