@@ -18,7 +18,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.sehaj.works"),
+  metadataBase: new URL("https://www.sehaj.tech"),
   title: {
     default: "Sehaj Preet",
     template: "%s | Sehaj Preet",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   description:
     "Full-Stack + AI developer building products across web, apps, and AI solutions.",
   applicationName: "Sehaj Preet",
-  authors: [{ name: "Sehaj Preet", url: "https://www.sehaj.works" }],
+  authors: [{ name: "Sehaj Preet", url: "https://www.sehaj.tech" }],
   creator: "Sehaj Preet",
   publisher: "Sehaj Preet",
   keywords: [
@@ -52,17 +52,10 @@ export const metadata: Metadata = {
     title: "Sehaj Preet",
     description:
       "Full-Stack + AI developer building products across web, apps, and AI solutions.",
-    url: "https://www.sehaj.works",
+    url: "https://www.sehaj.tech",
     siteName: "Sehaj Preet",
     type: "website",
-    images: [
-      {
-        url: "/myavatar.png",
-        width: 1200,
-        height: 1200,
-        alt: "Sehaj Preet",
-      },
-    ],
+    // image: app/opengraph-image.jpg (file convention)
   },
   twitter: {
     card: "summary_large_image",
@@ -71,7 +64,7 @@ export const metadata: Metadata = {
       "Full-Stack + AI developer building products across web, apps, and AI solutions.",
     creator: "@kryptokodes",
     site: "@kryptokodes",
-    images: ["/myavatar.png"],
+    // image: app/twitter-image.jpg (file convention)
   },
 };
 
