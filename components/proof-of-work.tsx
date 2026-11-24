@@ -18,9 +18,10 @@ type View = "grid" | "city";
 type Hover = { day: Day; x: number; y: number } | null;
 type Level = 0 | 1 | 2 | 3 | 4;
 
-// Sage greens from the OG card, not GitHub's neon. Level n -> var(--cN).
+// Cobalt ramp around the brand blue (#2c4ec9). Level n -> var(--cN).
+// Dark mode climbs toward a lighter blue so busy days still read on black.
 const PALETTE =
-  "[--c0:#e7e5df] [--c1:#c3d8bb] [--c2:#8db686] [--c3:#5a8f5f] [--c4:#2f5e3c] dark:[--c0:#1c1e1d] dark:[--c1:#1e3a2a] dark:[--c2:#2d5a3c] dark:[--c3:#427a50] dark:[--c4:#6c9f73]";
+  "[--c0:#e9ebf2] [--c1:#c9d3f2] [--c2:#90a4e4] [--c3:#5470d4] [--c4:#2c4ec9] dark:[--c0:#1b1d24] dark:[--c1:#1d2852] dark:[--c2:#283f94] dark:[--c3:#3a5bd6] dark:[--c4:#8098f2]";
 const fill = (l: Level) => `var(--c${l})`;
 
 // Reveals once when scrolled into view; `replay` re-runs the animation.
@@ -102,7 +103,7 @@ export default function ProofOfWork({ data }: { data: ContributionData | null })
                 setHover(null);
                 replay();
               }}
-              className={`rounded-md px-3 py-1 capitalize transition-colors ${view === v ? "bg-neutral-900 text-neutral-50 dark:bg-neutral-100 dark:text-neutral-900" : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"}`}
+              className={`rounded-md px-3 py-1 capitalize transition-colors ${view === v ? "bg-brand text-white" : "text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"}`}
             >
               {v}
             </button>
@@ -118,7 +119,7 @@ export default function ProofOfWork({ data }: { data: ContributionData | null })
                 replay();
               }}
               aria-pressed={range === r}
-              className={`rounded-md px-2 py-1 tabular-nums transition-colors ${range === r ? "bg-neutral-200 font-medium text-neutral-900 dark:bg-neutral-800 dark:text-neutral-100" : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"}`}
+              className={`rounded-md px-2 py-1 tabular-nums transition-colors ${range === r ? "bg-brand-soft font-medium text-brand-ink" : "text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100"}`}
             >
               {r === "last" ? "Last year" : r}
             </button>

@@ -449,7 +449,7 @@ const ProjectCard = ({
                 status === "live"
                   ? "bg-emerald-500"
                   : status === "building"
-                    ? "bg-yellow-500"
+                    ? "bg-brand"
                     : "bg-neutral-400";
               const pulse = status === "live" || status === "building";
               const label = statusLabel[status];
@@ -595,7 +595,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
                 <span className="font-custom w-32 shrink-0 text-base font-semibold text-neutral-900 dark:text-neutral-100">
                   {p.title}
                   {p.status === "building" && (
-                    <span className="font-custom2 ml-2 text-[10px] font-medium text-yellow-600 dark:text-yellow-500">
+                    <span className="font-custom2 ml-2 text-[10px] font-medium text-brand-ink">
                       building
                     </span>
                   )}

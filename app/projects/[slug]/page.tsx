@@ -137,7 +137,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
               <ul className="mt-3 space-y-2 text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300">
                 {d.numbers.map((line) => (
                   <li key={line} className="flex gap-2.5">
-                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-600" />
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand" />
                     {line}
                   </li>
                 ))}

@@ -10,19 +10,16 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Custom selection color */
+/* Selection uses the brand blue */
 ::selection {
-  background: #c7c6c6;
-
-  /* bright yellow highlight */
-  color: #000;
-  /* black text */
+  background: var(--brand-select);
+  color: inherit;
 }
 
-/* Optional: for Firefox */
-::-moz-selection {
-  background: #58553e;
-  color: #000;
+/* Keyboard focus: brand-blue ring everywhere */
+:focus-visible {
+  outline: 2px solid var(--brand-ink);
+  outline-offset: 2px;
 }
 
 
@@ -39,6 +36,12 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-muted: var(--muted);
   --color-background: var(--background);
+  /* brand blue: `brand` for fills (buttons, tabs), `brand-ink` for text/links
+     (lighter in dark mode so it stays readable), `brand-soft` for tints */
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-soft: var(--brand-soft);
 }
 
 /* ✅ Move this OUTSIDE of @theme inline */
@@ -55,6 +58,12 @@
   --muted-foreground: oklch(0.552 0.016 285.938);
   --border: oklch(0.92 0.004 286.32);
   --pattern-fg: #d1d5db;
+  /* cobalt, sampled from the reference: #2c4ec9 */
+  --brand: #2c4ec9;
+  --brand-hover: #2340ab;
+  --brand-ink: #2c4ec9;
+  --brand-soft: #eef1fb;
+  --brand-select: #c9d3f2;
 }
 
 .dark {
@@ -65,7 +74,12 @@
   --muted-foreground: oklch(0.705 0.015 286.067);
   --border: oklch(0.274 0.006 286.033);
   --pattern-fg: #404040;
-
+  /* same cobalt for fills; text uses a lighter step, #2c4ec9 is ~2.9:1 on black */
+  --brand: #2c4ec9;
+  --brand-hover: #3a5be0;
+  --brand-ink: #8098f2;
+  --brand-soft: #141a30;
+  --brand-select: #24346e;
 }
 
 /* === Minimal SVG Underline Animation (Elara style) === */

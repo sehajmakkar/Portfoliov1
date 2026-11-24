@@ -13,6 +13,7 @@ import type { ContributionData } from "@/lib/contributions";
 import Skills from "@/components/skills";
 import GetInTouch from "@/components/get-in-touch";
 import Education from "@/components/education";
+import LinkPreview from "@/components/link-preview";
 import { useLenis } from "lenis/react";
 import KoiPond from "@/components/pond/koi-pond";
 import Desk from "@/components/desk/desk";
@@ -36,9 +37,9 @@ export default function HomePage({
   };
 
   const startups = [
-    { name: "Perf", href: "https://withperf.com/" },
-    { name: "PowerPlay", href: "https://www.getpowerplay.ai/" },
-    { name: "Reslink", href: "https://reslink.org/" },
+    { name: "Perf", href: "https://withperf.com/", image: "/previews/perf.webp" },
+    { name: "PowerPlay", href: "https://www.getpowerplay.ai/", image: "/previews/powerplay.webp" },
+    { name: "Reslink", href: "https://reslink.org/", image: "/previews/reslink.webp" },
   ];
 
   const socials = [
@@ -97,14 +98,9 @@ export default function HomePage({
             Previously at 3 startups:{" "}
             {startups.map((s, i) => (
               <span key={s.name}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline decoration-neutral-400 underline-offset-2 hover:decoration-current dark:decoration-neutral-600"
-                >
+                <LinkPreview href={s.href} image={s.image} className="text-neutral-900 underline decoration-neutral-300 underline-offset-[3px] transition-colors hover:decoration-neutral-900 dark:text-neutral-100 dark:decoration-neutral-600 dark:hover:decoration-neutral-100">
                   {s.name}
-                </a>
+                </LinkPreview>
                 {i < startups.length - 2 ? ", " : i === startups.length - 2 ? " and " : "."}
               </span>
             ))}
@@ -124,7 +120,7 @@ export default function HomePage({
             <button
               type="button"
               onClick={scrollToGetInTouch}
-              className="font-medium underline underline-offset-2 transition-opacity hover:opacity-80"
+              className="font-medium text-neutral-900 underline decoration-neutral-300 underline-offset-[3px] transition-colors hover:decoration-neutral-900 dark:text-neutral-100 dark:decoration-neutral-600 dark:hover:decoration-neutral-100"
             >
               Get in touch
             </button>

@@ -87,7 +87,7 @@ export default function RootLayout({
               <FractalTree />
               <Navbar />
             </HideOnKryptonite>
-            <main className="min-h-screen">{children}</main>
+            <main id="top" className="min-h-screen">{children}</main>
             <HideOnKryptonite>
               <Footer />
             </HideOnKryptonite>
