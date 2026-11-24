@@ -18,13 +18,19 @@ const ASK = [
   { name: "Grok", icon: SiX, href: `https://grok.com/?q=${q}` },
 ];
 
+const rail =
+  "pointer-events-none absolute top-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12";
+
 const hatch =
   "h-5 border-y border-[var(--pattern-fg)] bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] opacity-80 dark:opacity-40";
 
 export default function Footer() {
   return (
     <footer className="w-full overflow-hidden bg-neutral-50 dark:bg-neutral-950">
-      <Container className="border-x border-[var(--pattern-fg)] pt-10 dark:border-neutral-900">
+      <Container className="pt-10">
+        {/* same hatched rails as the page above (bg-fixed keeps the stripes aligned) */}
+        <div aria-hidden className={`left-0 ${rail}`} />
+        <div aria-hidden className={`right-0 ${rail}`} />
         {/* Ask an AI */}
         <div className="font-custom2 flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-neutral-600 dark:text-neutral-400">

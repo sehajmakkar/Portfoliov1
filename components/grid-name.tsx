@@ -124,7 +124,7 @@ export default function GridName({ text = "sehaj." }: { text?: string }) {
       let any = false;
       for (let i = 0; i < heat.length; i++) {
         if (heat[i] > 0.02) {
-          heat[i] *= 0.93;
+          heat[i] *= 0.955;
           any = true;
         } else heat[i] = 0;
       }
@@ -133,23 +133,41 @@ export default function GridName({ text = "sehaj." }: { text?: string }) {
       else running = false;
     };
 
+    // light a ragged blob of cells around (px, py), in cell units
+    const R = 5.5;
+    const stamp = (px: number, py: number) => {
+      const r = Math.ceil(R);
+      for (let dy = -r; dy <= r; dy++)
+        for (let dx = -r; dx <= r; dx++) {
+          const x = Math.floor(px) + dx, y = Math.floor(py) + dy;
+          if (x < 0 || y < 0 || x >= cols || y >= rows) continue;
+          const d = Math.hypot(x + 0.5 - px, y + 0.5 - py) / R;
+          if (d > 1) continue;
+          // solid core, speckled edge: reads as pixels, not a soft brush
+          if (d > 0.55 && Math.random() < (d - 0.55) * 1.6) continue;
+          const i = y * cols + x;
+          heat[i] = Math.max(heat[i], 1 - d * d * 0.55);
+        }
+    };
+    let last: { x: number; y: number } | null = null;
+
     const onMove = (e: PointerEvent) => {
       if (reduce) return;
       const r = el.getBoundingClientRect();
       const px = (e.clientX - r.left) / CELL, py = (e.clientY - r.top) / CELL;
-      for (let dy = -3; dy <= 3; dy++)
-        for (let dx = -3; dx <= 3; dx++) {
-          const x = Math.floor(px) + dx, y = Math.floor(py) + dy;
-          if (x < 0 || y < 0 || x >= cols || y >= rows) continue;
-          const d = Math.hypot(x + 0.5 - px, y + 0.5 - py);
-          if (d > 2.6) continue;
-          const i = y * cols + x;
-          heat[i] = Math.max(heat[i], 1 - d / 3);
-        }
+      // fill the gap since the last event so fast moves leave a continuous swath
+      if (last) {
+        const steps = Math.min(40, Math.ceil(Math.hypot(px - last.x, py - last.y) / 1.5));
+        for (let k = 1; k <= steps; k++) stamp(last.x + ((px - last.x) * k) / steps, last.y + ((py - last.y) * k) / steps);
+      } else stamp(px, py);
+      last = { x: px, y: py };
       if (!running) {
         running = true;
         raf = requestAnimationFrame(loop);
       }
+    };
+    const onLeave = () => {
+      last = null;
     };
 
     const ro = new ResizeObserver(layout);
@@ -158,6 +176,7 @@ export default function GridName({ text = "sehaj." }: { text?: string }) {
     const mo = new MutationObserver(draw);
     mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     el.addEventListener("pointermove", onMove);
+    el.addEventListener("pointerleave", onLeave);
     document.fonts?.ready.then(layout);
     layout();
 
@@ -166,6 +185,7 @@ export default function GridName({ text = "sehaj." }: { text?: string }) {
       ro.disconnect();
       mo.disconnect();
       el.removeEventListener("pointermove", onMove);
+      el.removeEventListener("pointerleave", onLeave);
     };
   }, [text]);
 
