@@ -59,7 +59,7 @@ export default function Contact() {
 
   return (
     <div className="relative flex min-h-screen justify-center overflow-hidden font-sans">
-      <Container className="mx-auto min-h-[200vh] px-8 pt-24 md:p-20 md:pb-10">
+      <Container className="mx-auto min-h-screen px-8 pt-24 md:p-20 md:pb-10">
         {/* Background Pattern & Borders */}
         <div className="absolute top-0 right-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12"></div>
 
@@ -69,7 +69,16 @@ export default function Contact() {
           <span className="link--elara">Contact</span>
         </h1>
         <p className="font-custom2 mt-2 mb-12 max-w-lg text-sm tracking-tight text-neutral-600 md:text-base dark:text-neutral-400">
-          Hi there — I’m currently open to meaningful work.
+          I&apos;m open to AI and backend roles, and to freelance projects. I can start right away.
+          Send a message here, email{" "}
+          <a className="underline underline-offset-2" href="mailto:sehajmakkar007@gmail.com">
+            sehajmakkar007@gmail.com
+          </a>
+          , or{" "}
+          <a className="underline underline-offset-2" href="https://cal.com/sehajm/meeting" target="_blank" rel="noopener noreferrer">
+            book a call
+          </a>
+          .
         </p>
 
         <div className="relative z-10 w-full max-w-2xl p-0 md:p-0">
@@ -169,7 +178,8 @@ export default function Contact() {
               <a
                 href="https://x.com/kryptokodes"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
+                aria-label="X"
               >
                 <FaXTwitter
                   size={14}
@@ -179,7 +189,8 @@ export default function Contact() {
               <a
                 href="https://www.linkedin.com/in/sehajmakkar"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
+                aria-label="LinkedIn"
               >
                 <Linkedin
                   size={14}
@@ -189,7 +200,8 @@ export default function Contact() {
               <a
                 href="https://github.com/sehajmakkar"
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="me noopener noreferrer"
+                aria-label="GitHub"
               >
                 <Github
                   size={14}

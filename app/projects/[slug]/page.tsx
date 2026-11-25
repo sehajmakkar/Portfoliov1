@@ -6,7 +6,7 @@ import Container from "@/components/containers";
 import JsonLd, { projectSchema } from "@/components/json-ld";
 import { featuredProjects, getProject, statusLabel } from "@/lib/projects-data";
 import { pageMeta } from "@/lib/seo";
-import { SITE_URL } from "@/lib/site";
+import { SITE } from "@/lib/site";
 
 type Params = Promise<{ slug: string }>;
 
@@ -20,12 +20,17 @@ export async function generateMetadata({ params }: { params: Params }) {
   const p = getProject((await params).slug);
   if (!p?.detail) return {};
   return pageMeta({
-    title: p.title,
-    description: p.detail.what,
+    title: p.detail.seoTitle,
+    description: p.detail.seoDescription,
     path: `/projects/${p.slug}`,
     type: "article",
+    published: p.detail.created,
+    modified: p.detail.updated,
   });
 }
+
+const month = (d: string) =>
+  new Date(d).toLocaleDateString("en", { month: "short", year: "numeric", timeZone: "UTC" });
 
 const rail =
   "absolute top-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12";
@@ -37,20 +42,11 @@ export default async function ProjectPage({ params }: { params: Params }) {
   if (!p?.detail) notFound();
   const d = p.detail;
 
-  const breadcrumbs = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
-      { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_URL}/projects` },
-      { "@type": "ListItem", position: 3, name: p.title, item: `${SITE_URL}/projects/${p.slug}` },
-    ],
-  };
+  const more = featuredProjects.filter((o) => o.slug !== p.slug);
 
   return (
     <Container className="relative mx-auto min-h-screen px-8 pt-24 pb-16 md:p-20 md:pb-16">
       <JsonLd data={projectSchema(p)} />
-      <JsonLd data={breadcrumbs} />
       <div className={`${rail} right-0`} />
       <div className={`${rail} left-0`} />
 
@@ -75,6 +71,14 @@ export default async function ProjectPage({ params }: { params: Params }) {
           </div>
           <p className="mt-3 max-w-2xl text-base leading-relaxed text-neutral-800 dark:text-neutral-200">
             {d.what}
+          </p>
+          <p className="mt-3 text-sm text-neutral-500 dark:text-neutral-400">
+            Built by{" "}
+            <Link href="/about" rel="author" className="text-neutral-900 underline underline-offset-4 dark:text-neutral-100">
+              {SITE.name}
+            </Link>
+            . Started <time dateTime={d.created}>{month(d.created)}</time>, last updated{" "}
+            <time dateTime={d.updated}>{month(d.updated)}</time>.
           </p>
           <div className="mt-4 flex flex-wrap gap-4 text-sm">
             {p.live && (
@@ -103,7 +107,7 @@ export default async function ProjectPage({ params }: { params: Params }) {
         <div className="mt-8 overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900">
           <Image
             src={p.src}
-            alt={`${p.title} screenshot`}
+            alt={d.alt}
             width={1200}
             height={750}
             className="h-auto w-full object-cover"
@@ -150,12 +154,33 @@ export default async function ProjectPage({ params }: { params: Params }) {
           <>
             <div className={rule} />
             <section aria-labelledby="story">
-              <h2 id="story" className="font-custom text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+              <h2 id="story" className="scroll-mt-24 font-custom text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
                 {d.story.title}
               </h2>
               <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300">
                 {d.story.body}
               </p>
+            </section>
+          </>
+        )}
+
+        {p.gallery && (
+          <>
+            <div className={rule} />
+            <section aria-labelledby="screens">
+              <h2 id="screens" className="font-custom text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+                Screenshots
+              </h2>
+              <div className="mt-4 grid gap-6 sm:grid-cols-2">
+                {p.gallery.filter((g) => !g.cover).map((g) => (
+                  <figure key={g.src}>
+                    <div className="flex aspect-[4/3] items-center justify-center overflow-hidden rounded-lg border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900">
+                      <Image src={g.src} alt={g.caption} width={800} height={600} className="max-h-full w-auto object-contain" />
+                    </div>
+                    <figcaption className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">{g.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
             </section>
           </>
         )}
@@ -177,6 +202,24 @@ export default async function ProjectPage({ params }: { params: Params }) {
             ))}
           </ul>
         </section>
+
+        <div className={rule} />
+
+        <nav aria-labelledby="more">
+          <h2 id="more" className="font-custom text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
+            More projects
+          </h2>
+          <ul className="mt-3 space-y-2 text-[15px] leading-relaxed text-neutral-700 dark:text-neutral-300">
+            {more.map((o) => (
+              <li key={o.slug}>
+                <Link href={`/projects/${o.slug}`} className="font-medium text-neutral-900 underline underline-offset-4 dark:text-neutral-100">
+                  {o.title}
+                </Link>
+                : {o.description}
+              </li>
+            ))}
+          </ul>
+        </nav>
       </article>
     </Container>
   );

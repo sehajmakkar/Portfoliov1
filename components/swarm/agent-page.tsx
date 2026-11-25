@@ -221,7 +221,7 @@ export default function AgentPage({
                   {i >= 1 && <i aria-hidden data-b="hline" className={`absolute top-0 left-0 block h-px w-full md:hidden ${HAIR}`} />}
                   {i >= 2 && <i aria-hidden data-b="hline" className={`absolute top-0 left-0 hidden h-px w-full md:block ${HAIR}`} />}
                   <div data-b="image" className="overflow-hidden rounded-md border border-neutral-200 bg-neutral-100 dark:border-neutral-800 dark:bg-neutral-900">
-                    <Image src={p.src} alt={`${p.title} screenshot`} width={1200} height={750} className="aspect-[16/10] w-full object-cover object-top" />
+                    <Image src={p.src} alt={p.detail?.alt ?? `${p.title} screenshot`} width={1200} height={750} className="aspect-[16/10] w-full object-cover object-top" />
                   </div>
                   <h3 data-b="text" className="mt-5 text-xl font-semibold tracking-tight">{p.title}</h3>
                   <p data-b="text" className={`mt-2 text-sm leading-relaxed ${MUTED}`}>{p.description}</p>

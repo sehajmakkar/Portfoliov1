@@ -1,14 +1,15 @@
-import type { Metadata } from "next";
 import HomeSwitch from "@/components/home-switch";
 import JsonLd, { homeSchema } from "@/components/json-ld";
+import { pageMeta } from "@/lib/seo";
 import { SITE } from "@/lib/site";
 import { getContributions } from "@/lib/contributions-server";
 
-export const metadata: Metadata = {
-  title: { absolute: `${SITE.name} | ${SITE.role}` },
+export const metadata = pageMeta({
+  title: `${SITE.name} | ${SITE.role}`,
+  fullTitle: true,
   description: SITE.description,
-  alternates: { canonical: "/" },
-};
+  path: "/",
+});
 
 // refresh the contribution graph once a day
 export const revalidate = 86400;

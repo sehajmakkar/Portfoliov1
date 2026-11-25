@@ -3,27 +3,35 @@
 // timezone never shifts a day.
 
 export type Day = { date: string; count: number };
-export type ContributionData = { days: Day[]; today: string };
+// one count per day from `start`, no gaps: a tenth of the size of {date, count}[]
+export type ContributionData = { start: string; counts: number[]; today: string };
 export type Range = "last" | number;
 
 const DAY_MS = 86_400_000;
 const parse = (s: string) => Date.UTC(+s.slice(0, 4), +s.slice(5, 7) - 1, +s.slice(8, 10));
 const fmt = (t: number) => new Date(t).toISOString().slice(0, 10);
 
+export function packDays(days: Day[], today: string): ContributionData {
+  const start = days[0].date;
+  const counts = Array<number>(Math.round((parse(today) - parse(start)) / DAY_MS) + 1).fill(0);
+  for (const d of days) counts[Math.round((parse(d.date) - parse(start)) / DAY_MS)] = d.count;
+  return { start, counts, today };
+}
+
 export function yearsIn(data: ContributionData): number[] {
-  const ys = new Set(data.days.map((d) => +d.date.slice(0, 4)));
-  return [...ys].sort((a, b) => b - a);
+  const first = +data.start.slice(0, 4);
+  const last = +data.today.slice(0, 4);
+  return Array.from({ length: last - first + 1 }, (_, i) => last - i);
 }
 
 // A contiguous run of days for the range, with gaps filled as 0.
 export function sliceRange(data: ContributionData, range: Range): Day[] {
-  const byDate = new Map(data.days.map((d) => [d.date, d.count]));
+  const origin = parse(data.start);
   const end = range === "last" ? parse(data.today) : Math.min(Date.UTC(range, 11, 31), parse(data.today));
   const start = range === "last" ? end - 364 * DAY_MS : Date.UTC(range, 0, 1);
   const out: Day[] = [];
   for (let t = start; t <= end; t += DAY_MS) {
-    const date = fmt(t);
-    out.push({ date, count: byDate.get(date) ?? 0 });
+    out.push({ date: fmt(t), count: data.counts[Math.round((t - origin) / DAY_MS)] ?? 0 });
   }
   return out;
 }

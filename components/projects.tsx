@@ -178,8 +178,10 @@ const ProjectCard = ({
   project,
   idx,
   setActiveVideo,
+  heading: Heading,
 }: {
   project: Project;
+  heading: "h2" | "h3";
   idx: number;
   setActiveVideo: (payload: ActiveModal) => void;
 }) => {
@@ -229,7 +231,7 @@ const ProjectCard = ({
             <motion.div
               className="absolute inset-0 bg-cover bg-center"
               style={{
-                backgroundImage: `url('${project.backgroundImage || "/image.png"}')`,
+                backgroundImage: `url('${project.backgroundImage || "/card-bg/0.webp"}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -329,7 +331,7 @@ const ProjectCard = ({
               <div className="size-full overflow-hidden rounded-t-[4px]">
                 <Image
                   src={imageSrc}
-                  alt={`${project.title} preview`}
+                  alt={project.detail?.alt ?? `${project.title} screenshot`}
                   width={600}
                   height={400}
                   className="size-full object-cover"
@@ -343,7 +345,7 @@ const ProjectCard = ({
         <div className="flex flex-col gap-2 px-1">
           <div className="flex items-center justify-between">
             <div className="flex min-w-0 items-center gap-2">
-              <h3 className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 transition-colors duration-300 dark:text-neutral-100">
+              <Heading className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 transition-colors duration-300 dark:text-neutral-100">
                 {project.detail ? (
                   <Link href={`/projects/${project.slug}`} className="hover:underline hover:underline-offset-4">
                     {project.title}
@@ -351,7 +353,7 @@ const ProjectCard = ({
                 ) : (
                   project.title
                 )}
-              </h3>
+              </Heading>
               {project.starsText && (
                 <span className="font-custom2 inline-flex shrink-0 items-center gap-1.5 rounded-full border border-neutral-200 bg-neutral-50/80 px-2 py-0.5 text-[10px] font-medium text-neutral-700 backdrop-blur dark:border-neutral-800 dark:bg-neutral-900/40 dark:text-neutral-200">
                   <Star
@@ -576,6 +578,7 @@ const Projects = ({ showAll = false }: { showAll?: boolean }) => {
               project={project}
               idx={idx}
               setActiveVideo={setActiveVideo}
+              heading={showAll ? "h2" : "h3"}
             />
           </motion.div>
         ))}

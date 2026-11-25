@@ -137,9 +137,9 @@ function CourseCard({ course }: { course: LearnCourse }) {
 
         <div className="flex flex-1 flex-col gap-2 px-1">
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 dark:text-neutral-100">
+            <h2 className="font-custom truncate text-lg font-bold tracking-wide text-neutral-900 dark:text-neutral-100">
               {course.title}
-            </h3>
+            </h2>
             <ArrowUpRight
               size={16}
               className="shrink-0 text-neutral-700 opacity-50 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:opacity-100 dark:text-neutral-300"

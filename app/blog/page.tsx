@@ -1,15 +1,15 @@
 import Container from "@/components/containers";
 import { getAllBlogs } from "@/util/mdx_clean";
 import Link from "next/link";
+import JsonLd, { PERSON_ID, pageSchema } from "@/components/json-ld";
 import { pageMeta } from "@/lib/seo";
+import { SITE, abs } from "@/lib/site";
 import { ArrowRight } from "lucide-react";
 
-export const metadata = pageMeta({
-  title: "Blog",
-  description:
-    "Writing by Sehaj Preet on AI agents, evals, and building web products.",
-  path: "/blog",
-});
+const description =
+  "Writing by Sehaj Preet on AI agents, evals, backend engineering and building web products.";
+
+export const metadata = pageMeta({ title: "Blog", description, path: "/blog" });
 
 export default async function BlogIndex() {
   const posts = await getAllBlogs();
@@ -46,6 +46,22 @@ export default async function BlogIndex() {
 
   return (
     <Container className="relative mx-auto min-h-screen px-8 pt-24 md:p-20 md:pb-10">
+      <JsonLd
+        data={pageSchema({
+          type: "CollectionPage",
+          name: "Blog",
+          path: "/blog",
+          description,
+          items: allPosts.map((p) => ({
+            "@type": "BlogPosting",
+            headline: p.title,
+            description: p.description,
+            url: p.isExternal ? p.href : abs(p.href),
+            datePublished: p.date ?? undefined,
+            author: { "@type": "Person", "@id": PERSON_ID, name: SITE.name },
+          })),
+        })}
+      />
       <div className="absolute top-0 right-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-80 dark:opacity-12" />
 
       {/* LEFT BORDER */}

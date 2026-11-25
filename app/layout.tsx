@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     "Sehaj Preet",
     "Sehaj Makkar",
     "sehajmakkar",
+    "kryptokodes",
     "AI engineer",
     "Backend engineer",
     "Full stack developer",
@@ -44,7 +45,14 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
     shortcut: "/favicon.ico",
-    apple: "/myavatar.png",
+    apple: "/apple-touch-icon.png",
+  },
+  // set these in Vercel to verify the site without touching code
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : undefined,
   },
   openGraph: {
     title: SITE.name,

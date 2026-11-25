@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { ArrowUp, FileText, Github, Linkedin } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiClaude, SiOpenai, SiPerplexity, SiX } from "react-icons/si";
@@ -5,6 +6,7 @@ import Container from "./containers";
 import DiwaliGreeting from "./diwali/greeting";
 import VisitorCount from "./visitor-count";
 import GridName from "./grid-name";
+import Link from "next/link";
 import { SITE, SITE_URL } from "@/lib/site";
 
 // "Ask an AI about me": opens each assistant with the question pre-filled,
@@ -56,11 +58,24 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="font-custom2 flex flex-wrap items-center justify-between gap-3 py-4 text-sm text-neutral-600 dark:text-neutral-400">
-          <span className="flex items-center gap-2">
-            © {new Date().getFullYear()} {SITE.name} ·{" "}
-            <a className="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100" href="https://github.com/sehajmakkar/Portfoliov1" target="_blank" rel="noopener noreferrer">
-              Source
-            </a>
+          <span className="flex items-center gap-1.5">
+            <span>© {new Date().getFullYear()} {SITE.name}</span>
+            {[
+              { name: "About", href: "/about" },
+              { name: "Contact", href: "/contact" },
+              { name: "Source", href: "https://github.com/sehajmakkar/Portfoliov1" },
+            ].map(({ name, href }) => (
+              <Fragment key={name}>
+                <span aria-hidden>·</span>
+                <Link
+                  className="underline underline-offset-2 hover:text-neutral-900 dark:hover:text-neutral-100"
+                  href={href}
+                  {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                >
+                  {name}
+                </Link>
+              </Fragment>
+            ))}
             <DiwaliGreeting />
           </span>
           <span className="flex items-center gap-2">

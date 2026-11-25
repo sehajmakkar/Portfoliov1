@@ -10,10 +10,11 @@ import { CommandMenu } from "@/components/command-menu";
 
 const Navbar = () => {
   const navItems = [
+    { title: "About", href: "/about", wide: true },
     { title: "Projects", href: "/projects" },
     { title: "Learn", href: "/learn" },
     { title: "Blog", href: "/blog" },
-    { title: "Resume", href: "/resume.pdf" },
+    { title: "Resume", href: "/resume.pdf", wide: true },
   ];
 
   const [hovered, setHovered] = useState<number | null>(null);
@@ -65,10 +66,10 @@ const Navbar = () => {
         >
           <Image
             className="h-9 w-9 rounded-full shadow-sm"
-            src="/myavatar.png"
+            src="/portrait-144.webp"
             width={100}
             height={100}
-            alt="Avatar"
+            alt="Sehaj Preet, home"
           />
         </Link>
 
@@ -82,8 +83,8 @@ const Navbar = () => {
             const Tag = item.href.endsWith(".pdf") ? "a" : Link;
             return (
             <Tag
-              // the PDF link hides on phones: the hero has a Resume button and the bar overflowed
-              className={`font-custom relative px-3 py-1.5 text-md tracking-normal text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-50 ${item.href.endsWith(".pdf") ? "hidden sm:inline-block" : ""}`}
+              // these hide on phones, where the bar overflowed: the hero and footer link them too
+              className={`font-custom relative px-3 py-1.5 text-md tracking-normal text-neutral-600 transition-colors hover:text-neutral-900 dark:text-neutral-300 dark:hover:text-neutral-50 ${item.wide ? "hidden sm:inline-block" : ""}`}
               href={item.href}
               key={idx}
               onMouseEnter={() => setHovered(idx)}

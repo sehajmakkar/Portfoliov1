@@ -1,4 +1,4 @@
-import type { ContributionData, Day } from "@/lib/contributions";
+import { packDays, type ContributionData, type Day } from "@/lib/contributions";
 
 const USERNAME = "sehajmakkar";
 
@@ -18,7 +18,7 @@ export async function getContributions(): Promise<ContributionData | null> {
       .map(({ date, count }) => ({ date, count }))
       .filter((d) => d.date <= today)
       .sort((a, b) => (a.date < b.date ? -1 : 1));
-    return days.length ? { days, today } : null;
+    return days.length ? packDays(days, today) : null;
   } catch {
     return null;
   }

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import { getSingleBlog } from "@/util/mdx_clean";
+import JsonLd, { postSchema } from "@/components/json-ld";
 import { pageMeta } from "@/lib/seo";
 
 type PageParams = Promise<{ slug: string }>;
@@ -21,6 +22,7 @@ export async function generateMetadata({
       description: data.description ?? `A post by Sehaj Preet: ${data.title ?? slug}`,
       path: `/blog/${slug}`,
       type: "article",
+      published: data.date,
     });
   } catch {
     return { title: "Post not found" };
@@ -53,6 +55,7 @@ export default async function SingleBlogPage({
 
   return (
     <Container className="font-custom2 min-h-screen px-8 pt-24 tracking-tight md:p-20 md:pb-10">
+      <JsonLd data={postSchema(slug, frontmatter)} />
       <div className="absolute top-0 right-0 h-full w-6 border-x border-x-(--pattern-fg) bg-[repeating-linear-gradient(315deg,var(--pattern-fg)_0,var(--pattern-fg)_1px,transparent_0,transparent_50%)] bg-size-[10px_10px] bg-fixed opacity-90 dark:opacity-15" />
 
       {/* LEFT BORDER */}

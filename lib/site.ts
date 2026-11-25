@@ -6,7 +6,7 @@ export const SITE = {
   // Legal / official name is "Sehaj Preet". Older profiles and the email use
   // "Sehaj Makkar"; handles are sehajmakkar (GitHub, LinkedIn) and kryptokodes (X).
   // Tell search and answer engines these are one person.
-  alternateNames: ["Sehaj Makkar"],
+  alternateNames: ["Sehaj Makkar", "kryptokodes", "sehajmakkar"],
   handles: { github: "sehajmakkar", linkedin: "sehajmakkar", x: "kryptokodes" },
   role: "AI and backend engineer",
   tagline: "I build AI agents, evals and the backends they run on.",
@@ -14,7 +14,10 @@ export const SITE = {
     "Sehaj Preet builds AI agents, evals and the backends they run on. Previously at 3 startups: Perf, PowerPlay and Reslink. Open to AI and backend roles.",
   email: "sehajmakkar007@gmail.com",
   location: { city: "Delhi", country: "IN" },
-  image: "/myavatar.png",
+  image: "/sehaj-preet.jpg",
+  // last time the facts on the home and About pages changed (not every deploy)
+  updated: "2026-11-25",
+  created: "2026-04-19",
   resume: "/resume.pdf",
   links: {
     github: "https://github.com/sehajmakkar",
@@ -44,6 +47,7 @@ export const SITE = {
     "LangGraph",
     "Chrome extensions",
   ],
+  club: "MindFlare (MAIT)",
   awards: ["1st place, Hackaccino 3.0 (Bennett University, 250+ teams)"],
 };
 

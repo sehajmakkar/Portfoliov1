@@ -51,6 +51,18 @@ export type TechItem = TechKey | { label: string; tooltip?: string };
 export type ProjectStatus = "live" | "building" | "not-started" | "local" | "oss";
 
 export interface ProjectDetail {
+  // page title and description for search results: ~60 and ~155 characters
+  seoTitle: string;
+  seoDescription: string;
+  // what the cover screenshot shows
+  alt: string;
+  // first commit and last meaningful change, from the repo (YYYY-MM-DD)
+  created: string;
+  updated: string;
+  // schema.org applicationCategory / operatingSystem
+  category: string;
+  os?: string;
+  languages: string[];
   // one sentence that answers "what is it", written to be quoted
   what: string;
   how: string[];
@@ -75,7 +87,8 @@ export interface Project {
   backgroundImage?: string;
   status?: ProjectStatus;
   // screenshots shown in place of a demo video, until there is one
-  gallery?: { src: string; caption: string }[];
+  // cover: same shot as the cover, so the project page skips it
+  gallery?: { src: string; caption: string; cover?: boolean }[];
   detail?: ProjectDetail;
 }
 
@@ -92,8 +105,8 @@ export const projects: Project[] = [
     title: "Vero",
     slug: "vero",
     featured: true,
-    src: "/project-image/vero-cover.png",
-    lightModeSrc: "/project-image/vero-cover.png",
+    src: "/project-image/vero-cover.webp",
+    lightModeSrc: "/project-image/vero-cover.webp",
     video: "https://www.youtube.com/embed/KV65sAj8Za4",
     description:
       "Cursor for LaTeX resumes. Press Ctrl+K and the AI edit streams in as a diff you accept or reject, with ATS scoring built in.",
@@ -101,9 +114,18 @@ export const projects: Project[] = [
     github: "https://github.com/sehajmakkar/Vero",
     live: "https://www.withvero.app/",
     starsText: "Startup",
-    backgroundImage: "/image copy 5.png",
+    backgroundImage: "/card-bg/5.webp",
     status: "live",
     detail: {
+      seoTitle: "Vero: AI LaTeX resume editor",
+      seoDescription:
+        "Vero is an AI-native LaTeX editor for resumes. Press Ctrl+K, review the AI edit as a diff, and check your ATS score. How it works and how it was built.",
+      alt: "Vero home page: a LaTeX writing workspace for resumes and technical documents",
+      created: "2026-02-20",
+      updated: "2026-10-02",
+      category: "BusinessApplication",
+      os: "Web",
+      languages: ["TypeScript"],
       what: "Vero is an AI-native LaTeX editor for resumes and technical documents, where every AI edit arrives as a diff you can accept or reject.",
       how: [
         "Select text and press Ctrl+K: Gemini's edit streams in as a reviewable diff instead of overwriting your work.",
@@ -135,31 +157,41 @@ export const projects: Project[] = [
     title: "McAgent",
     slug: "mcagent",
     featured: true,
-    src: "/project-image/mcagent-cover.png",
-    lightModeSrc: "/project-image/mcagent-cover.png",
+    src: "/project-image/mcagent-cover.webp",
+    lightModeSrc: "/project-image/mcagent-cover.webp",
     video: "",
     description:
       "A local-first macOS agent that catches promises you made on screen and drafts the follow-up. It can't send on its own: you approve every email.",
     tech: ["swift", "python", "fastapi", "gemini", "sqlite"],
     github: "https://github.com/sehajmakkar/contextagent",
     live: "",
-    backgroundImage: "/image copy 2.png",
+    backgroundImage: "/card-bg/2.webp",
     status: "local",
     gallery: [
       {
-        src: "/project-image/mcagent/inbox.png",
+        src: "/project-image/mcagent/inbox.webp",
         caption: "The inbox: open loops found on screen, each with the quote that created it",
+        cover: true,
       },
       {
-        src: "/project-image/mcagent/draft.png",
+        src: "/project-image/mcagent/draft.webp",
         caption: "Close it for me: the agent drafts the email, nothing sends until you approve",
       },
       {
-        src: "/project-image/mcagent/menu-bar.png",
+        src: "/project-image/mcagent/menu-bar.webp",
         caption: "The menu-bar panel",
       },
     ],
     detail: {
+      seoTitle: "McAgent: local-first macOS AI agent",
+      seoDescription:
+        "A local-first macOS agent that remembers your screen, finds promises you made and drafts the follow-up. It has no send tool. Design, evals and results.",
+      alt: "McAgent inbox listing open loops found on screen, with recent memories beside it",
+      created: "2026-10-23",
+      updated: "2026-11-09",
+      category: "ProductivityApplication",
+      os: "macOS",
+      languages: ["Swift", "Python"],
       what: "McAgent is a local-first macOS menu-bar agent that remembers what was on your screen, finds open loops like promises and follow-ups, and drafts the email to close them, sending nothing without your approval.",
       how: [
         "Reads on-screen text through the macOS Accessibility API. No screenshots.",
@@ -192,35 +224,43 @@ export const projects: Project[] = [
     title: "Agent Labs",
     slug: "agent-labs",
     featured: true,
-    src: "/project-image/agent-labs-cover.png",
-    lightModeSrc: "/project-image/agent-labs-cover.png",
+    src: "/project-image/agent-labs-cover.webp",
+    lightModeSrc: "/project-image/agent-labs-cover.webp",
     video: "",
     description:
       "Find the exact step where an AI agent went wrong, and prove the fix. Auto-Blame finds it 92% of the time on 50 planted bugs.",
     tech: ["python", "gemini", "otel", "sqlite", "react", "ts"],
     github: "https://github.com/sehajmakkar/agent-labs",
     live: "https://agent-labs-chi.vercel.app",
-    backgroundImage: "/image copy 3.png",
+    backgroundImage: "/card-bg/3.webp",
     status: "live",
     gallery: [
       {
-        src: "/project-image/agent-labs/overview.png",
+        src: "/project-image/agent-labs/overview.webp",
         caption: "Record, evaluate, blame, fork, diff, lock it in",
       },
       {
-        src: "/project-image/agent-labs/decision-tree.png",
+        src: "/project-image/agent-labs/decision-tree.webp",
         caption: "Every run as a decision tree you can click through",
       },
       {
-        src: "/project-image/agent-labs/fork.png",
+        src: "/project-image/agent-labs/fork.webp",
         caption: "A fork proving the fix: 5/5 with the change, 0/5 without",
       },
       {
-        src: "/project-image/agent-labs/blame-accuracy.png",
+        src: "/project-image/agent-labs/blame-accuracy.webp",
         caption: "Blame accuracy on 50 deliberately planted bugs",
       },
     ],
     detail: {
+      seoTitle: "Agent Labs: AI agent evals and debugging",
+      seoDescription:
+        "Agent Labs records every AI agent run, finds the first wrong step (92% on 50 planted bugs) and proves the fix with controlled reruns.",
+      alt: "Agent Labs decision tree of a support agent run, with the failed tool call in red",
+      created: "2026-10-23",
+      updated: "2026-10-30",
+      category: "DeveloperApplication",
+      languages: ["Python", "TypeScript"],
       what: "Agent Labs is an evaluation and debugging framework for AI agents: it records every run, finds the first step that went wrong, and proves a fix with controlled reruns.",
       how: [
         "JSONL eval datasets with programmatic checks (tool called, answer contains, grounded, max steps) plus an LLM judge with structured output.",
@@ -252,59 +292,70 @@ export const projects: Project[] = [
     title: "Genomics AI",
     slug: "genomics-ai",
     featured: true,
-    src: "/project-image/genomics-cover.png",
-    lightModeSrc: "/project-image/genomics-cover.png",
+    src: "/project-image/genomics-cover.webp",
+    lightModeSrc: "/project-image/genomics-cover.webp",
     video: "https://www.youtube.com/embed/UoxcimVpSIU",
     description:
       "Variant analysis on Stanford's Evo 2 model with a GPU backend, checked against 20,000+ validated clinical records.",
     tech: ["next", "ts", "fastapi", "python", "modal"],
     github: "https://github.com/sehajmakkar/GenomicsAI",
     live: "https://genomics-ai.vercel.app/",
-    backgroundImage: "/image copy.png",
+    backgroundImage: "/card-bg/1.webp",
     status: "live",
     detail: {
+      seoTitle: "Genomics AI: variant analysis with Evo 2",
+      seoDescription:
+        "Genomics AI predicts whether a genetic variant is likely harmful, using the Evo 2 genomic model on serverless GPUs, compared with ClinVar records.",
+      alt: "Genomics AI home page with the single-variant analysis form",
+      created: "2025-05-20",
+      updated: "2026-09-16",
+      category: "EducationalApplication",
+      os: "Web",
+      languages: ["TypeScript", "Python"],
       what: "Genomics AI predicts whether a genetic variant is likely harmful, using Stanford's Evo 2 genomic language model on a GPU backend.",
       how: [
-        "Next.js and TypeScript frontend, with a Python + FastAPI backend that runs Evo 2 inference on serverless GPUs.",
-        "Integrates 5+ genomic APIs for reference sequences and known variants.",
-        "Compares predictions against 20,000+ validated clinical records.",
+        "Search for a gene or browse a chromosome, pick a genome assembly such as hg19 or hg38, and enter a single-letter change to analyse.",
+        "Next.js and TypeScript frontend, with a Python + FastAPI backend that runs Evo 2 inference on serverless GPUs through Modal.",
+        "Integrates 5+ genomic APIs: reference sequences come from UCSC, gene and variant lookups from NCBI E-utilities and ClinVar.",
+        "Shows each prediction with a confidence score, next to what ClinVar already says about known variants in that gene.",
       ],
+      numbers: ["Predictions compared against 20,000+ validated clinical records."],
       stack: ["Next.js", "TypeScript", "Python", "FastAPI", "Evo 2", "Serverless GPUs (Modal)"],
     },
   },
   {
     title: "RunBook",
     slug: "runbook",
-    src: "/project-image/runbook-cover.png",
-    lightModeSrc: "/project-image/runbook-cover.png",
+    src: "/project-image/runbook-cover.webp",
+    lightModeSrc: "/project-image/runbook-cover.webp",
     video: "",
     description:
       "An AI manager that runs scheduled voice meetings to hold you accountable for your goals, like a workplace stand-up.",
     tech: ["next", "python", "postgres", "supabase"],
     github: "https://github.com/sehajmakkar/RunBook",
     live: "https://runbook.vercel.app/",
-    backgroundImage: "/image copy 3.png",
+    backgroundImage: "/card-bg/3.webp",
     status: "building",
   },
   {
     title: "Chronos AI",
     slug: "chronos-ai",
-    src: "/project-image/chronos-cover.png",
-    lightModeSrc: "/project-image/chronos-cover.png",
+    src: "/project-image/chronos-cover.webp",
+    lightModeSrc: "/project-image/chronos-cover.webp",
     video: "https://www.youtube.com/embed/vdJw3kE1lqw",
     description:
       "A collaborative coding platform with an AI assistant that generates a project structure from a prompt, with real-time editing for teams.",
     tech: ["react", "node", "mongodb", "socketio", "gemini", "redis"],
     github: "https://github.com/sehajmakkar/ChronosAI",
     live: "https://chronos-ai-seven.vercel.app/",
-    backgroundImage: "/image copy 4.png",
+    backgroundImage: "/card-bg/4.webp",
     status: "live",
   },
   {
     title: "DocTime",
     slug: "doctime",
-    src: "/project-image/doctime-cover.png",
-    lightModeSrc: "/project-image/doctime-cover.png",
+    src: "/project-image/doctime-cover.webp",
+    lightModeSrc: "/project-image/doctime-cover.webp",
     video: "",
     description:
       "Doctor appointment booking with separate dashboards and role-based access for admins, doctors and patients.",
@@ -316,14 +367,14 @@ export const projects: Project[] = [
   {
     title: "ScreamShots",
     slug: "screamshots",
-    src: "/project-image/screamshots-cover.png",
-    lightModeSrc: "/project-image/screamshots-cover.png",
+    src: "/project-image/screamshots-cover.webp",
+    lightModeSrc: "/project-image/screamshots-cover.webp",
     video: "",
     description: "Drop in a screenshot and get a clean device mockup in seconds.",
     tech: ["ts", "next", "react", "motion"],
     github: "", // repo is private
     live: "https://screamshots.vercel.app/",
-    backgroundImage: "/image copy.png",
+    backgroundImage: "/card-bg/1.webp",
     status: "live",
   },
 ];

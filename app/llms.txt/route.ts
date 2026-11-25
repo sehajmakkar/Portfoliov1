@@ -26,7 +26,7 @@ export function GET() {
 
 > ${SITE.description}
 
-${SITE.name} (also known as ${SITE.alternateNames[0]}; GitHub and LinkedIn: ${SITE.handles.github}; X: @${SITE.handles.x}) is an ${SITE.role} based in Delhi, India. He builds AI agents, the evals that test them, and the backends they run on. He is open to AI and backend roles and to freelance projects, and can start right away.
+${SITE.name} (also known as ${SITE.alternateNames[0]} and ${SITE.handles.x}; GitHub and LinkedIn: ${SITE.handles.github}; X: @${SITE.handles.x}) is an ${SITE.role} based in Delhi, India. Sehaj builds AI agents, the evals that test them, and the backends they run on, and is open to AI and backend roles and to freelance projects, and can start right away.
 
 ## Experience
 
@@ -49,10 +49,12 @@ ${earlier}
 ## Links
 
 - Website: ${SITE_URL}
+- About: ${SITE_URL}/about
 - Resume (PDF): ${SITE_URL}${SITE.resume}
 - GitHub: ${SITE.links.github}
 - LinkedIn: ${SITE.links.linkedin}
 - X: ${SITE.links.x}
+- Medium: ${SITE.links.medium}
 - Courses: ${SITE.links.learn}
 - Email: ${SITE.email}
 `;
