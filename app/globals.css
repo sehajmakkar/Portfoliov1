@@ -27,10 +27,11 @@
 @theme inline {
   --color-primary: var(--color-neutral-800);
   --color-secondary: var(--color-neutral-600);
-  --font-custom: "Instrument Serif", serif;
-  --font-custom2: "Instrument Sans", sans-serif;
+  /* swappable for the font trial (see "Font trial" below) */
+  --font-custom: var(--font-display);
+  --font-custom2: var(--font-body);
   --font-pen: var(--nf-pen), cursive;
-  --font-plex: var(--nf-plex), ui-monospace, monospace;
+  --font-plex: var(--font-label);
   --font-vt: var(--nf-vt), ui-monospace, monospace;
   --color-border: var(--border);
   --color-muted-foreground: var(--muted-foreground);
@@ -232,4 +233,39 @@
   .proof-of-work * {
     transition: none !important;
   }
+}
+
+/* === Font trial ============================================================
+   Headings use --font-display, body text --font-body, small labels
+   --font-label. The ?fonts switcher sets html[data-font] to try pairings.
+   The --nf-* variables come from next/font classes on <html>. */
+:root {
+  --font-display: var(--nf-instrument), "Instrument Serif", serif;
+  --font-body: "Instrument Sans", sans-serif;
+  --font-label: var(--nf-plex), ui-monospace, monospace;
+}
+body {
+  font-family: var(--font-display);
+}
+html[data-font="geist"] { --font-display: var(--nf-geist), sans-serif; --font-body: var(--nf-geist), sans-serif; --font-label: var(--nf-geist-mono), monospace; --display-weight: 600; --display-tracking: -0.03em; }
+html[data-font="inter-tight"] { --font-display: var(--nf-inter-tight), sans-serif; --font-body: var(--nf-inter), sans-serif; --font-label: var(--nf-jetbrains), monospace; --display-weight: 600; --display-tracking: -0.03em; }
+html[data-font="space"] { --font-display: var(--nf-space-grotesk), sans-serif; --font-body: var(--nf-inter), sans-serif; --font-label: var(--nf-plex), monospace; --display-weight: 600; --display-tracking: -0.02em; }
+html[data-font="plex"] { --font-display: var(--nf-plex-sans), sans-serif; --font-body: var(--nf-plex-sans), sans-serif; --font-label: var(--nf-plex), monospace; --display-weight: 600; --display-tracking: -0.02em; }
+html[data-font="outfit"] { --font-display: var(--nf-outfit), sans-serif; --font-body: var(--nf-outfit), sans-serif; --font-label: var(--nf-geist-mono), monospace; --display-weight: 600; --display-tracking: -0.02em; }
+html[data-font="bricolage"] { --font-display: var(--nf-bricolage), sans-serif; --font-body: var(--nf-inter), sans-serif; --font-label: var(--nf-geist-mono), monospace; --display-weight: 700; --display-tracking: -0.03em; }
+html[data-font="cal"] { --font-display: var(--nf-cal), sans-serif; --font-body: var(--nf-inter), sans-serif; --font-label: var(--nf-geist-mono), monospace; --display-weight: 400; --display-tracking: -0.01em; }
+html[data-font="mono"] { --font-display: var(--nf-jetbrains), monospace; --font-body: var(--nf-inter), sans-serif; --font-label: var(--nf-jetbrains), monospace; --display-weight: 600; --display-tracking: -0.04em; }
+/* sans display faces look heavy at the serif's faux-bold, so each pairing sets its own */
+html[data-font] .font-custom {
+  font-weight: var(--display-weight, 700);
+  letter-spacing: var(--display-tracking, -0.025em);
+}
+
+/* === Agent view ===========================================================
+   Pieces stay hidden until a cursor places them (components/swarm/engine.ts). */
+html[data-view="agent"] .site-chrome {
+  display: none;
+}
+.swarm [data-b]:not([data-done]) {
+  opacity: 0;
 }

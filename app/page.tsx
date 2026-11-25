@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomePage from "@/components/home-page";
+import HomeSwitch from "@/components/home-switch";
 import JsonLd, { homeSchema } from "@/components/json-ld";
 import { SITE } from "@/lib/site";
 import { getContributions } from "@/lib/contributions-server";
@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <>
       <JsonLd data={homeSchema()} />
-      <HomePage contributions={contributions} />
+      <HomeSwitch contributions={contributions} />
     </>
   );
 }

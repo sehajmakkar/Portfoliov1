@@ -41,7 +41,7 @@ import { IconType } from "react-icons";
 // them. color: undefined means a black/white logo that follows the text color.
 type Skill = { name: string; icon: IconType; color?: string };
 
-const groups: { label: string; skills: Skill[] }[] = [
+export const skillGroups: { label: string; skills: Skill[] }[] = [
   {
     label: "Languages",
     skills: [
@@ -118,7 +118,7 @@ export default function Skills() {
         </p>
 
         <div className="flex w-full flex-col gap-3">
-          {groups.map((group) => (
+          {skillGroups.map((group) => (
             <div key={group.label} className="flex flex-col gap-2 sm:flex-row sm:items-start sm:gap-4">
               <h3 className="font-custom2 w-36 shrink-0 pt-1.5 text-xs font-medium text-neutral-500 dark:text-neutral-400">
                 {group.label}

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Footer from "@/components/footer";
 import Navbar from "@/components/Navbar";
-import { Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -10,13 +9,10 @@ import FractalTree from "@/components/ui/fractal-tree";
 import { Toaster } from "sonner";
 import SmoothScroll from "@/components/smooth-scroll";
 import HideOnKryptonite from "@/components/hide-on-kryptonite";
+import FontTrial from "@/components/font-trial";
 import { fontVariables } from "@/lib/fonts";
 import { SITE, SITE_URL } from "@/lib/site";
 
-const instrumentSerif = Instrument_Serif({
-  weight: ["400"],
-  subsets: ["latin"], // 🛠 Fix missing subsets
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -74,22 +70,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={fontVariables}>
       {/* 🛠 Important for dark mode */}
       <body
-        className={`${instrumentSerif.className} ${fontVariables} bg-neutral-50 antialiased transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)] dark:bg-neutral-950`}
+        className={`bg-neutral-50 antialiased transition-colors duration-300 [--pattern-fg:var(--color-neutral-200)] dark:bg-neutral-950`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <SmoothScroll>
             <Analytics />
             <SpeedInsights />
             <HideOnKryptonite>
-              <FractalTree />
-              <Navbar />
+              <div className="site-chrome">
+                <FractalTree />
+                <Navbar />
+              </div>
             </HideOnKryptonite>
             <main id="top" className="min-h-screen">{children}</main>
             <HideOnKryptonite>
-              <Footer />
+              <div className="site-chrome">
+                <Footer />
+              </div>
+              <FontTrial />
             </HideOnKryptonite>
             <Toaster />
           </SmoothScroll>

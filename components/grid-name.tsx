@@ -173,8 +173,14 @@ export default function GridName({ text = "sehaj." }: { text?: string }) {
     const ro = new ResizeObserver(layout);
     ro.observe(el);
     // redraw on theme switch (next-themes toggles the class on <html>)
-    const mo = new MutationObserver(draw);
-    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    // theme switch redraws; a font switch (font trial) re-measures once loaded
+    const mo = new MutationObserver((records) => {
+      if (records.some((r) => r.attributeName === "data-font")) {
+        document.fonts?.ready.then(layout);
+        setTimeout(layout, 400);
+      } else draw();
+    });
+    mo.observe(document.documentElement, { attributes: true, attributeFilter: ["class", "data-font"] });
     el.addEventListener("pointermove", onMove);
     el.addEventListener("pointerleave", onLeave);
     document.fonts?.ready.then(layout);
